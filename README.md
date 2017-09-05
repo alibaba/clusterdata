@@ -7,7 +7,7 @@ The data is provided to address the challenges Alibaba face in idcs where online
 2. New algorithms to assign workload to machines and to cpu cores. How we can assign and re-adjust workload to different machines and cpus for better resource utilization and acceptable resource contention.
 3. Online service and batch jobs scheduler cooperation: How we can adjust resource allocation between online service and batch jobs to improve throughput of batch jobs while maintain acceptable service quality and fast failure recovery for online service.
 
-Please let us know if you have any issues, ideas, or papers about these data by sending email to us [aliababa-clusterdata](alibaba-clusterdata@list.alibaba-inc.com). The more specific the feedback, the more likely we are to be able to help you.
+Please let us know if you have any issues, ideas, or papers about these data by sending email to us [aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com). The more specific the feedback, the more likely we are to be able to help you.
 
 # Trace data 
 The format of trace data is described in the [schema description](trace_201708.md), and defined in the specification file [schema.csv](schema.csv) in the repository.
