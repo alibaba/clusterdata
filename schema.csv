@@ -1,0 +1,57 @@
+file name,field number,content,format,mandatory
+batch_instance.csv,1,start_timestamp, INTEGER, YES
+batch_instance.csv,2,end_timestamp, INTEGER, NO
+batch_instance.csv,3,job id, INTEGER, YES
+batch_instance.csv,4,task id, INTEGER, YES
+batch_instance.csv,5,machine id, INTEGER, YES
+batch_instance.csv,6,status, STRING, YES
+batch_instance.csv,7,sequence number, INTEGER, YES
+batch_instance.csv,8,total sequence number, INTEGER, YES
+batch_instance.csv,9,maximum real cpu number, FLOAT, NO
+batch_instance.csv,10,average real cpu number, FLOAT, NO
+batch_instance.csv,11,maximum normalized memory usage, FLOAT, NO
+batch_instance.csv,12,average normalized memory usage, FLOAT, NO
+batch_task.csv,1, task create time, INTEGER, YES
+batch_task.csv,2, task end time, INTEGER, YES
+batch_task.csv,3, job id, INTEGER, YES
+batch_task.csv,4, task id, INTEGER, YES
+batch_task.csv,5, number of instances, INTEGER, YES
+batch_task.csv,6, status, STRING, YES
+batch_task.csv,7, number of cpus requested, INTEGER, YES
+batch_task.csv,8, normalized memory requested, INTEGER, YES
+container_event.csv,1, timestamp, INTEGER, YES
+container_event.csv,2, event type, STRING, YES
+container_event.csv,3, instance id, INTEGER, YES
+container_event.csv,4, machine id, INTEGER, YES
+container_event.csv,5, number of cpu requested, INTEGER, YES
+container_event.csv,6, normalized memory requested, FLOAT, YES
+container_event.csv,7, normalized disk space requested, FLOAT, YES
+container_event.csv,8, cpu id of allocated cpus, STRING, YES
+container_usage.csv,1, start time of measurement interval, INTEGER, YES
+container_usage.csv,2, online instance id, INTEGER, YES
+container_usage.csv,3, used percent of requested cpus(%), FLOAT, YES
+container_usage.csv,4, used percent of requested memory(%), FLOAT, YES
+container_usage.csv,5, used percent of requested disk space(%), FLOAT, NO
+container_usage.csv,6, linux cpu load average of 1 minute, FLOAT, YES
+container_usage.csv,7, linux cpu load average of 5 minute, FLOAT, YES
+container_usage.csv,8, linux cpu load average of 15 minute, FLOAT, YES
+container_usage.csv,9, averaged cycles per instruction, FLOAT, NO
+container_usage.csv,10, averaged memory miss per 1000 instructions, FLOAT, NO
+container_usage.csv,11, maximum cycles per instruction, FLOAT, NO
+container_usage.csv,12, maximum memory miss per 1000 instructions, FLOAT, NO
+server_event.csv,1, timestamp, INTEGER, YES
+server_event.csv,2, machine id, INTEGER, YES
+server_event.csv,3, event type, INTEGER, YES
+server_event.csv,4, event detail, INTEGER, NO
+server_event.csv,5, number of cpus, INTEGER, NO
+server_event.csv,6, normalized memory, FLOAT, NO
+server_event.csv,7, normalized disk space, FLOAT, NO
+server_usage.csv,1, timestamp, INTEGER, YES
+server_usage.csv,2, machine id, INTEGER, YES
+server_usage.csv,3, used percent of cpus(%), FLOAT, YES
+server_usage.csv,4, used percent of memory(%), FLOAT, YES
+server_usage.csv,5, used percent of disk space(%), FLOAT, YES
+server_usage.csv,6, linux cpu load average of 1 minute, INTEGER, YES
+server_usage.csv,7, linux cpu load average of 5 minute, FLOAT, YES
+server_usage.csv,8, linux cpu load average of 15 minute, FLOAT, YES
+
