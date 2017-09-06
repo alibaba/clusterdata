@@ -1,7 +1,7 @@
 # Overview
 The trace data, ClusterData201708,  contains cluster information of a production cluster in 24 hours period, and contains about 1.3k machines that run both online service and batch jobs.
 
-The data is provided to address the challenges Alibaba face in idcs where online services and batch jobs are co-allocated.  We distill the challenges as the following topics: 
+The data is provided to address [the challenges Alibaba face](https://github.com/alibaba/clusterdata/wiki/About-Alibaba-cluster-and-why-we-open-the-data) in idcs where online services and batch jobs are co-allocated.  We distill the challenges as the following topics: 
 
 1. Workload characterizations: How can we characterize Alibaba workloads in a way that we can simulate various production workload in a representative way for scheduler studies.
 2. New algorithms to assign workload to machines and to cpu cores. How we can assign and re-adjust workload to different machines and cpus for better resource utilization and acceptable resource contention.
