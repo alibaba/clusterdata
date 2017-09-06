@@ -17,8 +17,8 @@ batch_task.csv,3, job id, INTEGER, YES
 batch_task.csv,4, task id, INTEGER, YES
 batch_task.csv,5, number of instances, INTEGER, YES
 batch_task.csv,6, status, STRING, YES
-batch_task.csv,7, number of cpus requested, INTEGER, YES
-batch_task.csv,8, normalized memory requested, INTEGER, YES
+batch_task.csv,7, number of cpus requested per instance in the task, INTEGER, YES
+batch_task.csv,8, normalized memory requested per instance in the task, INTEGER, YES
 container_event.csv,1, timestamp, INTEGER, YES
 container_event.csv,2, event type, STRING, YES
 container_event.csv,3, instance id, INTEGER, YES
