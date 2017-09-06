@@ -36,9 +36,9 @@ container_usage.csv,6, linux cpu load average of 1 minute, FLOAT, YES
 container_usage.csv,7, linux cpu load average of 5 minute, FLOAT, YES
 container_usage.csv,8, linux cpu load average of 15 minute, FLOAT, YES
 container_usage.csv,9, averaged cycles per instruction, FLOAT, NO
-container_usage.csv,10, averaged memory miss per 1000 instructions, FLOAT, NO
+container_usage.csv,10, average last-level cache misses per 1000 instructions, FLOAT, NO
 container_usage.csv,11, maximum cycles per instruction, FLOAT, NO
-container_usage.csv,12, maximum memory miss per 1000 instructions, FLOAT, NO
+container_usage.csv,12, maximum last-level cache misses per 1000 instructions, FLOAT, NO
 server_event.csv,1, timestamp, INTEGER, YES
 server_event.csv,2, machine id, INTEGER, YES
 server_event.csv,3, event type, INTEGER, YES
