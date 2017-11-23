@@ -54,4 +54,27 @@ server_usage.csv,5, used percent of disk space(%), FLOAT, YES
 server_usage.csv,6, linux cpu load average of 1 minute, INTEGER, YES
 server_usage.csv,7, linux cpu load average of 5 minute, FLOAT, YES
 server_usage.csv,8, linux cpu load average of 15 minute, FLOAT, YES
+node.csv,1,job/dag name,STRING,YES
+node.csv,2,node name,STRING,YES
+parallel_task_count.csv,1,job/dag name,STRING,YES
+parallel_task_count.csv,2,node name,STRING,YES
+parallel_task_count.csv,3,parallel task count,INTEGER,YES
+task_runtime.csv,1,job/dag name,STRING,YES
+task_runtime.csv,2,node name,STRING,YES
+task_runtime.csv,3,task index,STRING,YES
+task_runtime.csv,4,task runtime,INTEGER,YES
+dag_inter_arrival_time.csv,1,job/dag name,STRING,YES
+dag_inter_arrival_time.csv,2,job/dag inter-arrival time,INTEGER,YES
+task_resource_request.csv.csv,1,job/dag name,STRING,NO
+task_resource_request.csv.csv,2,node name,STRING,NO
+task_resource_request.csv.csv,3,per task request cpu size, in 0.01core,INTEGER,NO
+task_resource_request.csv.csv,4,per task request memory size, in MB,INTEGER,NO
+dag_io_size.csv,1,job/dag name,STRING,NO
+dag_io_size.csv,2,job/dag input size (in rcord count),INTEGER,NO
+dag_io_size.csv,3,job/dag output size (in rcord count),INTEGER,NO
+node_io_size.csv,1,job/dag name,STRING,NO
+node_io_size.csv,2,node name,STRING,NO
+node_io_size.csv,2,node input size (in rcord count),INTEGER,NO
+node_io_size.csv,3,node output size (in rcord count),INTEGER,NO
+
 
