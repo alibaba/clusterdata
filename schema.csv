@@ -61,7 +61,7 @@ parallel_task_count.csv,2,node name,STRING,YES
 parallel_task_count.csv,3,parallel task count,INTEGER,YES
 task_runtime.csv,1,job/dag name,STRING,YES
 task_runtime.csv,2,node name,STRING,YES
-task_runtime.csv,3,task index,STRING,YES
+task_runtime.csv,3,task index,INTEGER,YES
 task_runtime.csv,4,task runtime,INTEGER,YES
 dag_inter_arrival_time.csv,1,job/dag name,STRING,YES
 dag_inter_arrival_time.csv,2,job/dag inter-arrival time,INTEGER,YES
