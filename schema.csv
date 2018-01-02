@@ -18,7 +18,7 @@ batch_task.csv,4, task id, INTEGER, YES
 batch_task.csv,5, number of instances, INTEGER, YES
 batch_task.csv,6, status, STRING, YES
 batch_task.csv,7, number of cpus requested per instance in the task, INTEGER, YES
-batch_task.csv,8, normalized memory requested per instance in the task, INTEGER, YES
+batch_task.csv,8, normalized memory requested per instance in the task, FLOAT, YES
 container_event.csv,1, timestamp, INTEGER, YES
 container_event.csv,2, event type, STRING, YES
 container_event.csv,3, instance id, INTEGER, YES
@@ -51,7 +51,7 @@ server_usage.csv,2, machine id, INTEGER, YES
 server_usage.csv,3, used percent of cpus(%), FLOAT, YES
 server_usage.csv,4, used percent of memory(%), FLOAT, YES
 server_usage.csv,5, used percent of disk space(%), FLOAT, YES
-server_usage.csv,6, linux cpu load average of 1 minute, INTEGER, YES
+server_usage.csv,6, linux cpu load average of 1 minute, FLOAT, YES
 server_usage.csv,7, linux cpu load average of 5 minute, FLOAT, YES
 server_usage.csv,8, linux cpu load average of 15 minute, FLOAT, YES
 
