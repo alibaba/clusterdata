@@ -1,5 +1,5 @@
 # Overview
-The trace data, ClusterData201708,  contains cluster information of a production cluster in 24 hours period, and contains about 1.3k machines that run both online service and batch jobs.
+The trace data, ClusterData201708,  contains cluster information of a production cluster in 12 hours period, and contains about 1.3k machines that run both online service and batch jobs.
 
 The data is provided to address [the challenges Alibaba face](https://github.com/alibaba/clusterdata/wiki/About-Alibaba-cluster-and-why-we-open-the-data) in idcs where online services and batch jobs are co-allocated.  We distill the challenges as the following topics: 
 
