@@ -41,11 +41,11 @@ The index below is aligned with the data column in each file.
 | container_id    | string     |       | uid of a container                          |
 | machine_id      | string     |       | uid of container's host machine             |
 | time_stamp      | bigint     |       |                                             |
-| app_du          | string     |       |                                             |
+| app_du          | string     |       | containers with same app_du belong to same application group |
 | status          | string     |       |                                             |
-| cpu_request     | bigint     |       |                                             |
-| cpu_limit       | bigint     |       |                                             |
-| mem_size        | double     |       |                                             |
+| cpu_request     | bigint     |       | 100 is 1 core                               |
+| cpu_limit       | bigint     |       | 100 is 1 core                               |
+| mem_size        | double     |       | normarlized memory                          |
 +------------------------------------------------------------------------------------+
 
 ### container usage
