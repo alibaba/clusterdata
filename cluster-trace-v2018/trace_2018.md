@@ -22,7 +22,7 @@ Cluster-trace-v2018 includes about 4000 machines in a perids of 8 days and is co
 
 ### Downloading the data
 
-The dowload link will be available after a very short survey ([survey link](https://docs.google.com/forms/d/e/1FAIpQLSeAC_KJomJ7Ly-tdR9j3FcJrVyMi25x6Gc9bjRwZfSkUycx-w/viewform?usp=sf_link)). We kindly ask you to do this so that we could inform you about big annoucement later on, and we will keep the information in the form confidential.
+The dowload link will be available after a very short survey ([survey link](https://goo.gl/forms/lzuis4CyDqfOjEQu1)). We kindly ask you to do this so that we could inform you about big annoucement later on, and we will keep the information in the form confidential.
 
 ## 2.2 Schema
 
@@ -153,16 +153,16 @@ The number of instances for each task is expressed with another field `instance_
 
 > Empty for now.
 
-If you do not want to do the survey ([survey link](https://docs.google.com/forms/d/e/1FAIpQLSeAC_KJomJ7Ly-tdR9j3FcJrVyMi25x6Gc9bjRwZfSkUycx-w/viewform?usp=sf_link)), you could have the trace too.
+If you do not want to do the survey ([survey link](https://goo.gl/forms/lzuis4CyDqfOjEQu1)), you could have the trace too.
 
 The entire data set is about 48GB in .tar.gz format and 280GB after extraction. So we provide two download links.
 
 * Download the all as one dataset:
-  * [alibaba_clusterdata_v2018](http://openclusterdata.oss-cn-hangzhou-zmf.aliyuncs.com/clusterdata2018%2Fclusterdata2018.tar.gz)
+  * [alibaba_clusterdata_v2018](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/alibaba_clusterdata2018.tar.gz)
 * Download 6 files separately:
-  * [machine_meta](http://openclusterdata.oss-cn-hangzhou-zmf.aliyuncs.com/clusterdata2018%2Fmachine_meta.tar.gz)
-  * [machine_usage](http://openclusterdata.oss-cn-hangzhou-zmf.aliyuncs.com/clusterdata2018%2Fmachine_usage.tar.gz)
-  * [container_meta](http://openclusterdata.oss-cn-hangzhou-zmf.aliyuncs.com/clusterdata2018%2Fcontainer_meta.tar.gz)
-  * [container_usage](http://openclusterdata.oss-cn-hangzhou-zmf.aliyuncs.com/clusterdata2018%2Fcontainer_usage.tar.gz​​)
-  * [batch_task](http://openclusterdata.oss-cn-hangzhou-zmf.aliyuncs.com/clusterdata2018%2Fbatch_task.tar.gz)
-  ​* [batch_instance](http://openclusterdata.oss-cn-hangzhou-zmf.aliyuncs.com/clusterdata2018%2Fbatch_instance.tar.gz)
+  * [machine_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_meta.tar.gz)
+  * [machine_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_usage.tar.gz)
+  * [container_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_meta.tar.gz)
+  * [container_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_usage.tar.gz)
+  * [batch_task](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_task.tar.gz)
+  * [batch_instance](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_instance.tar.gz)
