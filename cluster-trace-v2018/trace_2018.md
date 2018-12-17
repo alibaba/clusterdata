@@ -24,6 +24,40 @@ Cluster-trace-v2018 includes about 4000 machines in a perids of 8 days and is co
 
 The dowload link will be available after a very short survey ([survey link](https://goo.gl/forms/lzuis4CyDqfOjEQu1)). We kindly ask you to do this so that we could inform you about big annoucement later on, and we will keep the information in the form confidential.
 
+You can verify your download as follows.
+
+Checksum:
+
+(separate files)
+```
+$sha256sum *
+e73e5a9326669aa079ba20048ddd759383cabe1fe3e58620aa75bd034e2450c6  batch_instance.tar.gz
+7c4b32361bd1ec2083647a8f52a6854a03bc125ca5c202652316c499fbf978c6  batch_task.tar.gz
+febd75e693d1f208a8941395e7faa7e466e50d21c256eff12a815b7e2fa2053f  container_meta.tar.gz
+b4bd3b1b82f5407c1b0dd47fe736ff5152c4b016a9c30cb26f988e2d1c5e5031  container_usage.tar.gz
+b5b1b786b22cd413a3674b8f2ebfb2f02fac991c95df537f363ef2797c8f6d55  machine_meta.tar.gz
+3e6ee87fd204bb85b9e234c5c75a5096580fdabc8f085b224033080090753a7a  machine_usage.tar.gz
+```
+
+(single file)
+```
+$sha256sum alibaba_clusterdata_v2018.tar.gz
+ccb3dc93786507dd42eed29ef62c82220d07f877f269e5fad39f31bf75134ed1  alibaba_clusterdata_v2018.tar.gz
+```
+
+Size of files (note you need either 6 separate files or single `alibaba_clusterdata_v2018.tar.gz` file):
+```
+$ls -sh1
+total 98G
+ 49G alibaba_clusterdata_v2018.tar.gz
+ 20G batch_instance.tar.gz
+125M batch_task.tar.gz
+2.4M container_meta.tar.gz
+ 28G container_usage.tar.gz
+ 92K machine_meta.tar.gz
+1.7G machine_usage.tar.gz
+```
+
 ## 2.2 Schema
 
 **Some explanation of common fields.**
