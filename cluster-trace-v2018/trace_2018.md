@@ -22,7 +22,7 @@ Cluster-trace-v2018 includes about 4000 machines in a perids of 8 days and is co
 
 ### Downloading the data
 
-The dowload link will be available after a very short survey ([survey link](https://goo.gl/forms/lzuis4CyDqfOjEQu1)). We kindly ask you to do this so that we could inform you about big annoucement later on, and we will keep the information in the form confidential.
+The dowload link will be available after a very short survey ([survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)). We kindly ask you to do this so that we could inform you about big annoucement later on, and we will keep the information in the form confidential.
 
 You can verify your download as follows.
 
@@ -187,7 +187,7 @@ The number of instances for each task is expressed with another field `instance_
 
 > Empty for now.
 
-If you do not want to do the survey ([survey link](https://goo.gl/forms/lzuis4CyDqfOjEQu1)), you could have the trace too.
+If you do not want to do the survey ([survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)), you could have the trace too.
 
 The entire data set is about 48GB in .tar.gz format and 280GB after extraction. So we provide two download links.
 
