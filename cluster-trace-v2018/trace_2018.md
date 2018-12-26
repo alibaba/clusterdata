@@ -91,7 +91,6 @@ total 98G
 | mpki     |  int  | cache miss per thousand instruction |  |
 | net_in     |  int  | number of incoming network packages  | Normalized to the maximum of this column |
 | net_out     |  int  | number of outgoing network packages  | Normalized to the maximum of this column |
-| disk_usage_percent     |  int  | disk space utilization percentage    | [0, 100]. There are some invalid values and they are set to -1 or 101  |
 | disk_io_percent     |  int  | disk io utilization percentage  | [0, 100]. There are some invalid values and they are set to -1 or 101 |
 
 * container_meta.csv
