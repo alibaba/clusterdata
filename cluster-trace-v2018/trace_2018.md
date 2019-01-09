@@ -128,8 +128,8 @@ total 98G
 | -------- | -------- | -------- | -------- |
 | inst_name  | string  | The unique ID (uid) of a batch instance     | Instance name is unique within a (job, task) pair |
 | task_name  | string  | The task name to which an instance belongs    | Task name is uniqe within a job; note task name indicates the DAG information, see the explanation of batch workloads |
-| task_type  | string  | type of the task     | There are totally 12 types, and only some of them have DAG info |
 | job_name  | string  | job_name of the task that an instance belongs to  | A job is consisted of many tasks. See the explanation of job-task-instance |
+| task_type  | string  | type of the task     | There are totally 12 types, and only some of them have DAG info |
 | status  | string  | status of an instance  | Status of the instance  |
 | start_time  | int  | start time of an instance  | 0 means the time stamp is before or after the 8-day time span  |
 | end_time  | int  | end time of an instance  | 0 means the time stamp is before or after the 8-day time span  |
@@ -187,14 +187,29 @@ The number of instances for each task is expressed with another field `instance_
 
 If you do not want to do the survey ([survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)), you could have the trace too.
 
-The entire data set is about 48GB in .tar.gz format and 280GB after extraction. So we provide two download links.
+The entire data set is about 48GB in .tar.gz format and 280GB after extraction. Due to [issue #49](https://github.com/alibaba/clusterdata/issues/49), we provide two download links, one for Chinese users and other for oversea users, and you can choose whichever suits you.
 
-* Download the all as one dataset:
-  * [alibaba_clusterdata_v2018](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/alibaba_clusterdata2018.tar.gz)
-* Download 6 files separately:
-  * [machine_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_meta.tar.gz)
-  * [machine_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_usage.tar.gz)
-  * [container_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_meta.tar.gz)
-  * [container_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_usage.tar.gz)
-  * [batch_task](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_task.tar.gz)
-  * [batch_instance](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_instance.tar.gz)
+## Chinese download link
+
+Download 6 files separately:
+
+* [machine_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_meta.tar.gz)
+* [machine_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_usage.tar.gz)
+* [container_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_meta.tar.gz)
+* [container_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_usage.tar.gz)
+* [batch_task](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_task.tar.gz)
+* [batch_instance](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_instance.tar.gz)
+
+Download the all as one dataset (we strongly suggest you download separately due to the size):
+
+* [alibaba_clusterdata_v2018](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/alibaba_clusterdata2018.tar.gz)
+
+## Oversea download link
+
+* [machine_meta](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/machine_meta.tar.gz)
+* [machine_usage](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/machine_usage.tar.gz)
+* [container_meta](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/container_meta.tar.gz)
+* [container_usage](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/container_usage.tar.gz)
+* [batch_task](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_task.tar.gz)
+* [batch_instance](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_instance.tar.gz)
+  
