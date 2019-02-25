@@ -154,8 +154,8 @@ total 98G
 | status  | enum  | status of an instance  | status of the task  |
 | start_time  | int  | start time of an instance  | 0 means the time stamp is before or after the 8-day time span  |
 | end_time  | int  | end time of an instance   | 0 means the time stamp is before or after the 8-day time span  |
-| plan_cpu  | int  | plan cpu of a task | 100 means 1 core |
-| plan_mem  | int  | plan memory of a task | Normalized to the largest memory size of all machines |
+| plan_cpu  | int  | cpu requested for each instance of the task | 100 means 1 core |
+| plan_mem  | int  | normalized memory requested for each instance of the task | Normalized to the largest memory size of all machines |
 
 ## 2.3 DAG of batch worloads
 
