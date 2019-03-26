@@ -215,3 +215,6 @@ Download the all as one dataset (we strongly suggest you download separately due
 * [batch_task](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_task.tar.gz)
 * [batch_instance](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_instance.tar.gz)
   
+# 5 Acknowledgement
+
+This version of cluster data would not have been well prepared without help from several interns, Jing Guo, Zihao Chang, Kangjing Wang, and Guoyao Xu, etc. Their efforts in data collection, verification, and document writing are very much appreciated.
