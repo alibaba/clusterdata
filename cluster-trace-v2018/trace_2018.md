@@ -60,102 +60,12 @@ total 98G
 
 ## 2.2 Schema
 
+For the sake of clearity, all scheme description is moved to [schema](./schema.txt).
+
 **Some explanation of common fields.**
 
 * time_stamp, start_time and end_time: These fields in the tables are all with unit "second" and the number if the difference of between the actual time and the beginning of the period over which the trace is sampled. The beginning of period is 0.
 * For confidential reason, we normalize some values such as memory size and disk size and rescale such field between [0, 100]. However, there are some invalid values and they are set to either -1 or 101.
-
-**Explanation of tables.**
-
-* machine_meta.csv
-
-| column name | type | explanation | comments |
-| -------- | -------- | -------- | -------- |
-| machine_id     | string  | The unique ID (uid) of a machine     |  |
-| time_stamp     |  int  | time index  | 0 means the time stamp is before or after the 8-day time span |
-| disaster_level_1     |  int  | 1st level of failure domain  |  We have multiple levels of failure domains of which two are provided in this version of trace. For any application that requires fault tolerance, their instances should be spread across many failure domains. This is an enumerate value. |
-| disaster_level_2     |  string  | 2nd level of failure domain    | Similar to disaster_level_1, this is just another level of failure domain. This is an enumerate value.  |
-| cpu_num     |  int  | num of cpu of a machine     | Unit is "core", e.g. 4 means 4 cores on the machine |
-| mem_size     |  int  | memory size of a machine     |  Normalized to the largest memory size of all machines |
-| status     |  string  | status of a machine at given time_stamp    | Status of the machine. See explanation below |
-
-* machine_usage.csv
-
-| column name | type | explanation | comments |
-| -------- | -------- | -------- | -------- |
-| machine_id     | string  | The unique ID (uid) of a machine     |  |
-| time_stamp     |  double  | time stamp  | 0 means the time stamp is before or after the 8-day time span |
-| cpu_util_percent     |  int  | cpu utilization percentage  | Both user and system are included, between [0, 100]. There are some invalid values and they are set to -1 or 101 |
-| mem_util_percent     |  int  | memory utilization percentage | [0, 100]. There are some invalid values and they are set to -1 or 101  |
-| mem_gps     |  double  | memory bandwidth usage | Normalized to maximum memory bandwith usage of all machines |
-| mpki     |  int  | cache miss per thousand instruction |  |
-| net_in     |  double  | number of incoming network packages  | Normalized to the maximum of this column |
-| net_out     |  double  | number of outgoing network packages  | Normalized to the maximum of this column |
-| disk_io_percent     |  double  | disk io utilization percentage  | [0, 100]. There are some invalid values and they are set to -1 or 101 |
-
-* container_meta.csv
-
-| column name | type | explanation | comments |
-| -------- | -------- | -------- | -------- |
-| container_id     | string  | The unique ID (uid) of a container     |   |
-| machine_id     | string  | machine uid of a container's host     |   |
-| app_du | string  | deploy group of a container  | Containers belong to the same deploy unit provides one service, typically, they should be spread across failure domains |
-| time_stamp     |  int  | time stamp  | 0 means the time stamp is before or after the 8-day time span |
-| cpu_request     |  int  | planned cpushare request  | 100 means 1 core  |
-| cpu_limit     |  int  | planned cpushare request    | 100 means 1 core  |
-| mem_size     |  doubele  | planned memory size  | Normalized to the largest memory size of all machines |
-| status     |  string  | status of a container at given time_stamp  | Status of a container at given time stamp, see the state machine for details  |
-
-* container_usage.csv
-
-| column name | type | explanation | comments |
-| -------- | -------- | -------- | -------- |
-| container_id     | string  | The unique ID (uid) of a container     |   |
-| machine_id     | string  | machine uid on which a container runs   |   |
-| time_stamp     |  double  | time stamp  | 0 means the time stamp is before or after the 8-day time span |
-| cpu_util_percent     |  int  | cpu utilization percentage  | [0, 100]. There are some invalid values and they are set to -1 or 101  |
-| mpki     |  int  | cache miss per thousand instruction  |   |
-| cpi     |  double  | cpi of a container at given time_stamp  |  |
-| mem_util_percent     |  int  | memory utilization percentage | [0, 100]. There are some invalid values and they are set to -1 or 101  |
-| mem_gps  |  double  | memory bandwidth usage | Normalized to maximum memory bandwith usage of all machines  |
-| disk_io_percent     |  double  | disk io utilization percentage | [0, 100]. There are some invalid values and they are set to -1 or 101  |
-| net_in     |  double  | number of incoming network packages  |  Normalized to the largest net_in of all machines  |
-| net_out     |  double  | number of outgoing network packages  | Normalized to the largest net_out of all machines  |
-
-* batch_instance.csv
-
-| column name | type | explanation | comments |
-| -------- | -------- | -------- | -------- |
-| inst_name  | string  | The unique ID (uid) of a batch instance     | Instance name is unique within a (job, task) pair |
-| task_name  | string  | The task name to which an instance belongs    | Task name is uniqe within a job; note task name indicates the DAG information, see the explanation of batch workloads |
-| job_name  | string  | job_name of the task that an instance belongs to  | A job is consisted of many tasks. See the explanation of job-task-instance |
-| task_type  | string  | type of the task     | There are totally 12 types, and only some of them have DAG info |
-| status  | string  | status of an instance  | Status of the instance  |
-| start_time  | int  | start time of an instance  | 0 means the time stamp is before or after the 8-day time span  |
-| end_time  | int  | end time of an instance  | 0 means the time stamp is before or after the 8-day time span  |
-| machine_id  | string  | the machine id on which an instance runs  |  |
-| seq_no  | int  | seq no of an instance     |   |
-| total_seq_no  | int  | total seq no of an instance  |   |
-| cpu_avg  | double  | average cpu utilization of cpu of an instance  | 100 means 1 core  |
-| cpu_max  | double  | max cpu utilization of cpu of an instance  | 100 means 1 core  |
-| mem_avg  | double  | average memory utilization of cpu of an instance  |  Normalized to the largest memory size of all machines |
-| mem_max  | double  | max memory utilization of cpu of an instance  | Normalized to the largest memory size of all machines  |
-
-* batch_task.csv
-
-| column name | type | explanation | comments |
-| -------- | -------- | -------- | -------- |
-| task_name  | string  | The task name to which an instance belongs    | Note task name indicates the DAG information, see the explanation of batch workloads  |
-| inst_num  | int  | number of instances a task has   |  |
-| task_type  | string  | type of the task   |   |
-| job_name  | string  | job_name of a task  |   |
-| status  | string  | status of an instance  | status of the task  |
-| start_time  | int  | start time of an instance  | 0 means the time stamp is before or after the 8-day time span  |
-| end_time  | int  | end time of an instance   | 0 means the time stamp is before or after the 8-day time span  |
-| plan_cpu  | int  | cpu requested for each instance of the task | 100 means 1 core |
-| plan_mem  | int  | normalized memory requested for each instance of the task | Normalized to the largest memory size of all machines |
-
-
 
 ## 2.3 DAG of batch worloads
 
