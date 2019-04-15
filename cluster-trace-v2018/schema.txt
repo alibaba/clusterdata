@@ -17,6 +17,7 @@ The index below is aligned with the data column in each file.
 | status          | string     |       | status of a machine                         |
 +------------------------------------------------------------------------------------+
 
+* about failure_domain_1: We have multiple levels of failure domains of which two are provided in this version of trace. For any application that requires fault tolerance, their instances should be spread across many failure domains. This is an enumerate value.
 
 ### machine usage
 +------------------------------------------------------------------------------------+
@@ -48,6 +49,8 @@ The index below is aligned with the data column in each file.
 | mem_size        | double     |       | normarlized memory                          |
 +------------------------------------------------------------------------------------+
 
+* about app_du: Containers belong to the same deploy unit provides one service, typically, they should be spread across failure domains
+
 ### container usage
 +------------------------------------------------------------------------------------+
 | container_id    | string     |       | uid of a container                          |
@@ -76,6 +79,8 @@ The index below is aligned with the data column in each file.
 | plan_mem        | double     |       | normalized memorty size                     |
 +------------------------------------------------------------------------------------+
 
+* task name indicates the DAG information, see the explanation of batch workloads
+
 ### batch instance
 | instance_name   | string     |       | instance name of the instance               |
 | task_name       | string     |       | name of task to which the instance belong   |
@@ -92,3 +97,6 @@ The index below is aligned with the data column in each file.
 | mem_avg         | double     |       | max cpu used by the instance, 100 is 1 core      |
 | mem_max         | double     |       | max memory used by the instance (normalized)     |
 +------------------------------------------------------------------------------------+
+
+* Task name is uniqe within a job; note task name indicates the DAG information, see the explanation of batch workloads
+* There are totally 12 types, and only some of them have DAG info
