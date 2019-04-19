@@ -33,6 +33,7 @@ Last but not least, we are always open to work together with researchers to impr
 
 The fundemental idea of our releasing cluster data is to enable researchers & practitioners doing resaerch, simulation with more realistic data and thus making the result closer to industry adoption. It is a huge encouragement to us to see more works using our data. Here is a list of existing works using Alibaba cluster data. If your paper uses our trace, it would be great if you let us know by sending us email ([aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com)).
 
+* Who Limits the Resource Efficiency of My Datacenter: An Analysis of Alibaba Datacenter Traces, Jing Guo, Zihao Chang, Sa Wang, Haiyang Ding, Yihui Feng, Liang Mao, Yungang Bao, IEEE/ACM International Symposium on Quality of Service, IWQoS 2019
 * LegoOS: A Disseminated, Distributed OS for Hardware Resource Disaggregation, Yizhou Shan, Yutong Huang, Yilun Chen, and Yiying Zhang, Purdue University. OSDI'18 (Best paper award!)
 * The Elasticity and Plasticity in Semi-Containerized Co-locating Cloud Workload: a View from Alibaba Trace, Qixiao Liu and Zhibin Yu. SoCC2018
 * Zeno: A Straggler Diagnosis System for Distributed Computing Using Machine Learning, Huanxing Shen and Cong Li, Proceedings of the Thirty-Third International Conference, ISC High Performance 2018
