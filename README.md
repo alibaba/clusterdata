@@ -36,7 +36,7 @@ The fundemental idea of our releasing cluster data is to enable researchers & pr
 * cluster trace v2018
   * Who Limits the Resource Efficiency of My Datacenter: An Analysis of Alibaba Datacenter Traces, Jing Guo, Zihao Chang, Sa Wang, Haiyang Ding, Yihui Feng, Liang Mao, Yungang Bao, IEEE/ACM International Symposium on Quality of Service, IWQoS 2019
   * [DeepJS: Job Scheduling Based on Deep Reinforcement Learning in Cloud Data Center](https://github.com/RobertLexis/CloudSimPy/blob/master/playground/paper/F0049-4.19.pdf), by Fengcun Li and Bo Hu.
-    * There is a interesting simulator released with this paper: CloudSimPy. You can check it at [CloudSimPy](https://github.com/RobertLexis/CloudSimPy)
+    * There is an interesting simulator released with this paper: CloudSimPy. You can check it at [CloudSimPy](https://github.com/RobertLexis/CloudSimPy)
 
 * cluster trace v2017
   * LegoOS: A Disseminated, Distributed OS for Hardware Resource Disaggregation, Yizhou Shan, Yutong Huang, Yilun Chen, and Yiying Zhang, Purdue University. OSDI'18 (Best paper award!)
