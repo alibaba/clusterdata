@@ -31,19 +31,20 @@ Last but not least, we are always open to work together with researchers to impr
 
 ### Papers using Alibaba cluster trace
 
-The fundemental idea of our releasing cluster data is to enable researchers & practitioners doing resaerch, simulation with more realistic data and thus making the result closer to industry adoption. It is a huge encouragement to us to see more works using our data. Here is a list of existing works using Alibaba cluster data. If your paper uses our trace, it would be great if you let us know by sending us email ([aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com)).
+The fundemental idea of our releasing cluster data is to enable researchers & practitioners doing resaerch, simulation with more realistic data and thus making the result closer to industry adoption. It is a huge encouragement to us to see more works using our data. Here is a list of existing works using Alibaba cluster data. **If your paper uses our trace, it would be great if you let us know by sending us email** ([aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com)).
 
 * cluster trace v2018
-  * Who Limits the Resource Efficiency of My Datacenter: An Analysis of Alibaba Datacenter Traces, Jing Guo, Zihao Chang, Sa Wang, Haiyang Ding, Yihui Feng, Liang Mao, Yungang Bao, IEEE/ACM International Symposium on Quality of Service, IWQoS 2019
+  * [Who Limits the Resource Efficiency of My Datacenter: An Analysis of Alibaba Datacenter Traces](https://dl.acm.org/citation.cfm?doid=3326285.3329074), Jing Guo, Zihao Chang, Sa Wang, Haiyang Ding, Yihui Feng, Liang Mao, Yungang Bao, IEEE/ACM International Symposium on Quality of Service, IWQoS 2019
   * [DeepJS: Job Scheduling Based on Deep Reinforcement Learning in Cloud Data Center](https://github.com/RobertLexis/CloudSimPy/blob/master/playground/paper/F0049-4.19.pdf), by Fengcun Li and Bo Hu.
     * There is an interesting simulator released with this paper: CloudSimPy. You can check it at [CloudSimPy](https://github.com/RobertLexis/CloudSimPy)
 
 * cluster trace v2017
-  * LegoOS: A Disseminated, Distributed OS for Hardware Resource Disaggregation, Yizhou Shan, Yutong Huang, Yilun Chen, and Yiying Zhang, Purdue University. OSDI'18 (Best paper award!)
-  * The Elasticity and Plasticity in Semi-Containerized Co-locating Cloud Workload: a View from Alibaba Trace, Qixiao Liu and Zhibin Yu. SoCC2018
+  * [LegoOS: A Disseminated, Distributed OS for Hardware Resource Disaggregation](https://www.usenix.org/system/files/osdi18-shan.pdf), Yizhou Shan, Yutong Huang, Yilun Chen, and Yiying Zhang, Purdue University. OSDI'18 (Best paper award!)
+  * [The Elasticity and Plasticity in Semi-Containerized Co-locating Cloud Workload: a View from Alibaba Trace](https://dl.acm.org/citation.cfm?id=3267830), Qixiao Liu and Zhibin Yu. SoCC2018
   * Zeno: A Straggler Diagnosis System for Distributed Computing Using Machine Learning, Huanxing Shen and Cong Li, Proceedings of the Thirty-Third International Conference, ISC High Performance 2018
-  * Characterizing Co-located Datacenter Workloads: An Alibaba Case Study, Yue Cheng, Zheng Chai, Ali Anwar. APSys2018
+  * [Characterizing Co-located Datacenter Workloads: An Alibaba Case Study](https://arxiv.org/pdf/1808.02919.pdf), Yue Cheng, Zheng Chai, Ali Anwar. APSys2018
   * [Imbalance in the Cloud: an Analysis on Alibaba Cluster Trace, Chengzhi Lu et al. BIGDATA 2017](http://cloud.siat.ac.cn/~ye/Imbalance_Ye_2017.pdf)
+  * Jiang C, Han G, Lin J, et al. [Characteristics of Co-allocated Online Services and Batch Jobs in Internet Data Centers: A Case Study from Alibaba Cloud[J]](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8636497). IEEE Access, 2019, 7: 22495-22508.
 
 ### Tech reports and projects on analysing the trace
 
