@@ -38,7 +38,7 @@ The fundemental idea of our releasing cluster data is to enable researchers & pr
   * [DeepJS: Job Scheduling Based on Deep Reinforcement Learning in Cloud Data Center](https://github.com/RobertLexis/CloudSimPy/blob/master/playground/paper/F0049-4.19.pdf), by Fengcun Li and Bo Hu.
     * There is an interesting simulator released with this paper: CloudSimPy. You can check it at [CloudSimPy](https://github.com/RobertLexis/CloudSimPy)
   * Characterizing and Synthesizing Task Dependencies of Data-Parallel Jobs in Alibaba Cloud, by Huangshi Tian, Yunchuan Zheng, and Wei Wang, to appear in ACM Symposium on Cloud Computing (SoCC '19), Santa Cruz, California, November 2019.
-
+  * [Aladdin: Optimized Maximum Flow Management for Shared Production Clusters](https://ieeexplore.ieee.org/abstract/document/8821038), Heng WU, Wenbo ZHANG, Yuanjia XU, Hao XIANG, Tao HUANG, Haiyang DING, Zheng ZHANG, 2019 IEEE International Parallel and Distributed Processing Symposium (IPDPS).
 * cluster trace v2017
   * [LegoOS: A Disseminated, Distributed OS for Hardware Resource Disaggregation](https://www.usenix.org/system/files/osdi18-shan.pdf), Yizhou Shan, Yutong Huang, Yilun Chen, and Yiying Zhang, Purdue University. OSDI'18 (Best paper award!)
   * [The Elasticity and Plasticity in Semi-Containerized Co-locating Cloud Workload: a View from Alibaba Trace](https://dl.acm.org/citation.cfm?id=3267830), Qixiao Liu and Zhibin Yu. SoCC2018
