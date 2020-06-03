@@ -1,9 +1,9 @@
 
 # 1 Introduction
 
-As part of the Alibaba Open Cluster Trace Program, a new version of cluster trace, `cluster-trace-v2018`, is released this year. The trace is sampled from one of our production clusters. Similar to the trace from 2017, there are both online services (aka long running applications, LRA) and batch workloads colocated in every machine in the cluster. Over the past year, the scale of colocation of online services and batch workloads have greatly increased resulting in the improvement of our overall resource utilization.
+As part of the Alibaba Open Cluster Trace Program, a new version of cluster trace, `cluster-trace-v2018`, is released this year. The trace is sampled from one of our production clusters. Similar to the trace from 2017, there are both online services (aka long running applications, LRA) and batch workloads collocated in every machine in the cluster. Over the past year, the scale of collocation of online services and batch workloads have greatly increased resulting in the improvement of our overall resource utilization.
 
-The colocated workloads are managed by the coordination of two schedulers, Sigma for online services and Fuxi for batch workloads. The figure below depicts the architecture of Sigma and Fuxi coloation.
+The collocated workloads are managed by the coordination of two schedulers, Sigma for online services and Fuxi for batch workloads. The figure below depicts the architecture of Sigma and Fuxi collocation.
 
 ![Sigma-Fuxi-Colocation](./sigma-fuxi-collocation.jpg)
 
@@ -11,18 +11,18 @@ The colocated workloads are managed by the coordination of two schedulers, Sigma
 
 ## 2.1 About
 
-Cluster-trace-v2018 includes about 4000 machines in a perids of 8 days and is consisted of 6 tables (each is a file). Here is a brief introduction of the tables and the detail of each table is provided in section *2.2 Schema*.
+Cluster-trace-v2018 includes about 4000 machines in a period of 8 days and is consisted of 6 tables (each is a file). Here is a brief introduction of the tables and the detail of each table is provided in section *2.2 Schema*.
 
-* machine_meta.csv：the meta info and event infor of machines.
+* machine_meta.csv：the meta info and event info of machines.
 * machine_usage.csv: the resource usage of each machine.
-* container_meta.csv：the meta info and event infor of containers.
+* container_meta.csv：the meta info and event info of containers.
 * container_usage.csv：the resource usage of each container.
-* batch_instance.csv：inforamtion about instances in the batch workloads.
-* batch_task.csv：inforamtion about instances in the batch workloads. Note that the DAG information of each job's tasks is described in the task_name field.
+* batch_instance.csv：information about instances in the batch workloads.
+* batch_task.csv：information about instances in the batch workloads. Note that the DAG information of each job's tasks is described in the task_name field.
 
 ### Downloading the data
 
-The dowload link will be available after a very short survey ([survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)). We kindly ask you to do this so that we could inform you about big annoucement later on, and we will keep the information in the form confidential.
+The dowload link will be available after a very short survey ([survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)). We kindly ask you to do this so that we could inform you about big announcement later on, and we will keep the information in the form confidential.
 
 You can verify your download as follows.
 
@@ -60,7 +60,7 @@ total 98G
 
 ## 2.2 Schema
 
-For the sake of clearity, all scheme description is moved to [schema](./schema.txt).
+For the sake of clarity, all scheme description is moved to [schema](./schema.txt).
 
 **Some explanation of common fields.**
 
@@ -69,21 +69,21 @@ For the sake of clearity, all scheme description is moved to [schema](./schema.t
 
 ## 2.3 DAG of batch worloads
 
-*In this version of cluster data, we include many types of batch wokrloads. Most of them are DAGs while some of them are not. For those tasks that are not DAGs, we name them using random characters, such as `task_Nzg3ODAwNDgzMTAwNTc2NTQ2Mw==` or `task_Nzg3ODAwNDgzMTAwODc2NTQ3MQ==`. These tasks can be treated as independent tasks. In the remainder of this section, we explain how to deduce DAG of a job from the task names.*
+*In this version of cluster data, we include many types of batch workloads. Most of them are DAGs while some of them are not. For those tasks that are not DAGs, we name them using random characters, such as `task_Nzg3ODAwNDgzMTAwNTc2NTQ2Mw==` or `task_Nzg3ODAwNDgzMTAwODc2NTQ3MQ==`. These tasks can be treated as independent tasks. In the remainder of this section, we explain how to deduce DAG of a job from the task names.*
 
 A complete batch computation job can be described using "job-task-instance" model. We will describe the meaning of each term and how the DAG information is expressed in the trace.
 
-A job is typically consisted of several tasks whose depencies are expressed by DAG (Directed Acyclic Graph). Each task has a number of instances, and only when all the instances of a task are completed can a task be considered as "finished", i.e. if task-2 is depending on task-1, any instance of task-2 cannot be started before all the instances of task-1 are completed. The DAG of tasks in a job can be deduced from the `task_name` field of all tasks of this job, and it is explained with the following example.
+A job is typically consisted of several tasks whose dependencies are expressed by DAG (Directed Acyclic Graph). Each task has a number of instances, and only when all the instances of a task are completed can a task be considered as "finished", i.e. if task-2 is depending on task-1, any instance of task-2 cannot be started before all the instances of task-1 are completed. The DAG of tasks in a job can be deduced from the `task_name` field of all tasks of this job, and it is explained with the following example.
 
 The DAG of Job-A is shown in the following figure. Job-A is consisted of 5 tasks with some dependencies. The DAG of the 5 tasks are expressed with their `task_name`. For each task:
 
-* `task1`'s `task_name` is `M1`: means that `task1` is an independent task and can be started without waiting for any other task. Similarly for th rest
+* `task1`'s `task_name` is `M1`: means that `task1` is an independent task and can be started without waiting for any other task. Similarly for the rest
 * `M2_1`: means that `task2` depends on the finishing of `task1`
 * `M3_1`: means that `task3` depends on the finishing of `task1`
 * `R4_2`: means that `task4` depends on the finishing of `task2`
 * `M5_3_4`: means that `task5` depends on both `task3` and `task4`, that is, `task5` cannot start before all instances of both `task3` and `task4` are completed.
 
-Note that for DAG information, only the numeric figure in the task_name matters, while the first charactor (e.g. `M`, `R` in the example) has nothing to do with dependency.
+Note that for DAG information, only the numeric figure in the task_name matters, while the first character (e.g. `M`, `R` in the example) has nothing to do with dependency.
 
 The number of instances for each task is expressed with another field `instance_num`.
 
@@ -124,7 +124,7 @@ Download the all as one dataset (we strongly suggest you download separately due
 * [container_usage](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/container_usage.tar.gz)
 * [batch_task](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_task.tar.gz)
 * [batch_instance](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_instance.tar.gz)
-  
+
 # 5 Acknowledgement
 
 This version of cluster data would not have been well prepared without help from several interns, Jing Guo, Zihao Chang, Kangjing Wang, and Guoyao Xu, etc. Their efforts in data collection, verification, and document writing are very much appreciated.
