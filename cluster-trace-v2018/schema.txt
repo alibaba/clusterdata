@@ -1,6 +1,6 @@
 # Schema
 
-This file describes the schema of each data file. 
+This file describes the schema of each data file.
 
 The index below is aligned with the data column in each file.
 
@@ -29,8 +29,8 @@ The index below is aligned with the data column in each file.
 | mem_util_percent | bigint     |       | [0, 100]                                   |
 | mem_gps         | double     |       |  normalized memory bandwidth, [0, 100]      |
 | mkpi            | bigint     |       |  cache miss per thousand instruction        |
-| net_in          | double     |       |  normarlized in coming network traffic, [0, 100]   |
-| net_out         | double     |       |  normarlized out going network traffic, [0, 100]   |
+| net_in          | double     |       |  normalized in coming network traffic, [0, 100]   |
+| net_out         | double     |       |  normalized out going network traffic, [0, 100]   |
 | disk_io_percent | double     |       |  [0, 100], abnormal values are of -1 or 101 |
 +------------------------------------------------------------------------------------+
 
@@ -46,7 +46,7 @@ The index below is aligned with the data column in each file.
 | status          | string     |       |                                             |
 | cpu_request     | bigint     |       | 100 is 1 core                               |
 | cpu_limit       | bigint     |       | 100 is 1 core                               |
-| mem_size        | double     |       | normarlized memory, [0, 100]                |
+| mem_size        | double     |       | normalized memory, [0, 100]                |
 +------------------------------------------------------------------------------------+
 
 * about app_du: Containers belong to the same deploy unit provides one service, typically, they should be spread across failure domains
@@ -61,8 +61,8 @@ The index below is aligned with the data column in each file.
 | cpi             | double     |       |                                             |
 | mem_gps         | double     |       | normalized memory bandwidth, [0, 100]       |
 | mpki            | bigint     |       |                                             |
-| net_in          | double     |       | normarlized in coming network traffic, [0, 100] |
-| net_out         | double     |       | normarlized out going network traffic, [0, 100] |
+| net_in          | double     |       | normalized in coming network traffic, [0, 100] |
+| net_out         | double     |       | normalized out going network traffic, [0, 100] |
 | disk_io_percent | double     |       | [0, 100], abnormal values are of -1 or 101  |
 +------------------------------------------------------------------------------------+
 
@@ -76,7 +76,7 @@ The index below is aligned with the data column in each file.
 | start_time      | bigint     |       | start time of the task                      |
 | end_time        | bigint     |       | end of time the task                        |
 | plan_cpu        | double     |       | number of cpu needed by the task, 100 is 1 core |
-| plan_mem        | double     |       | normalized memorty size, [0, 100]           |
+| plan_mem        | double     |       | normalized memory size, [0, 100]           |
 +------------------------------------------------------------------------------------+
 
 * task name indicates the DAG information, see the explanation of batch workloads
@@ -98,5 +98,5 @@ The index below is aligned with the data column in each file.
 | mem_max         | double     |       | max memory used by the instance (normalized, [0, 100]) |
 +------------------------------------------------------------------------------------+
 
-* Task name is uniqe within a job; note task name indicates the DAG information, see the explanation of batch workloads
+* Task name is unique within a job; note task name indicates the DAG information, see the explanation of batch workloads
 * There are totally 12 types, and only some of them have DAG info
