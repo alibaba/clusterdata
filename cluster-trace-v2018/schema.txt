@@ -6,32 +6,32 @@ The index below is aligned with the data column in each file.
 
 ### machine meta
 +------------------------------------------------------------------------------------+
-| Field           | Type       | Label | Comment                                     |
+| Field            | Type       | Label | Comment                                     |
 +------------------------------------------------------------------------------------+
-| machine_id      | string     |       | uid of machine                              |
-| time_stamp      | bigint     |       | time stamp, in second                       |
+| machine_id       | string     |       | uid of machine                              |
+| time_stamp       | bigint     |       | time stamp, in second                       |
 | failure_domain_1 | bigint     |       | one level of container failure domain      |
 | failure_domain_2 | string     |       | another level of container failure domain  |
-| cpu_num         | bigint     |       | number of cpu on a machine                  |
-| mem_size        | bigint     |       | normalized memory size. [0, 100]            |
-| status          | string     |       | status of a machine                         |
+| cpu_num          | bigint     |       | number of cpu on a machine                  |
+| mem_size         | bigint     |       | normalized memory size. [0, 100]            |
+| status           | string     |       | status of a machine                         |
 +------------------------------------------------------------------------------------+
 
 * about failure_domain_1: We have multiple levels of failure domains of which two are provided in this version of trace. For any application that requires fault tolerance, their instances should be spread across many failure domains. This is an enumerate value.
 
 ### machine usage
 +------------------------------------------------------------------------------------+
-| Field           | Type       | Label | Comment                                     |
+| Field            | Type       | Label | Comment                                     |
 +------------------------------------------------------------------------------------+
-| machine_id      | string     |       | uid of machine                              |
-| time_stamp      | double     |       | time stamp, in second                       |
+| machine_id       | string     |       | uid of machine                              |
+| time_stamp       | double     |       | time stamp, in second                       |
 | cpu_util_percent | bigint     |       | [0, 100]                                   |
 | mem_util_percent | bigint     |       | [0, 100]                                   |
-| mem_gps         | double     |       |  normalized memory bandwidth, [0, 100]      |
-| mkpi            | bigint     |       |  cache miss per thousand instruction        |
-| net_in          | double     |       |  normarlized in coming network traffic, [0, 100]   |
-| net_out         | double     |       |  normarlized out going network traffic, [0, 100]   |
-| disk_io_percent | double     |       |  [0, 100], abnormal values are of -1 or 101 |
+| mem_gps          | double     |       |  normalized memory bandwidth, [0, 100]      |
+| mkpi             | bigint     |       |  cache miss per thousand instruction        |
+| net_in           | double     |       |  normarlized in coming network traffic, [0, 100]   |
+| net_out          | double     |       |  normarlized out going network traffic, [0, 100]   |
+| disk_io_percent  | double     |       |  [0, 100], abnormal values are of -1 or 101 |
 +------------------------------------------------------------------------------------+
 
 
@@ -53,17 +53,17 @@ The index below is aligned with the data column in each file.
 
 ### container usage
 +------------------------------------------------------------------------------------+
-| container_id    | string     |       | uid of a container                          |
-| machine_id      | string     |       | uid of container's host machine             |
-| time_stamp      | double     |       | time stamp, in second                       |
+| container_id     | string     |       | uid of a container                          |
+| machine_id       | string     |       | uid of container's host machine             |
+| time_stamp       | double     |       | time stamp, in second                       |
 | cpu_util_percent | bigint     |       |                                             |
 | mem_util_percent | bigint     |       |                                             |
-| cpi             | double     |       |                                             |
-| mem_gps         | double     |       | normalized memory bandwidth, [0, 100]       |
-| mpki            | bigint     |       |                                             |
-| net_in          | double     |       | normarlized in coming network traffic, [0, 100] |
-| net_out         | double     |       | normarlized out going network traffic, [0, 100] |
-| disk_io_percent | double     |       | [0, 100], abnormal values are of -1 or 101  |
+| cpi              | double     |       |                                             |
+| mem_gps          | double     |       | normalized memory bandwidth, [0, 100]       |
+| mpki             | bigint     |       |                                             |
+| net_in           | double     |       | normarlized in coming network traffic, [0, 100] |
+| net_out          | double     |       | normarlized out going network traffic, [0, 100] |
+| disk_io_percent  | double     |       | [0, 100], abnormal values are of -1 or 101  |
 +------------------------------------------------------------------------------------+
 
 ### batch task
