@@ -60,7 +60,7 @@ total 98G
 
 ## 2.2 Schema
 
-For the sake of clearity, all scheme description is moved to [schema](./schema.txt).
+For the sake of clearity, all scheme description is moved to [schema](./schema.md).
 
 **Some explanation of common fields.**
 

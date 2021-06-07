@@ -1,28 +1,27 @@
-# Schema
+# 1. Schema
 
 This file describes the schema of each data file. 
 
 The index below is aligned with the data column in each file.
 
-### machine meta
-+------------------------------------------------------------------------------------+
+## 1.1 Machine Meta
+
 | Field            | Type       | Label | Comment                                     |
-+------------------------------------------------------------------------------------+
+|------------------|------------|-------|---------------------------------------------|
 | machine_id       | string     |       | uid of machine                              |
 | time_stamp       | bigint     |       | time stamp, in second                       |
-| failure_domain_1 | bigint     |       | one level of container failure domain      |
-| failure_domain_2 | string     |       | another level of container failure domain  |
+| failure_domain_1 | bigint     |       | one level of container failure domain       |
+| failure_domain_2 | string     |       | another level of container failure domain   |
 | cpu_num          | bigint     |       | number of cpu on a machine                  |
 | mem_size         | bigint     |       | normalized memory size. [0, 100]            |
 | status           | string     |       | status of a machine                         |
-+------------------------------------------------------------------------------------+
 
-* about failure_domain_1: We have multiple levels of failure domains of which two are provided in this version of trace. For any application that requires fault tolerance, their instances should be spread across many failure domains. This is an enumerate value.
+* About `failure_domain_1`: We have multiple levels of failure domains of which two are provided in this version of trace. For any application that requires fault tolerance, their instances should be spread across many failure domains. This is an enumerate value.
 
-### machine usage
-+------------------------------------------------------------------------------------+
+## 1.2 Machine Usage
+
 | Field            | Type       | Label | Comment                                     |
-+------------------------------------------------------------------------------------+
+|------------------|------------|-------|---------------------------------------------|
 | machine_id       | string     |       | uid of machine                              |
 | time_stamp       | double     |       | time stamp, in second                       |
 | cpu_util_percent | bigint     |       | [0, 100]                                   |
@@ -32,13 +31,12 @@ The index below is aligned with the data column in each file.
 | net_in           | double     |       |  normarlized in coming network traffic, [0, 100]   |
 | net_out          | double     |       |  normarlized out going network traffic, [0, 100]   |
 | disk_io_percent  | double     |       |  [0, 100], abnormal values are of -1 or 101 |
-+------------------------------------------------------------------------------------+
 
 
-### container meta
-+------------------------------------------------------------------------------------+
+## 1.3 Container Meta
+
 | Field           | Type       | Label | Comment                                     |
-+------------------------------------------------------------------------------------+
+|-----------------|------------|-------|---------------------------------------------|
 | container_id    | string     |       | uid of a container                          |
 | machine_id      | string     |       | uid of container's host machine             |
 | time_stamp      | bigint     |       |                                             |
@@ -47,12 +45,13 @@ The index below is aligned with the data column in each file.
 | cpu_request     | bigint     |       | 100 is 1 core                               |
 | cpu_limit       | bigint     |       | 100 is 1 core                               |
 | mem_size        | double     |       | normarlized memory, [0, 100]                |
-+------------------------------------------------------------------------------------+
 
-* about app_du: Containers belong to the same deploy unit provides one service, typically, they should be spread across failure domains
+* About `app_du`: Containers belong to the same deploy unit provides one service, typically, they should be spread across failure domains
 
-### container usage
-+------------------------------------------------------------------------------------+
+## 1.4 Container Usage
+
+| Field            | Type       | Label | Comment                                     |
+|------------------|------------|-------|---------------------------------------------|
 | container_id     | string     |       | uid of a container                          |
 | machine_id       | string     |       | uid of container's host machine             |
 | time_stamp       | double     |       | time stamp, in second                       |
@@ -64,10 +63,11 @@ The index below is aligned with the data column in each file.
 | net_in           | double     |       | normarlized in coming network traffic, [0, 100] |
 | net_out          | double     |       | normarlized out going network traffic, [0, 100] |
 | disk_io_percent  | double     |       | [0, 100], abnormal values are of -1 or 101  |
-+------------------------------------------------------------------------------------+
 
-### batch task
-+------------------------------------------------------------------------------------+
+## 1.5 Batch Task
+
+| Field           | Type       | Label | Comment                                     |
+|-----------------|------------|-------|---------------------------------------------|
 | task_name       | string     |       | task name. unique within a job              |
 | instance_num    | bigint     |       | number of instances                         |
 | job_name        | string     |       | job name                                    |
@@ -77,11 +77,13 @@ The index below is aligned with the data column in each file.
 | end_time        | bigint     |       | end of time the task                        |
 | plan_cpu        | double     |       | number of cpu needed by the task, 100 is 1 core |
 | plan_mem        | double     |       | normalized memorty size, [0, 100]           |
-+------------------------------------------------------------------------------------+
 
-* task name indicates the DAG information, see the explanation of batch workloads
+* The `task_name` field indicates the DAG information, see the explanation of batch workloads
 
-### batch instance
+## 1.6 Batch Instance
+
+| Field           | Type       | Label | Comment                                     |
+|-----------------|------------|-------|---------------------------------------------|
 | instance_name   | string     |       | instance name of the instance               |
 | task_name       | string     |       | name of task to which the instance belong   |
 | job_name        | string     |       | name of job to which the instance belong    |
@@ -96,7 +98,6 @@ The index below is aligned with the data column in each file.
 | cpu_max         | double     |       | average memory used by the instance (normalized) |
 | mem_avg         | double     |       | max cpu used by the instance, 100 is 1 core      |
 | mem_max         | double     |       | max memory used by the instance (normalized, [0, 100]) |
-+------------------------------------------------------------------------------------+
 
-* Task name is uniqe within a job; note task name indicates the DAG information, see the explanation of batch workloads
+* The `task_name` field is uniqe within a job; note task name indicates the DAG information, see the explanation of batch workloads
 * There are totally 12 types, and only some of them have DAG info
