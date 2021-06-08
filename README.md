@@ -7,7 +7,7 @@ The *Alibaba Cluster Trace Program* is published by Alibaba Group. By providing 
 So far, two versions of traces have been released:
 
 * *cluster-trace-v2017* includes about 1300 machines in a period of 12 hours. The trace-v2017 firstly introduces the collocation of online services (aka long running applications) and batch workloads. To see more about this trace, see related documents ([trace_2017](./cluster-trace-v2017/trace_201708.md)). Download link is available after a short survey ([survey link](https://goo.gl/forms/eOoe6DwZQpd2H5n53)).
-* *cluster-trace-v2018* includes about 4000 machines in a period of 8 days. Besides having larger scaler than trace-v2017, this piece trace also contains  the DAG information of our production batch workloads. See related documents for more details ([trace_2018](./cluster-trace-v2018/trace_2018.md)). Download link is available after a survey (less than a minute, [survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)).
+* *cluster-trace-v2018* includes about 4000 machines in a period of 8 days. Besides having larger scaler than trace-v2017, this piece trace also contains  the DAG information of our production batch workloads. See related documents for more details ([trace_2018](./cluster-trace-v2018/README.md)). Download link is available after a survey (less than a minute, [survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)).
 
 We will release the cluster-trace-v2021 related to microservices in the following months. These traces contain the details of all complete invocation processes, including call dependencies between microservices, respond time, interfaces, and communication paradigms.
 
