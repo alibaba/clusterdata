@@ -95,8 +95,8 @@ The index below is aligned with the data column in each file.
 | seq_no          | bigint     |       | sequence number of this instance            |
 | total_seq_no    | bigint     |       | total sequence number of this instance      |
 | cpu_avg         | double     |       | average cpu used by the instance, 100 is 1 core  |
-| cpu_max         | double     |       | average memory used by the instance (normalized) |
-| mem_avg         | double     |       | max cpu used by the instance, 100 is 1 core      |
+| cpu_max         | double     |       | max cpu used by the instance (normalized) |
+| mem_avg         | double     |       | average memory used by the instance, 100 is 1 core      |
 | mem_max         | double     |       | max memory used by the instance (normalized, [0, 100]) |
 
 * The `task_name` field is uniqe within a job; note task name indicates the DAG information, see the explanation of batch workloads
