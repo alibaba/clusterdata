@@ -3,7 +3,7 @@
 
 As part of the Alibaba Open Cluster Trace Program, a new version of cluster trace, `cluster-trace-v2018`, is released this year. The trace is sampled from one of our production clusters. Similar to the trace from 2017, there are both online services (aka long running applications, LRA) and batch workloads colocated in every machine in the cluster. Over the past year, the scale of colocation of online services and batch workloads have greatly increased resulting in the improvement of our overall resource utilization.
 
-The colocated workloads are managed by the coordination of two schedulers, Sigma for online services and Fuxi for batch workloads. The figure below depicts the architecture of Sigma and Fuxi coloation.
+The colocated workloads are managed by the coordination of two schedulers, Sigma for online services and Fuxi for batch workloads. The figure below depicts the architecture of Sigma and Fuxi colocation.
 
 ![Sigma-Fuxi-Colocation](./sigma-fuxi-collocation.jpg)
 
@@ -11,14 +11,14 @@ The colocated workloads are managed by the coordination of two schedulers, Sigma
 
 ## 2.1 About
 
-Cluster-trace-v2018 includes about 4000 machines in a periods of 8 days and is consisted of 6 tables (each is a file). Here is a brief introduction of the tables and the detail of each table is provided in section *2.2 Schema*.
+Cluster-trace-v2018 includes about 4000 machines in periods of 8 days and is consisted of 6 tables (each is a file). Here is a brief introduction of the tables and the details of each table is provided in section *2.2 Schema*.
 
-* machine_meta.csv：the meta info and event infor of machines.
+* machine_meta.csv：the meta info and event info of machines.
 * machine_usage.csv: the resource usage of each machine.
-* container_meta.csv：the meta info and event infor of containers.
+* container_meta.csv：the meta info and event info of containers.
 * container_usage.csv：the resource usage of each container.
-* batch_instance.csv：inforamtion about instances in the batch workloads.
-* batch_task.csv：inforamtion about instances in the batch workloads. Note that the DAG information of each job's tasks is described in the task_name field.
+* batch_instance.csv：information about instances in the batch workloads.
+* batch_task.csv：information about instances in the batch workloads. Note that the DAG information of each job's tasks is described in the task_name field.
 
 ### Downloading the data
 
@@ -64,16 +64,16 @@ For the sake of clearity, all scheme description is moved to [schema](./schema.m
 
 **Some explanation of common fields.**
 
-* time_stamp, start_time and end_time: These fields in the tables are all with unit "second" and the number if the difference of between the actual time and the beginning of the period over which the trace is sampled. The beginning of period is 0.
+* time_stamp, start_time and end_time: These fields in the tables are all with unit "second" and the number if the difference between the actual time and the beginning of the period over which the trace is sampled. The beginning of period is 0.
 * For confidential reason, we normalize some values such as memory size and disk size and rescale such field between [0, 100]. However, there are some invalid values and they are set to either -1 or 101.
 
 ## 2.3 DAG of batch worloads
 
-*In this version of cluster data, we include many types of batch wokrloads. Most of them are DAGs while some of them are not. For those tasks that are not DAGs, we name them using random characters, such as `task_Nzg3ODAwNDgzMTAwNTc2NTQ2Mw==` or `task_Nzg3ODAwNDgzMTAwODc2NTQ3MQ==`. These tasks can be treated as independent tasks. In the remainder of this section, we explain how to deduce DAG of a job from the task names.*
+*In this version of cluster data, we include many types of batch wokrloads. Most of them are DAGs, while some of them are not. For those tasks that are not DAGs, we name them using random characters, such as `task_Nzg3ODAwNDgzMTAwNTc2NTQ2Mw==` or `task_Nzg3ODAwNDgzMTAwODc2NTQ3MQ==`. These tasks can be treated as independent tasks. In the remainder of this section, we explain how to deduce DAG of a job from the task names.*
 
 A complete batch computation job can be described using "job-task-instance" model. We will describe the meaning of each term and how the DAG information is expressed in the trace.
 
-A job is typically consisted of several tasks whose depencies are expressed by DAG (Directed Acyclic Graph). Each task has a number of instances, and only when all the instances of a task are completed can a task be considered as "finished", i.e. if task-2 is depending on task-1, any instance of task-2 cannot be started before all the instances of task-1 are completed. The DAG of tasks in a job can be deduced from the `task_name` field of all tasks of this job, and it is explained with the following example.
+A job is typically consisted of several tasks whose dependencies are expressed by DAG (Directed Acyclic Graph). Each task has a number of instances, and only when all the instances of a task are completed, a task can be considered as "finished", i.e. if task-2 is depending on task-1, any instance of task-2 cannot be started before all the instances of task-1 are completed. The DAG of tasks in a job can be deduced from the `task_name` field of all tasks of this job, and it is explained with the following example.
 
 The DAG of Job-A is shown in the following figure. Job-A is consisted of 5 tasks with some dependencies. The DAG of the 5 tasks are expressed with their `task_name`. For each task:
 

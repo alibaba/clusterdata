@@ -22,22 +22,22 @@ The index below is aligned with the data column in each file.
 
 | Field            | Type       | Label | Comment                                     |
 |------------------|------------|-------|---------------------------------------------|
-| machine_id       | string     |       | uid of machine                              |
+| machine_id       | string     |       | uid of the machine                              |
 | time_stamp       | double     |       | time stamp, in second                       |
 | cpu_util_percent | bigint     |       | [0, 100]                                   |
 | mem_util_percent | bigint     |       | [0, 100]                                   |
-| mem_gps          | double     |       |  normalized memory bandwidth, [0, 100]      |
-| mkpi             | bigint     |       |  cache miss per thousand instruction        |
-| net_in           | double     |       |  normarlized in coming network traffic, [0, 100]   |
-| net_out          | double     |       |  normarlized out going network traffic, [0, 100]   |
-| disk_io_percent  | double     |       |  [0, 100], abnormal values are of -1 or 101 |
+| mem_gps          | double     |       | normalized memory bandwidth, [0, 100]      |
+| mkpi             | bigint     |       | cache miss per thousand instruction        |
+| net_in           | double     |       | normarlized incoming network traffic, [0, 100]   |
+| net_out          | double     |       | normarlized outgoing network traffic, [0, 100]   |
+| disk_io_percent  | double     |       | [0, 100], abnormal values are of -1 or 101 |
 
 
 ## 1.3 Container Meta
 
 | Field           | Type       | Label | Comment                                     |
 |-----------------|------------|-------|---------------------------------------------|
-| container_id    | string     |       | uid of a container                          |
+| container_id    | string     |       | uid of the container                          |
 | machine_id      | string     |       | uid of container's host machine             |
 | time_stamp      | bigint     |       |                                             |
 | app_du          | string     |       | containers with same app_du belong to same application group |
@@ -52,7 +52,7 @@ The index below is aligned with the data column in each file.
 
 | Field            | Type       | Label | Comment                                     |
 |------------------|------------|-------|---------------------------------------------|
-| container_id     | string     |       | uid of a container                          |
+| container_id     | string     |       | uid of the container                          |
 | machine_id       | string     |       | uid of container's host machine             |
 | time_stamp       | double     |       | time stamp, in second                       |
 | cpu_util_percent | bigint     |       |                                             |
@@ -60,9 +60,9 @@ The index below is aligned with the data column in each file.
 | cpi              | double     |       |                                             |
 | mem_gps          | double     |       | normalized memory bandwidth, [0, 100]       |
 | mpki             | bigint     |       |                                             |
-| net_in           | double     |       | normarlized in coming network traffic, [0, 100] |
-| net_out          | double     |       | normarlized out going network traffic, [0, 100] |
-| disk_io_percent  | double     |       | [0, 100], abnormal values are of -1 or 101  |
+| net_in           | double     |       | normalized incoming network traffic, [0, 100] |
+| net_out          | double     |       | normalized outgoing network traffic, [0, 100] |
+| disk_io_percent  | double     |       | [0, 100], abnormal values are -1 or 101  |
 
 ## 1.5 Batch Task
 
@@ -76,7 +76,7 @@ The index below is aligned with the data column in each file.
 | start_time      | bigint     |       | start time of the task                      |
 | end_time        | bigint     |       | end of time the task                        |
 | plan_cpu        | double     |       | number of cpu needed by the task, 100 is 1 core |
-| plan_mem        | double     |       | normalized memorty size, [0, 100]           |
+| plan_mem        | double     |       | normalized memory size, [0, 100]           |
 
 * The `task_name` field indicates the DAG information, see the explanation of batch workloads
 
@@ -85,13 +85,13 @@ The index below is aligned with the data column in each file.
 | Field           | Type       | Label | Comment                                     |
 |-----------------|------------|-------|---------------------------------------------|
 | instance_name   | string     |       | instance name of the instance               |
-| task_name       | string     |       | name of task to which the instance belong   |
-| job_name        | string     |       | name of job to which the instance belong    |
+| task_name       | string     |       | name of task to which the instance belongs   |
+| job_name        | string     |       | name of job to which the instance belongs    |
 | task_type       | string     |       | task type                                   |
 | status          | string     |       | instance status                             |
 | start_time      | bigint     |       | start time of the instance                  |
 | end_time        | bigint     |       | end time of the instance                    |
-| machine_id      | string     |       | uid of host machine of the instance         |
+| machine_id      | string     |       | uid of the host machine of the instance         |
 | seq_no          | bigint     |       | sequence number of this instance            |
 | total_seq_no    | bigint     |       | total sequence number of this instance      |
 | cpu_avg         | double     |       | average cpu used by the instance, 100 is 1 core  |
