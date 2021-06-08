@@ -11,7 +11,7 @@ The colocated workloads are managed by the coordination of two schedulers, Sigma
 
 ## 2.1 About
 
-Cluster-trace-v2018 includes about 4000 machines in a perids of 8 days and is consisted of 6 tables (each is a file). Here is a brief introduction of the tables and the detail of each table is provided in section *2.2 Schema*.
+Cluster-trace-v2018 includes about 4000 machines in a periods of 8 days and is consisted of 6 tables (each is a file). Here is a brief introduction of the tables and the detail of each table is provided in section *2.2 Schema*.
 
 * machine_meta.csv：the meta info and event infor of machines.
 * machine_usage.csv: the resource usage of each machine.
