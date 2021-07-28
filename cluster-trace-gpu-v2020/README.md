@@ -1,6 +1,6 @@
 # 1 Introduction
 
-The trace is the workload described in ["MLaaS in the Wild: Workload Analysis and Scheduling in Large-Scale Heterogeneous GPU Clusters"](https://arxiv.org/abs/xxxxxx) in NSDI’22. This work was done as part of Alibaba CLoud's [Cluster Trace Program](https://github.com/alibaba/clusterdata).
+The trace is the workload described in "MLaaS in the Wild: Workload Analysis and Scheduling in Large-Scale Heterogeneous GPU Clusters" in NSDI’22. This work was done as part of Alibaba CLoud's [Cluster Trace Program](https://github.com/alibaba/clusterdata).
 
 We provide the trace as is. We would encourage anybody who uses this trace to cite our NSDI’22 paper.
 
@@ -286,5 +286,11 @@ EOF
 
 The displayed [Jupyter notebook](./analysis/analysis.ipynb) and the underlying [utility script](./analysis/utils.py) can be found under the [analysis](./analysis) directory.
 
-![analysis.png](./figures/analysis.png)
+![analysis-01.png](./figures/analysis-01.png)
+![analysis-02.png](./figures/analysis-02.png)
+![analysis-03.png](./figures/analysis-03.png)
+![analysis-04.png](./figures/analysis-04.png)
+![analysis-05.png](./figures/analysis-05.png)
+![analysis-06.png](./figures/analysis-06.png)
+![analysis-07.png](./figures/analysis-07.png)
 
