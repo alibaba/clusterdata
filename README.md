@@ -4,14 +4,15 @@
 
 The *Alibaba Cluster Trace Program* is published by Alibaba Group. By providing cluster trace from real production, the program helps the researchers, students and people who are interested in the field to get better understanding of the characterastics of modern internet data centers (IDC's) and the workloads.
 
-So far, two versions of traces have been released:
+So far, three versions of traces have been released:
 
 * *cluster-trace-v2017* includes about 1300 machines in a period of 12 hours. The trace-v2017 firstly introduces the collocation of online services (aka long running applications) and batch workloads. To see more about this trace, see related documents ([trace_2017](./cluster-trace-v2017/trace_201708.md)). Download link is available after a short survey ([survey link](https://goo.gl/forms/eOoe6DwZQpd2H5n53)).
 * *cluster-trace-v2018* includes about 4000 machines in a period of 8 days. Besides having larger scaler than trace-v2017, this piece trace also contains  the DAG information of our production batch workloads. See related documents for more details ([trace_2018](./cluster-trace-v2018/trace_2018.md)). Download link is available after a survey (less than a minute, [survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)).
+* *cluster-trace-gpu-v2020* includes about 6500 machines in a period of 2 months. It describe the AI/ML workloads in the MLaaS (Machine-Learning-as-a-Service) provided by the [Alibaba PAI (Platform for Artificial Intelligence)](https://www.alibabacloud.com/product/machine-learning) on GPU clusters. See subdirectory for the released data, data schema, and data processing script and Jupyter notebook ([pai_gpu_trace_2020](./cluster-trace-gpu-v2020/README.md)).
 
 We will release the cluster-trace-v2021 related to microservices in the following months. These traces contain the details of all complete invocation processes, including call dependencies between microservices, respond time, interfaces, and communication paradigms.
 
-We encourage anyone to use the traces for study or research purposes, and if you had any question when using the trace, please contact us via email: [aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com), or file an issue on Github. Filing an issue is recommanded as the discussion would help all the community. Note that the more clearly you ask the question, the more likely you would get a clear answer.
+We encourage anyone to use the traces for study or research purposes, and if you had any question when using the trace, please contact us via email: [alibaba-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com), or file an issue on Github. Filing an issue is recommanded as the discussion would help all the community. Note that the more clearly you ask the question, the more likely you would get a clear answer.
 
 It would be much appreciated if you could tell us once any publication using our trace is available, as we are maintaining a list of related publicatioins for more researchers to better communicate with each other.
 
@@ -35,6 +36,8 @@ Last but not least, we are always open to work together with researchers to impr
 
 The fundemental idea of our releasing cluster data is to enable researchers & practitioners doing resaerch, simulation with more realistic data and thus making the result closer to industry adoption. It is a huge encouragement to us to see more works using our data. Here is a list of existing works using Alibaba cluster data. **If your paper uses our trace, it would be great if you let us know by sending us email** ([aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com)).
 
+* cluster trace GPU v2020
+  * "MLaaS in the Wild: Workload Analysis and Scheduling in Large-Scale Heterogeneous GPU Clusters", by Qizhen Weng, Wencong Xiao, Yinghao Yu, Wei Wang, Cheng Wang, Jian He, Yong Li, Liping Zhang, Wei Lin, and Yu Ding, to appear in the 19th USENIX Symposium on Networked Systems Design and Implementation (NSDI’22), Renton, WA, April 2022.
 * cluster trace v2018
   * [Who Limits the Resource Efficiency of My Datacenter: An Analysis of Alibaba Datacenter Traces](https://dl.acm.org/citation.cfm?doid=3326285.3329074), Jing Guo, Zihao Chang, Sa Wang, Haiyang Ding, Yihui Feng, Liang Mao, Yungang Bao, IEEE/ACM International Symposium on Quality of Service, IWQoS 2019
   * [DeepJS: Job Scheduling Based on Deep Reinforcement Learning in Cloud Data Center](https://github.com/RobertLexis/CloudSimPy/blob/master/playground/paper/F0049-4.19.pdf), by Fengcun Li and Bo Hu.
