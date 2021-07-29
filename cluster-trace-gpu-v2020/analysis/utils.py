@@ -42,18 +42,6 @@ def get_dfiw(dfi):
     dfiw.loc[dfiw.start_time==0, 'start_time'] = np.nan
     dfiw.loc[dfiw.start_time==0, 'end_time'] = np.nan
     return dfiw
-# def get_dfiw(dfi):
-#     dfi_s = dfi[dfi.start_time > 0][['worker_name','start_time']].groupby('worker_name').min()  # start_time
-#     dfi_e = dfi[dfi.end_time > 0][['worker_name','end_time']].groupby('worker_name').max()  # end_time
-#     dfi_m = dfi[(dfi.start_time > 0) & (dfi.end_time > 0)][['worker_name','end_time','start_time']]
-#     dfi_m['runtime'] = dfi_m.end_time-dfi_m.start_time
-#     dfi_m = dfi_m.groupby('worker_name').mean()[['runtime']].reset_index() # runtime
-
-#     dfi_u = dfi[['worker_name','status']].drop_duplicates().groupby('worker_name').max() # status
-#     dfiw = dfi_u
-#     for df in [dfi_s, dfi_e, dfi_m]:
-#         dfiw = dfiw.merge(df, on='worker_name', how='left')
-#     return dfiw
 
 def get_dfw(dfi, dft, dfg):
     dfw = get_dfiw(dfi)
