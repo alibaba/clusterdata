@@ -109,7 +109,7 @@ EOF
 | end_time   | 4551416.0                                                    |
 
 - `job_name`: name of users' submit jobs. It has been desensitized to protect users' privacy (similar to `user_name`, `worker_name`, `inst_name`, etc. below).
-- `inst_id`: instance id assigned, to be joined with `inst_id` in [pai_sensor_table](##pai_sensor_table) and [pai_group_tag_table](##pai_group_tag_table).
+- `inst_id`: instance id assigned, to be joined with `inst_id` in [pai_sensor_table](#pai_sensor_table) and [pai_group_tag_table](#pai_group_tag_table).
 - `user`: user name.
 - `status`: job status, including 'Running', 'Terminated', 'Failed', 'Waiting'; only 'Terminated' tasks are successful.
 - `start_time`: timestamp of job submission time.
@@ -136,7 +136,7 @@ EOF
 | plan_gpu   | 50.0                     |
 | gpu_type   | MISC                     |
 
-- `job_name`: job name; same as the entry in [pai_job_table](##pai_job_table).
+- `job_name`: job name; same as the entry in [pai_job_table](#pai_job_table).
 - `task_name`: most jobs have only one task, but some may launch multiple tasks of different names (roles), e.g., `ps`, `worker`, `evaluator`.
 - `inst_num`: number of instances launched by the task.
 - `status`: task status.
@@ -165,14 +165,14 @@ EOF
 | end_time    | 2083889.0                                                    |
 | machine     | 471dda9ed84965451e042145                                     |
 
-- `job_name`: job name; same as the entry in [pai_job_table](##pai_job_table).
-- `task_name`: task name; same as the entry in [pai_task_table](##pai_task_table).
+- `job_name`: job name; same as the entry in [pai_job_table](#pai_job_table).
+- `task_name`: task name; same as the entry in [pai_task_table](#pai_task_table).
 - `inst_name`: name of instance in each task.
-- `worker_name`: information to distinguish instances; it is more detailed than `inst_name` and to be joined with `worker_name` in [pai_sensor_table](##pai_sensor_table) and [pai_machine_metric](##pai_machine_metric).
+- `worker_name`: information to distinguish instances; it is more detailed than `inst_name` and to be joined with `worker_name` in [pai_sensor_table](#pai_sensor_table) and [pai_machine_metric](#pai_machine_metric).
 - `status`: instance status.
 - `start_time`: timestamp of instance launch time.
 - `end_time`: timestamp of instance completion time.
-- `machine`: the name of machine that the instance resides on, to be joined with `machine` in [pai_machine_spec](##pai_machine_spec) and [pai_machine_metric](##pai_machine_metric).
+- `machine`: the name of machine that the instance resides on, to be joined with `machine` in [pai_machine_spec](##pai_machine_spec) and [pai_machine_metric](#pai_machine_metric).
 
 
 
@@ -199,16 +199,16 @@ EOF
 | read_count      | 2922.4461538461537                                           |
 | write_count     | 3419.7846153846153                                           |
 
-- `job_name`: job name; same as the entry in [pai_job_table](##pai_job_table).
-- `task_name`: task name; same as the entry in [pai_task_table](##pai_task_table).
-- `worker_name`: worker name; same as the entry in [pai_instance_table](##pai_instance_table).
-- `inst_id`: instance id; same as the entry in [pai_job_table](##pai_job_table).
-- `machine`: machine name; same as the entry in [pai_instance_table](##pai_instance_table).
+- `job_name`: job name; same as the entry in [pai_job_table](#pai_job_table).
+- `task_name`: task name; same as the entry in [pai_task_table](#pai_task_table).
+- `worker_name`: worker name; same as the entry in [pai_instance_table](#pai_instance_table).
+- `inst_id`: instance id; same as the entry in [pai_job_table](#pai_job_table).
+- `machine`: machine name; same as the entry in [pai_instance_table](#pai_instance_table).
 - `gpu_name`: name of the GPU on that machine (not `gpu_type`).
-- `cpu_usage`: number of CPU cores used in percentage (i.e., 600.0 is 6 vCPU cores) (c.f. `plan_cpu` in [pai_task_table](##pai_task_table)).
-- `gpu_wrk_util`: number of GPUs used in percentage (i.e., 50.0 is 50% GPU) (c.f., `plan_gpu` in [pai_task_table](##pai_task_table)).
-- `avg_mem`: GB of main memory used (in average) (c.f., `plan_mem` in [pai_task_table](##pai_task_table)).
-- `max_mem`: GB of main memory used (maximum) (c.f., `plan_mem` in [pai_task_table](##pai_task_table)).
+- `cpu_usage`: number of CPU cores used in percentage (i.e., 600.0 is 6 vCPU cores) (c.f. `plan_cpu` in [pai_task_table](#pai_task_table)).
+- `gpu_wrk_util`: number of GPUs used in percentage (i.e., 50.0 is 50% GPU) (c.f., `plan_gpu` in [pai_task_table](#pai_task_table)).
+- `avg_mem`: GB of main memory used (in average) (c.f., `plan_mem` in [pai_task_table](#pai_task_table)).
+- `max_mem`: GB of main memory used (maximum) (c.f., `plan_mem` in [pai_task_table](#pai_task_table)).
 - `avg_gpu_wrk_mem`: GB of GPU memory used (in average).
 - `max_gpu_wrk_mem`: GB of GPU memory used (maximum).
 - `read`: Bytes of network input.
@@ -232,9 +232,9 @@ EOF
 | group         | fbeb14d671c629b6e82bee889fe4bb4c                             |
 | workload      | nmt                                                          |
 
-- `inst_id`: instance id; same as the entry in [pai_job_table](##pai_job_table).
-- `user`: user name; same as the entry in [pai_job_table](##pai_job_table).
-- `gpu_type_spec`: being empty if the instance does not specify GPU type requirements, else being one of the `gpu_type` in [pai_task_table](##pai_task_table).
+- `inst_id`: instance id; same as the entry in [pai_job_table](#pai_job_table).
+- `user`: user name; same as the entry in [pai_job_table](#pai_job_table).
+- `gpu_type_spec`: being empty if the instance does not specify GPU type requirements, else being one of the `gpu_type` in [pai_task_table](#pai_task_table).
 - `group`: a semantic tag that indicates some instances have similar customized inputs, e.g., entry scripts, command-line parameters, data sources and sinks; consequently, instances with the same group tag are considered as repeated instances. Please refer to the trace analysis paper for detailed discussion.
 - `workload`: we study some Deep Learning tasks by investigating their customized inputs (mentioned above) and record their workload in this field; around 9% instances have this tag, including `graphlearn`, `ctr`, `bert`, etc.
 
@@ -252,8 +252,8 @@ EOF
 | cap_mem  | 512                      |
 | cap_gpu  | 2                        |
 
-- `machine`: machine name; same as the entry in [pai_instance_table](##pai_instance_table).
-- `gpu_type`: GPU type; same as the entry in [pai_task_table](##pai_task_table).
+- `machine`: machine name; same as the entry in [pai_instance_table](#pai_instance_table).
+- `gpu_type`: GPU type; same as the entry in [pai_task_table](#pai_task_table).
 - `cap_cpu`: CPU capacity; number of CPU cores in the machine.
 - `cap_mem`: memory capacity; GB of main memory capacity in the machine.
 - `cap_gpu`: GPU capacity; number of GPU in the machine.
@@ -279,10 +279,10 @@ EOF
 | machine_num_worker  | 5.053068410462776                                            |
 | machine_cpu         | 18.515268699340282                                           |
 
-- `worker_name`: worker name; same as the entry in [pai_instance_table](##pai_instance_table).
-- `machine`: machine name; same as the entry in [pai_instance_table](##pai_instance_table).
-- `start_time`: timestamp of instance launch time; same as the entry in [pai_instance_table](##pai_instance_table).
-- `end_time`: timestamp of instance completion; same as the entry in [pai_instance_table](##pai_instance_table).
+- `worker_name`: worker name; same as the entry in [pai_instance_table](#pai_instance_table).
+- `machine`: machine name; same as the entry in [pai_instance_table](#pai_instance_table).
+- `start_time`: timestamp of instance launch time; same as the entry in [pai_instance_table](#pai_instance_table).
+- `end_time`: timestamp of instance completion; same as the entry in [pai_instance_table](#pai_instance_table).
 - `machine_cpu_iowait` : machine-level metrics of CPU I/O wait.
 - `machine_cpu_kernel` : machine-level metrics of CPU kernel usage.
 - `machine_cpu_usr` : machine-level metrics of CPU user usage.
