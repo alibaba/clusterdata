@@ -50,7 +50,7 @@ Below is a brief description of all the tables; the details are deferred to thei
 (**Note**: the data in `./data` folder, due to its large volume, is encouraged to be downloaded via [Git LFS](https://git-lfs.github.com/))
 
 
-**Checksum**
+**Checksum** (replacing `sha256sum` with `shasum` for macOS users)
 ```bash
 $sha256sum -c << EOF
 722fef30b7fb7aa50dabd79155614b5423a9d65cf45a9b26c590d57725423a14  pai_group_tag_table.tar.gz
