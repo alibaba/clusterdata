@@ -84,7 +84,7 @@ $ls -sh1 *.tar.gz
 
 **Usage**
 ```bash
-$cd data && tar -xzf pai_*.tar.gz
+$cd data && ls pai_*.tar.gz |xargs -n1 tar -xzf
 $sha256sum -c << EOF
 d23fcb56d88b2976fda4a62708d77b2a8c98635c4b443f100ed5553d4cd07fbe  pai_group_tag_table.csv
 b179f7d7e0927a6663d719b728c92640447c5a0fc3c6e4edff31e7207ab9dd17  pai_instance_table.csv
