@@ -64,7 +64,7 @@ For the sake of clearity, all scheme description is moved to [schema](./schema.t
 
 **Some explanation of common fields.**
 
-* time_stamp, start_time and end_time: These fields in the tables are all with unit "second" and the number if the difference of between the actual time and the beginning of the period over which the trace is sampled. The beginning of period is 0.
+* time_stamp, start_time and end_time: These fields in the tables are all with unit "second" and the number is the difference of between the actual time and the beginning of the period over which the trace is sampled. The beginning of period is 0.
 * For confidential reason, we normalize some values such as memory size and disk size and rescale such field between [0, 100]. However, there are some invalid values and they are set to either -1 or 101.
 
 ## 2.3 DAG of batch worloads
