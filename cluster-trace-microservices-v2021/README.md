@@ -28,7 +28,7 @@ MS_RT_Qps_Table: Microservice call rate (MCR) and response time (RT) information
 
 MS_CallGraph_Table: MS Call Graphs information. It contains about more than twenty million complete calls among 20000+ MSs with in more than ten clusters. 
 
-Users could run to fetch data. 
+Users could run the following command to fetch data. 
 > bash fetchData.sh
 
 It includes node/Node.tar.gz, MSCallGraph/MSCallGraph_*.tar.gz, MSResource/MSResource_*.tar.gz, MSRTQps/MSRTQps_*.tar.gz. 
