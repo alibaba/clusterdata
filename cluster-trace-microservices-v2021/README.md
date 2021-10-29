@@ -1,9 +1,20 @@
 # Overview of Microservices Traces
-The released traces contain the detailed runtime metrics of nearly twenty thousand microservices. They are collected from Alibaba production clusters of over ten thousand virtual machines during twelve hours in 2021. 
+The released traces contain the detailed runtime metrics of nearly twenty thousand microservices. They are collected from Alibaba production clusters of over ten thousand [bare-metal nodes](https://dl.acm.org/doi/10.1145/3373376.3378507) during twelve hours in 2021. 
+
+We conduct a characterization analysis on the trace in a paper, [Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis](http://cloud.siat.ac.cn/pdca/socc2021-AlibabaTraceAnalysis.pdf), published in SoCC’21. And we would encourage anybody who uses this trace to cite our paper.
+
+```BibTeX
+@inproceedings{alimicrotrace,
+  author = {Shutian Luo and Huanle Xu and Chengzhi Lu and Kejiang Ye and Guoyao Xu and Liping Zhang and Yu Ding and Jian He and Chengzhong Xu},
+  title = {Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis},
+  booktitle = {Proceedings of SoCC},
+  year = {2021},
+} 
+```
 
 # Cluster Architecture
 
-The production cluster contains a large number of virtual machines (VM) and is running in the Alibaba cloud. Users could submit their offline jobs through different controls, which will require resources from uniformed resource management (URM), or send microservices (MS) requirements to URM directly. To improve resource efficiency, URM will place containers of offline jobs and MS on the same VM. More specifically, containers of offline jobs are scheduled into safe containers, which could be regarded as lightweight VM. This can enhance isolation and mitigate interference from offline jobs to provide performance guarantees for MS containers. 
+The production cluster contains a large number of bare-metal (BM) nodes and is running in the Alibaba cloud. Users could submit their offline jobs through different controls, which will require resources from uniformed resource management (URM), or send microservices (MS) requirements to URM directly. To improve resource efficiency, URM will place containers of offline jobs and MS on the same BM node. More specifically, containers of offline jobs are scheduled into secure containers, which could be regarded as lightweight virtual machine. This can enhance isolation and mitigate interference from offline jobs to provide performance guarantees for MS containers. 
 
 ![Clusterarchitecture](./figures/Clusterarchitecture.png)
 
@@ -20,7 +31,7 @@ Microservices can be categorized into two types, stateless services (e.g., a cir
 # Introduction of Trace Data
 The traces include four parts of data as follows:
 
-NodeTable: VM Node runtime information. It records CPU and memory utilization of 1300+ VM nodes in a production cluster. 
+NodeTable: BM Node runtime information. It records CPU and memory utilization of 1300+ BM nodes in a production cluster. 
 
 MS_Resource_Table: MS runtime information. It records CPU and memory utilization of 90000+ containers for 1300+ MSs in the same production cluster. 
  
@@ -52,9 +63,9 @@ node:
 | memory_utilization    | 0.738378997619996    |	
 	
 - timestamp: Timestamp of recorded metrics. Range from 0 to 43200000 for twelve hours (12 * 60 * 60 * 1000). The recording interval is the 30s (30 * 1000). 
-- nodeid: The specific id of VM. It could be joined with nodeid in MS_Resource_Table.
-- cpu_utilization: CPU utilization of VM node.
-- memory_utilization: Memory utilization of VM node.
+- nodeid: The specific id of BM node. It could be joined with nodeid in MS_Resource_Table.
+- cpu_utilization: CPU utilization of BM node.
+- memory_utilization: Memory utilization of BM node.
 
 MS_Metrics_Table:
 |columns      | Example Entry    |
@@ -71,7 +82,7 @@ MS_Metrics_Table:
 - timestamp: Mentioned in NodeTable. The recording interval is the 60s (60 * 1000). 
 - msname: The name of MS, to be joined with MSName in MS_MCR_RT_Table, and DM and UM in MS_CallGraph_Table. MSName only contains stateless services, as stateful services run in other dedicated clusters.
 - msinstanceid:  The specific container id of MS, to be joined with UM_instanceid and UM_instanceid in MS_CallGraph_Table. An MS may have more than one container. 
-- nodeid: The specific VM in which MSInstanceID runs. 
+- nodeid: The specific BM node in which MSInstanceID runs. 
 - cpu_utilization: CPU utilization of MSInstanceID.
 - memory_utilization: Memory utilization of MSInstanceID.
 
@@ -115,4 +126,13 @@ MS_CallGraph_Table:
 - rpctype: The communication paradigms. We record rpc_type as "DB" and "MC" for the calls via inter-process communication if DM is DB and MC respectively.
 - interface: The interface of DM is called by UM. The calls via remote invocation or HTTP have the interface.
 - DM: The name of DM.
-- rt: Response time of the call. It is measured by millisecond (ms). For call via RPC, the value of RT could be a positive integer and negative integer, which are recorded in UM and DM respectively, and represents UM RT (from UM sending a request to receiving a reply) and the opposite of DM RT (from DM receiving the request to sending the reply) respectively. The RT of a call via MQ is the interval from DM fetching the message to finishing it. For call via HTTP, the UM and DM RT is also recorded as positive integer and negative integer respectively. 
+- rt: Response time of the call. It is measured by millisecond (ms). If rt is less than 1 ms, e.g. rt of read/write MC, the value will be recorded as 0. For call via RPC, the value of RT could be a positive integer and negative integer, which are recorded in UM and DM respectively, and represents UM RT (from UM sending a request to receiving a reply) and the opposite of DM RT (from DM receiving the request to sending the reply) respectively. The RT of a call via MQ is the interval from DM fetching the message to finishing it. For call via HTTP, the UM and DM RT is also recorded as positive integer and negative integer respectively. 
+
+# Discussion
+- How to identify a specific service in the traces?
+
+In practice, microservice architecture adopts proxy modules like Nginx to forward users' requests to an entering MS. The entering MS, e.g., interface of entering MS A in Fig.2, containing multiple interfaces, and each interface provides a specific service. As such, each interface of MS called by proxy MS could be labelled as an online service.  As revealed in the paper, we classify the call graphs of each online service into different classes when analyzing the dynamics of microservices. It is worth noting that, some call graphs could even contain two proxy modules, and the name of the second proxy MS are usually recorded as '(?)' or ''. 
+
+- Missing items in traces.
+  
+In these traces, it happens that some metrics in MS_CallGraph_Table are lost. For example, the name of some MS is recorded as NAN, '(?)' or '' in the traces. As the call via RPC will be recorded twice in MS_CallGraph_Table, some metrics related to rpcID could be found from another record even if one is missing. 
