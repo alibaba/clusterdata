@@ -37,7 +37,7 @@ MS_Resource_Table: MS runtime information. It records CPU and memory utilization
  
 MS_RT_Qps_Table: Microservice call rate (MCR) and response time (RT) information. It records MCR and RT of the calls via different communication paradigms among 1300+ MSs with 90000+ containers in the same production cluster. 
 
-MS_CallGraph_Table: MS Call Graphs information. It contains about more than twenty million complete calls among 20000+ MSs with in more than ten clusters. 
+MS_CallGraph_Table: MS Call Graphs information. It contains about more than twenty million call graphs among 20000+ MSs with in more than ten clusters. 
 
 Users could run the following command to fetch data. 
 > bash fetchData.sh
@@ -120,7 +120,7 @@ MS_CallGraph_Table:
 
 	
 - timestamp: Mentioned in MS_CallGraph_Table. 
-- traceid: Each complete call has a unique traceID.
+- traceid: Each call graph has a unique traceID.
 - rpcid: Each call is identified by a unique rpcID, which contains the ID information of a pair of UM and DM. For example, rpcID 0.1.1 and 0.1.2 denote two calls that two different DMs are called by the same UM, which is the DM in the call with rpcID 0.1. Note that, the call via remote invocation is recorded twice with the same rpcID in the UM and DM independently. 
 - um: The name of UM.
 - rpctype: The communication paradigms. We record rpc_type as "DB" and "MC" for the calls via inter-process communication if DM is DB and MC respectively.
