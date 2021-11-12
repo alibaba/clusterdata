@@ -4,12 +4,13 @@ The released traces contain the detailed runtime metrics of nearly twenty thousa
 We conduct a characterization analysis on the trace in a paper, [Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis](http://cloud.siat.ac.cn/pdca/socc2021-AlibabaTraceAnalysis.pdf), published in SoCC’21. And we would encourage anybody who uses this trace to cite our paper.
 
 ```BibTeX
-@inproceedings{alimicrotrace,
-  author = {Shutian Luo and Huanle Xu and Chengzhi Lu and Kejiang Ye and Guoyao Xu and Liping Zhang and Yu Ding and Jian He and Chengzhong Xu},
-  title = {Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis},
-  booktitle = {Proceedings of SoCC},
-  year = {2021},
-} 
+@inproceedings{luo2021characterizing,
+  title={Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis},
+  author={Luo, Shutian and Xu, Huanle and Lu, Chengzhi and Ye, Kejiang and Xu, Guoyao and Zhang, Liping and Ding, Yu and He, Jian and Xu, Chengzhong},
+  booktitle={Proceedings of the ACM Symposium on Cloud Computing},
+  pages={412--426},
+  year={2021}
+}
 ```
 
 # Cluster Architecture
@@ -37,7 +38,7 @@ MS_Resource_Table: MS runtime information. It records CPU and memory utilization
  
 MS_RT_Qps_Table: Microservice call rate (MCR) and response time (RT) information. It records MCR and RT of the calls via different communication paradigms among 1300+ MSs with 90000+ containers in the same production cluster. 
 
-MS_CallGraph_Table: MS Call Graphs information. It contains about more than twenty million call graphs among 20000+ MSs with in more than ten clusters. 
+MS_CallGraph_Table: MS Call Graphs information. Due to the large-scale data size, we sample the call graph based on the rate of 0.5%. It contains about more than twenty million call graphs among 20000+ MSs with in more than ten clusters. 
 
 Users could run the following command to fetch data. 
 > bash fetchData.sh
