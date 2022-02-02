@@ -4,13 +4,12 @@
 
 The *Alibaba Cluster Trace Program* is published by Alibaba Group. By providing cluster trace from real production, the program helps the researchers, students and people who are interested in the field to get better understanding of the characterastics of modern internet data centers (IDC's) and the workloads.
 
-So far, three versions of traces have been released:
+So far, four versions of traces have been released:
 
 * *cluster-trace-v2017* includes about 1300 machines in a period of 12 hours. The trace-v2017 firstly introduces the collocation of online services (aka long running applications) and batch workloads. To see more about this trace, see related documents ([trace_2017](./cluster-trace-v2017/trace_201708.md)). Download link is available after a short survey ([survey link](https://goo.gl/forms/eOoe6DwZQpd2H5n53)).
 * *cluster-trace-v2018* includes about 4000 machines in a period of 8 days. Besides having larger scaler than trace-v2017, this piece trace also contains  the DAG information of our production batch workloads. See related documents for more details ([trace_2018](./cluster-trace-v2018/trace_2018.md)). Download link is available after a survey (less than a minute, [survey link](http://alibabadeveloper.mikecrm.com/BdJtacN)).
 * *cluster-trace-gpu-v2020* includes over 6500 GPUs (on ~1800 machines)  in a period of 2 months. It describe the AI/ML workloads in the MLaaS (Machine-Learning-as-a-Service) provided by the [Alibaba PAI (Platform for Artificial Intelligence)](https://www.alibabacloud.com/product/machine-learning) on GPU clusters. See the subdirectory ([pai_gpu_trace_2020](./cluster-trace-gpu-v2020/README.md)) for the released data, schema, and scripts for processing and visualization. Our analysis paper, published in NSDI '22, is also available [here](https://home.cse.ust.hk/~weiwa/papers/weng-nsdi22.pdf).
-
-We will release the cluster-trace-v2021 related to microservices in the following months. These traces contain the details of all complete invocation processes, including call dependencies between microservices, respond time, interfaces, and communication paradigms.
+* *cluster-trace-microservices-v2021* contains 20000+ microservices in a period of 12 hours. The traces the first released to introduce the runtime metrics of microservices in the production cluster, including call dependencies, respond time, call rates, and so on. See the subdirectory ([trace_2021](./cluster-trace-microservices-v2021/README.md)) for more details. Our analysis paper, accepted by SoCC '21, is available [here](http://cloud.siat.ac.cn/pdca/socc2021-AlibabaTraceAnalysis.pdf).
 
 We encourage anyone to use the traces for study or research purposes, and if you had any question when using the trace, please contact us via email: [alibaba-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com), or file an issue on Github. Filing an issue is recommanded as the discussion would help all the community. Note that the more clearly you ask the question, the more likely you would get a clear answer.
 
@@ -26,7 +25,7 @@ From our perspective, the data is provided to address [the challenges Alibaba fa
 
 1. **Workload characterizations**. How to characterize Alibaba workloads in a way that we can simulate various production workload in a representative way for scheduling and resource management strategy studies.
 2. **New algorithms to assign workload to machines**. How to assign and reschedule workloads to machines for better resource utilization and ensuring the performance SLA for different applications (e.g. by reducing resource contention and defining proper proirities).
-3. **Collaboration between online service scheduler (Sigma) and batch jobs scheduler (Fuxi)**. How to adjust resource allocation between online service and batch jobs to improve throughput of batch jobs while maintain acceptable QoS (Quolity of Service) and fast failure recovery for online service. As the scale of collocation (workloads managed by different schedulers) keeps growing, the design of collaboration mechanism is becoming more and more critical.
+3. **Collaboration between online service scheduler (Sigma) and batch jobs scheduler (Fuxi)**. How to adjust resource allocation between online service and batch jobs to improve throughput of batch jobs while maintain acceptable QoS (Quality of Service) and fast failure recovery for online service. As the scale of collocation (workloads managed by different schedulers) keeps growing, the design of collaboration mechanism is becoming more and more critical.
 
 Last but not least, we are always open to work together with researchers to improve the efficiency of our clusters, and there are positions open for research interns. If you had any idea in your mind, please contact us via [aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com) or [Haiyang Ding](mailto:haiyang.dhy@alibaba-inc.com) (Haiyang maintains this cluster trace and works for Alibaba's resource management & scheduling group).
 
@@ -34,8 +33,11 @@ Last but not least, we are always open to work together with researchers to impr
 
 ### Papers using Alibaba cluster trace
 
-The fundemental idea of our releasing cluster data is to enable researchers & practitioners doing resaerch, simulation with more realistic data and thus making the result closer to industry adoption. It is a huge encouragement to us to see more works using our data. Here is a list of existing works using Alibaba cluster data. **If your paper uses our trace, it would be great if you let us know by sending us email** ([aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com)).
+The fundamental idea of our releasing cluster data is to enable researchers & practitioners doing resaerch, simulation with more realistic data and thus making the result closer to industry adoption. It is a huge encouragement to us to see more works using our data. Here is a list of existing works using Alibaba cluster data. **If your paper uses our trace, it would be great if you let us know by sending us email** ([aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com)).
 
+
+* microservices trace v2021
+  * [Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis](http://cloud.siat.ac.cn/pdca/socc2021-AlibabaTraceAnalysis.pdf), Shutian Luo, Huanle Xu, Chengzhi Lu, Kejiang Ye, Guoyao Xu, Liping Zhang, Yu Ding, Jian He, Chengzhong Xu. SoCC'21
 * cluster trace GPU v2020
   * [MLaaS in the Wild: Workload Analysis and Scheduling in Large-Scale Heterogeneous GPU Clusters](https://home.cse.ust.hk/~weiwa/papers/weng-nsdi22.pdf), by Qizhen Weng, Wencong Xiao, Yinghao Yu, Wei Wang, Cheng Wang, Jian He, Yong Li, Liping Zhang, Wei Lin, and Yu Ding, to appear in the 19th USENIX Symposium on Networked Systems Design and Implementation (NSDI ’22), Renton, WA, April 2022.
 * cluster trace v2018
