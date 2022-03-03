@@ -41,8 +41,8 @@ container_usage.csv,11, maximum cycles per instruction, FLOAT, NO
 container_usage.csv,12, maximum last-level cache misses per 1000 instructions, FLOAT, NO
 server_event.csv,1, timestamp, INTEGER, YES
 server_event.csv,2, machine id, INTEGER, YES
-server_event.csv,3, event type, INTEGER, YES
-server_event.csv,4, event detail, INTEGER, NO
+server_event.csv,3, event type, STRING, YES
+server_event.csv,4, event detail, STRING, NO
 server_event.csv,5, number of cpus, INTEGER, NO
 server_event.csv,6, normalized memory, FLOAT, NO
 server_event.csv,7, normalized disk space, FLOAT, NO
