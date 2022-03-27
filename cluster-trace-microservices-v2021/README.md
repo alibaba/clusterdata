@@ -82,7 +82,7 @@ MS_Metrics_Table:
 
 - timestamp: Mentioned in NodeTable. The recording interval is the 60s (60 * 1000). 
 - msname: The name of MS, to be joined with MSName in MS_MCR_RT_Table, and DM and UM in MS_CallGraph_Table. MSName only contains stateless services, as stateful services run in other dedicated clusters.
-- msinstanceid:  The specific container id of MS, to be joined with UM_instanceid and UM_instanceid in MS_CallGraph_Table. An MS may have more than one container. 
+- msinstanceid:  The specific container id of MS. An MS may have more than one container. 
 - nodeid: The specific BM node in which MSInstanceID runs. 
 - cpu_utilization: CPU utilization of MSInstanceID.
 - memory_utilization: Memory utilization of MSInstanceID.
