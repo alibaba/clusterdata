@@ -102,7 +102,7 @@ MS_MCR_RT_Table:
 - msname: Mentioned in MS_Metrics_Table. 
 - msinstanceid: Mentioned in MS_Metrics_Table. 
 - metrics: Calls Rate with different communication paradigms and corresponding RT. The value of metrics for an MS is an aggregation of all its DMs and UMs. To distinguish whether an MS is DM or UM, the Metrics are recorded with a prefix before communication paradigms. For example, RPC is named consumerRPC and providerRPC, meaning an MS as the consumer calling its DM and as the provider being called by its UM respectively. Correspondingly, MQ could be classified into two groups from an MS's point of view, namely, providerMQ, and consumerMQ. For the former, MQ is a provider that sends messages to the third party whereas, the latter is a consumer that fetches messages from the third party. As MSs in this table are all stateless services, they are only UMs to read or write stateful services. 
-     In summary, these metrics include consumerRPC_MCR, providerRPC_MCR, HTTP_MCR, providerMQ_MCR, consumerMQ_MCR,  read(write)DB(MC)_MCR, consumerRPC_RT, providerRPC_RT, HTTP_RT, providerMQ_RT, consumerMQ_RT, and read(write)DB(MC)_RT. 
+     In summary, these metrics include consumerRPC_MCR, providerRPC_MCR, HTTP_MCR, providerMQ_MCR, consumerMQ_MCR, consumerRPC_RT, providerRPC_RT, HTTP_RT, providerMQ_RT, and consumerMQ_RT. 
 - value: The value of Metrics. For example,  the value of metric providerRPC_MCR and providerRPC_RT characterize the number of calls per second and the average of response time respectively. Here, the response time is measured by millisecond (ms).
 
 MS_CallGraph_Table:
