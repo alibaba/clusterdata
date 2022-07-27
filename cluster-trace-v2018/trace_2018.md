@@ -67,9 +67,9 @@ For the sake of clearity, all scheme description is moved to [schema](./schema.t
 * time_stamp, start_time and end_time: These fields in the tables are all with unit "second" and the number is the difference of between the actual time and the beginning of the period over which the trace is sampled. The beginning of period is 0.
 * For confidential reason, we normalize some values such as memory size and disk size and rescale such field between [0, 100]. However, there are some invalid values and they are set to either -1 or 101.
 
-## 2.3 DAG of batch worloads
+## 2.3 DAG of batch worlkoads
 
-*In this version of cluster data, we include many types of batch wokrloads. Most of them are DAGs while some of them are not. For those tasks that are not DAGs, we name them using random characters, such as `task_Nzg3ODAwNDgzMTAwNTc2NTQ2Mw==` or `task_Nzg3ODAwNDgzMTAwODc2NTQ3MQ==`. These tasks can be treated as independent tasks. In the remainder of this section, we explain how to deduce DAG of a job from the task names.*
+*In this version of cluster data, we include many types of batch workloads. Most of them are DAGs while some of them are not. For those tasks that are not DAGs, we name them using random characters, such as `task_Nzg3ODAwNDgzMTAwNTc2NTQ2Mw==` or `task_Nzg3ODAwNDgzMTAwODc2NTQ3MQ==`. These tasks can be treated as independent tasks. In the remainder of this section, we explain how to deduce DAG of a job from the task names.*
 
 A complete batch computation job can be described using "job-task-instance" model. We will describe the meaning of each term and how the DAG information is expressed in the trace.
 
