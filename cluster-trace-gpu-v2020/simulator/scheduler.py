@@ -12,8 +12,7 @@ class Scheduler:
         self.verbose = verbose
         self.gpu_type_matching = gpu_type_matching
         # To skip unnecessary self.alloc_job_sort()
-        # [idle_gpu, idle_cpu, len(job_list), len(job_to_allocate_cache)]
-        self.last_time_snapshot = [0, 0, 0, 0]
+        self.last_time_snapshot = [0, 0, 0, 0]  # [idle_gpu, idle_cpu, len(job_list), len(job_to_allocate_cache)]
         self.cannot_counter = 0
 
     def alloc_job(self, cluster=None):
@@ -27,18 +26,15 @@ class Scheduler:
         this_time_snapshot = [ig, ic, len(job_list), 0]  # 0: no job allocated.
         if self.last_time_snapshot == this_time_snapshot:  # exactly the same
             if self.verbose:
-                print_fn("[{}] Last time snapshot == this time snapshot: {}. Bypass.".format(
-                    self.cluster.cur_time, this_time_snapshot))
+                print_fn("[{}] Last time snapshot == this time snapshot: {}. Bypass.".format(self.cluster.cur_time, this_time_snapshot))
             return 0
-        job_min_gpu, job_min_cpu = min(job_list, key=lambda j: j['num_inst'] * j['num_gpu']), min(
-            job_list, key=lambda j: j['num_inst'] * j['num_cpu'])
+        job_min_gpu, job_min_cpu = min(job_list, key=lambda j: j['num_inst'] * j['num_gpu']), min(job_list, key=lambda j: j['num_inst'] * j['num_cpu'])
         if (ig <= 0 or job_min_gpu['num_inst'] * job_min_gpu['num_gpu'] > ig) and (ic <= 0 or job_min_cpu['num_inst'] * job_min_cpu['num_cpu'] > ic):
             self.last_time_snapshot = this_time_snapshot
             return 0
 
         if self.verbose:
-            print_fn("job_min_gpu, job_min_cpu = {:.1f}, {:.1f}".format(
-                job_min_gpu['num_gpu'], job_min_cpu['num_cpu']))
+            print_fn("job_min_gpu, job_min_cpu = {:.1f}, {:.1f}".format(job_min_gpu['num_gpu'], job_min_cpu['num_cpu']))
 
         job_to_allocate_cache = []
         # Greedy algorithm or Greedy + load balancing
@@ -53,11 +49,9 @@ class Scheduler:
                     break
                 # else, e.g., succ_alloc == 0: pass/continue
         else:
-            raise KeyError("Uncaptured Allocation Policy Input: %d" %
-                           self.alloc_policy)
+            raise KeyError("Uncaptured Allocation Policy Input: %d" % self.alloc_policy)
 
-        # num of jobs allocated
-        this_time_snapshot[-1] = len(job_to_allocate_cache)
+        this_time_snapshot[-1] = len(job_to_allocate_cache)  # num of jobs allocated
         self.last_time_snapshot = this_time_snapshot
         for job_a in job_to_allocate_cache:
             cluster.job_list.remove(job_a)
@@ -68,8 +62,7 @@ class Scheduler:
         elif self.alloc_policy == 8:  # FIFO, remains the original order
             job_list.sort(key=lambda e: (e['submit_time'], e['job_id']))
         elif self.alloc_policy in [1, 2, 4]:  # SJF with duration estimation
-            est_feature = {1: 'user_dur', 2: 'group_dur',
-                           4: 'group_gpu_dur'}[self.alloc_policy]
+            est_feature = {1: 'user_dur', 2: 'group_dur', 4: 'group_gpu_dur'}[self.alloc_policy]
             job_list.sort(key=lambda e: (e[est_feature], e['job_id']))
         else:
             raise Exception("Unexpected alloc policy: %d" % self.alloc_policy)
@@ -114,14 +107,12 @@ class Scheduler:
                         succ_alloc = node.alloc_job(job_a)
                         assert succ_alloc
                         job_a['node'] = node.id
-                        print_fn("%sON  : N[%d] %s" % (
-                            cluster.log_prefix, job_a['node'], job_a))
+                        print_fn("%sON  : N[%d] %s" % (cluster.log_prefix, job_a['node'], job_a))
                         self.display_node_status(cur_node_id=job_a['node'])
                         return 1
                 else:  # gang-scheduling: all or nothing
                     node_idle_gpus, node_idle_cpus = node.idl_gpus, node.idl_cpus
-                    # init.
-                    node_inst_num_gpu, node_inst_num_cpu = job_a['num_inst'], job_a['num_inst']
+                    node_inst_num_gpu, node_inst_num_cpu = job_a['num_inst'], job_a['num_inst']  # init.
                     if job_a['num_gpu'] != 0:
                         node_inst_num_gpu = node_idle_gpus // job_a['num_gpu']
                     if job_a['num_cpu'] != 0:
@@ -138,12 +129,10 @@ class Scheduler:
                         assigned_inst_num += node_inst_num
 
             if assigned_inst_num < job_a['num_inst']:
-                print_fn("Cannot allocate all instances (%d/%d) of %s." %
-                         (assigned_inst_num, job_a['num_inst'], _repr_job_concise(job_a)))
+                print_fn("Cannot allocate all instances (%d/%d) of %s." % (assigned_inst_num, job_a['num_inst'], _repr_job_concise(job_a)))
                 self.cannot_counter += 1
                 if self.cannot_counter % 100000 == 0:
-                    print_fn("[%s] %d rejects. len(job_done_list) = %d. Current job: %s." % (
-                        cluster.log_prefix, self.cannot_counter, len(self.cluster.job_history.job_done_list), _repr_job_concise(job_a)))
+                    print_fn("[%s] %d rejects. len(job_done_list) = %d. Current job: %s." % (cluster.log_prefix, self.cannot_counter, len(self.cluster.job_history.job_done_list), _repr_job_concise(job_a)))
                 return 0  # No successful allocation, for num_inst=1 and >1 cases
             else:
                 # Successfully Scheduled. Assigning instances to nodes according to the map
@@ -157,8 +146,7 @@ class Scheduler:
                         succ_alloc = node.alloc_job(job_tmp)
                         assert succ_alloc
                         job_tmp['node'] = node.id
-                        print_fn("%sON  : N[%d] %s Inst[%d]" % (
-                            cluster.log_prefix, job_tmp['node'], job_tmp, inst_id))
+                        print_fn("%sON  : N[%d] %s Inst[%d]" % (cluster.log_prefix, job_tmp['node'], job_tmp, inst_id))
                         inst_id += 1
                     self.display_node_status(cur_node_id=job_tmp['node'])
                 assert inst_id == job_a['num_inst']
@@ -169,14 +157,11 @@ class Scheduler:
         if policy == 0:
             node_list.sort(key=lambda n: n.id)  # by id
         elif policy == 1:
-            # smallest idle gpus first
-            node_list.sort(key=lambda n: n.idl_gpus)
+            node_list.sort(key=lambda n: n.idl_gpus)  # smallest idle gpus first
         elif policy == 2:
-            # largest idle gpus first
-            node_list.sort(key=lambda n: -n.idl_gpus)
+            node_list.sort(key=lambda n: -n.idl_gpus)  # largest idle gpus first
         elif policy == 3:
-            # lowest avg. util. first
-            node_list.sort(key=lambda n: n.util_rate)
+            node_list.sort(key=lambda n: n.util_rate)  # lowest avg. util. first
         else:
             node_list.sort(key=lambda n: n.id)
         return node_list
@@ -184,7 +169,7 @@ class Scheduler:
     def preempt_job(self, cluster=None):
         cluster = cluster if cluster is not None else self.cluster
         if all([n.idl_gpus for n in cluster.node_list]) >= 0 and \
-                all([n.idl_cpus for n in cluster.node_list]) >= 0:
+            all([n.idl_cpus for n in cluster.node_list]) >= 0:
             return 0  # No resource contention, bypass preemption
 
         preempted_job_list = []
@@ -193,15 +178,12 @@ class Scheduler:
             for node in cluster.node_list:
                 # As long as the resources are sufficient, no proactive preempt for now.
                 if node.idl_gpus < 0 or node.idl_cpus < 0 or len(preempted_job_list) > 0:
-                    print_fn("%sPreempt jobs on %s" %
-                             (cluster.log_prefix, node))
-                    preempted_job_list = self.preempt_job_node(
-                        node, preempted_job_list)
+                    print_fn("%sPreempt jobs on %s" % (cluster.log_prefix, node))
+                    preempted_job_list = self.preempt_job_node(node, preempted_job_list)
             for job in preempted_job_list:
                 print_fn("%sOFF : %s" % (cluster.log_prefix, job))
         else:
-            raise NotImplementedError(
-                "Preempting job policies not implemented")
+            raise NotImplementedError("Preempting job policies not implemented")
 
         for job in preempted_job_list:
             cluster.job_list.append(job)
@@ -218,13 +200,11 @@ class Scheduler:
 
         if self.preempt_policy in PREEMPT_POLICY_DICT.keys():
             # Sort node.job_runn_list in place
-            self.preempt_job_sort_node(
-                node=node, preempt_policy=self.preempt_policy)
+            self.preempt_job_sort_node(node=node, preempt_policy=self.preempt_policy)
 
             for job_i in preempted_job_list:
                 for job_j in node.job_runn_list:
-                    # these instances belong to the same job
-                    if job_i['job_id'] == job_j['job_id']:
+                    if job_i['job_id'] == job_j['job_id']:  # these instances belong to the same job
                         succ = node.release_job(job_i)
                         assert succ is True
                         preempted_job_list.append(job_i)
@@ -236,17 +216,16 @@ class Scheduler:
                 preempted_job_list.append(job_to_preempt)
 
         else:
-            raise KeyError("Uncaptured Preemption Policy Input: %d" %
-                           self.preempt_policy)
+            raise KeyError("Uncaptured Preemption Policy Input: %d" % self.preempt_policy)
 
         return preempted_job_list
 
     def preempt_job_sort_node(self, node, preempt_policy):
-        if preempt_policy == 1:  # small_size_first
+        if preempt_policy == 1: # small_size_first
             node.job_runn_list.sort(key=lambda e: (e['size'], e['job_id']))
-        elif preempt_policy == 2:  # large_gang_first
+        elif preempt_policy == 2: # large_gang_first
             node.job_runn_list.sort(key=lambda e: (-e['num_gpu'], e['job_id']))
-        else:  # preempt_policy==0 or others: short_duration_first
+        else: # preempt_policy==0 or others: short_duration_first
             node.job_runn_list.sort(key=lambda e: (e['duration'], e['job_id']))
 
     def display_node_status(self, cur_node_id):
