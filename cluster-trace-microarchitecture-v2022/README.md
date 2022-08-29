@@ -99,7 +99,7 @@ Other adopted resource isolation technologies, including CAT, BVT scheduling, an
 
 
 # 4 Data
-Consindering that the raw dataset is pretty large (8,800 host data, more than 2TB), in this version, we sample and open 1000 hosts data. The sampled trace data has the same distribution with the whole dataset. The size of the sampled trace is 300 GB. 
+Consindering that the raw trace is pretty large (8,800 host data, more than 2TB), in this version, we sampled 1000-hosts data from the raw trace. The sampled trace data has the same distribution with the raw trace. The size of the sampled trace is 300 GB. 
 
 Before the downloading, please make sure that your disk have more than 300 GB available space.
 

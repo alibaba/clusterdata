@@ -37,7 +37,7 @@ Last but not least, we are always open to work together with researchers to impr
 The fundamental idea of our releasing cluster data is to enable researchers & practitioners doing resaerch, simulation with more realistic data and thus making the result closer to industry adoption. It is a huge encouragement to us to see more works using our data. Here is a list of existing works using Alibaba cluster data. **If your paper uses our trace, it would be great if you let us know by sending us email** ([aliababa-clusterdata](mailto:alibaba-clusterdata@list.alibaba-inc.com)).
 
 
-* microservices trace v2021
+* microarchitecture trace v2022
   * [Characterizing Job Microarchitectural Profiles at Alibaba Scale: Dataset and Analysis](https://doi.org/10.1145/3545008.3545026), Kangjin Wang, Ying Li, Cheng Wang, Tong Jia, Kingsum Chow, Yang Wen, Yaoyong Dou, Guoyao Xu, Chuanjia Hou, Jie Yao, and Liping Zhang. In 51st International Conference on Parallel Processing (ICPP ’22), August 29-September 1, 2022, Bordeaux, France. ACM, New York, NY, USA, 11 pages.
 * microservices trace v2021
   * [Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis](http://cloud.siat.ac.cn/pdca/socc2021-AlibabaTraceAnalysis.pdf), Shutian Luo, Huanle Xu, Chengzhi Lu, Kejiang Ye, Guoyao Xu, Liping Zhang, Yu Ding, Jian He, Chengzhong Xu. SoCC'21
