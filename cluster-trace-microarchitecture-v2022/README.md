@@ -99,6 +99,13 @@ Other adopted resource isolation technologies, including CAT, BVT scheduling, an
 
 
 # 4 Data
-Coming soon.
+Consindering that the raw trace is pretty large (8,500 host data, more than 2TB), in this version, we sampled 1000-hosts data from the raw trace. The sampled trace data has the same distribution with the raw trace. The size of the sampled trace is 300 GB. 
+
+Before the downloading, please make sure that your disk have more than 300 GB available space.
+
+Then, you can run the `get_data.sh` to download the data and use `gzip -d file_name` to unzip the files.
+
+In the future version, we will find a lower-cost way to store/distribute the whole data.
+
 # 5 Analysis Scripts
 Coming soon.
