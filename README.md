@@ -38,6 +38,8 @@ The fundamental idea of our releasing cluster data is to enable researchers & pr
 
 
 * microservices trace v2021
+  * [Characterizing Job Microarchitectural Profiles at Alibaba Scale: Dataset and Analysis](https://doi.org/10.1145/3545008.3545026), Kangjin Wang, Ying Li, Cheng Wang, Tong Jia, Kingsum Chow, Yang Wen, Yaoyong Dou, Guoyao Xu, Chuanjia Hou, Jie Yao, and Liping Zhang. In 51st International Conference on Parallel Processing (ICPP ’22), August 29-September 1, 2022, Bordeaux, France. ACM, New York, NY, USA, 11 pages.
+* microservices trace v2021
   * [Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis](http://cloud.siat.ac.cn/pdca/socc2021-AlibabaTraceAnalysis.pdf), Shutian Luo, Huanle Xu, Chengzhi Lu, Kejiang Ye, Guoyao Xu, Liping Zhang, Yu Ding, Jian He, Chengzhong Xu. SoCC'21
 * cluster trace GPU v2020
   * [MLaaS in the Wild: Workload Analysis and Scheduling in Large-Scale Heterogeneous GPU Clusters](https://home.cse.ust.hk/~weiwa/papers/weng-nsdi22.pdf), by Qizhen Weng, Wencong Xiao, Yinghao Yu, Wei Wang, Cheng Wang, Jian He, Yong Li, Liping Zhang, Wei Lin, and Yu Ding, to appear in the 19th USENIX Symposium on Networked Systems Design and Implementation (NSDI ’22), Renton, WA, April 2022.
