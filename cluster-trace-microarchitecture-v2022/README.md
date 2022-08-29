@@ -99,6 +99,12 @@ Other adopted resource isolation technologies, including CAT, BVT scheduling, an
 
 
 # 4 Data
-Coming soon.
+Consindering that the whole dataset is pretty large (more than 2TB), we provide 1000 hosts data in this version. The 1000 hosts data has the same distribution with the whole dataset.
+
+In the future version, we will find a lower-cost way to provide the whole data.
+
+Before the downloading, please make sure that your disk have more than 300GB available space.
+
+Then, you can run the `get_data.sh` to download the data and use `gzip -d file_name` to unzip the files.
 # 5 Analysis Scripts
 Coming soon.
