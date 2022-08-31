@@ -35,7 +35,7 @@ Other adopted resource isolation technologies, including CAT, BVT scheduling, an
 | ts         | Timestamp, the number of seconds from the start      |Long |46309 |
 | node_id    | ID of the node  |String   |e7a66b9189940e9d6102 |
 | container_id|ID of the container|String|213aff2b3dbec1f7c212|
-| pod_id|    |ID of the Pod  | String|9d11713e9c8d452e2155|
+| pod_id     |ID of the Pod  | String|9d11713e9c8d452e2155|
 | cpu           |logic cpu id|Int    | 23|
 | core_id       |core id |Int | 23|
 |socket_id      |socket id|Int | 0|
