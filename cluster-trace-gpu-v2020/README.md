@@ -109,7 +109,7 @@ EOF
 | end_time   | 4551416.0                                                    |
 
 - `job_name`: name of users' submit jobs. It has been desensitized to protect users' privacy (similar to `user_name`, `worker_name`, `inst_name`, etc. below).
-- `inst_id`: instance id assigned, to be joined with `inst_id` in [pai_sensor_table](#pai_sensor_table) and [pai_group_tag_table](#pai_group_tag_table).
+- `inst_id`: can be treated as `job_id` where each `job_name` corresponds to one `inst_id`; it can be joined with `inst_id` in [pai_sensor_table](#pai_sensor_table) and [pai_group_tag_table](#pai_group_tag_table).
 - `user`: user name.
 - `status`: job status, including 'Running', 'Terminated', 'Failed', 'Waiting'; only 'Terminated' tasks are successful.
 - `start_time`: timestamp of job submission time.
@@ -169,6 +169,7 @@ EOF
 - `task_name`: task name; same as the entry in [pai_task_table](#pai_task_table).
 - `inst_name`: name of instance in each task.
 - `worker_name`: information to distinguish instances; it is more detailed than `inst_name` and to be joined with `worker_name` in [pai_sensor_table](#pai_sensor_table) and [pai_machine_metric](#pai_machine_metric).
+- `inst_id`: can be treated as `job_id` where each `job_name` is correlated with one `inst_id`; same as the entry in [pai_job_table](#pai_job_table)
 - `status`: instance status.
 - `start_time`: timestamp of instance launch time.
 - `end_time`: timestamp of instance completion time.
@@ -202,7 +203,7 @@ EOF
 - `job_name`: job name; same as the entry in [pai_job_table](#pai_job_table).
 - `task_name`: task name; same as the entry in [pai_task_table](#pai_task_table).
 - `worker_name`: worker name; same as the entry in [pai_instance_table](#pai_instance_table).
-- `inst_id`: instance id; same as the entry in [pai_job_table](#pai_job_table).
+- `inst_id`: can be treated as `job_id` where each `job_name` corresponds with one `inst_id`; same as the entry in [pai_job_table](#pai_job_table)
 - `machine`: machine name; same as the entry in [pai_instance_table](#pai_instance_table).
 - `gpu_name`: name of the GPU on that machine (not `gpu_type`).
 - `cpu_usage`: number of CPU cores used in percentage (i.e., 600.0 is 6 vCPU cores) (c.f. `plan_cpu` in [pai_task_table](#pai_task_table)).
@@ -232,7 +233,7 @@ EOF
 | group         | fbeb14d671c629b6e82bee889fe4bb4c                             |
 | workload      | nmt                                                          |
 
-- `inst_id`: instance id; same as the entry in [pai_job_table](#pai_job_table).
+- `inst_id`: can be treated as `job_id` where each `job_name` corresponds with one `inst_id`; same as the entry in [pai_job_table](#pai_job_table)
 - `user`: user name; same as the entry in [pai_job_table](#pai_job_table).
 - `gpu_type_spec`: being empty if the instance does not specify GPU type requirements, else being one of the `gpu_type` in [pai_task_table](#pai_task_table).
 - `group`: a semantic tag that indicates some instances have similar customized inputs, e.g., entry scripts, command-line parameters, data sources and sinks; consequently, instances with the same group tag are considered as repeated instances. Please refer to the trace analysis paper for detailed discussion.
