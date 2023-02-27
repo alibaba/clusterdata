@@ -12,7 +12,9 @@ The format of trace data is described in the [schema description](trace_201708.m
 # Downloading the trace
 The data is stored in Alibaba Cloud Object Storage Service. You do not need to have an Alibaba account or sign up for Object Storage Service to download the data.
 
-Downloading information can be found in [this link](http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2017Traces/alibaba-trace-2017.tar.gz). We use the contact information to keep in touch with you, and announce goodies such as new traces.
+Users can run the following command to fetch data. 
+>wget -c --retry-connrefused --tries=0 --timeout=50  http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2017Traces/alibaba-trace-2017.tar.gz
+
 Included with the trace is a [SHA256SUM](SHA256SUM) file, which can be used to verify the integrity of a download, using the sha256sum command from GNU coreutils using a command like
 
 ```

@@ -101,18 +101,9 @@ If you do not want to do the survey ([survey link](http://alibabadeveloper.mikec
 
 The entire data set is about 48GB in .tar.gz format and 280GB after extraction. Due to [issue #49](https://github.com/alibaba/clusterdata/issues/49), we provide two download links, one for Chinese users and other for oversea users, and you can choose whichever suits you.
 
-## Download link
+## Download
 
-Download 6 files separately:
-
-* [machine_meta](http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2018Traces/machine_meta.tar.gz)
-* [machine_usage](http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2018Traces/machine_usage.tar.gz)
-* [container_meta](http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2018Traces/container_meta.tar.gz)
-* [container_usage](http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2018Traces/container_usage.tar.gz)
-* [batch_task](http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2018Traces/batch_task.tar.gz)
-* [batch_instance](http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2018Traces/batch_instance.tar.gz)
-
-Users could also run the following command to fetch data. 
+Users can run the following command to fetch 6 files. 
 > bash fetchData.sh
   
 # 5 Acknowledgement
