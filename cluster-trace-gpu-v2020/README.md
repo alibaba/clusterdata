@@ -85,13 +85,13 @@ Below is a brief description of all the tables; the details are deferred to thei
 
 **Note**: the data in `./data` folder, due to its large volume, is encouraged to be downloaded via ~~[Git LFS](https://git-lfs.github.com/)~~ [Aliyun OSS](https://www.aliyun.com/product/oss):
 
-- [pai_group_tag_table.tar.gz](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_group_tag_table.tar.gz)
-- [pai_instance_table.tar.gz](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_instance_table.tar.gz)
-- [pai_job_table.tar.gz](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_job_table.tar.gz)
-- [pai_machine_metric.tar.gz](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_machine_metric.tar.gz)
-- [pai_machine_spec.tar.gz](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_machine_spec.tar.gz)
-- [pai_sensor_table.tar.gz](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_sensor_table.tar.gz)
-- [pai_task_table.tar.gz](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_task_table.tar.gz)
+- pai_group_tag_table.tar.gz: https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_group_tag_table.tar.gz
+- pai_instance_table.tar.gz: https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_instance_table.tar.gz
+- pai_job_table.tar.gz: https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_job_table.tar.gz
+- pai_machine_metric.tar.gz: https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_machine_metric.tar.gz
+- pai_machine_spec.tar.gz: https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_machine_spec.tar.gz
+- pai_sensor_table.tar.gz: https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_sensor_table.tar.gz
+- pai_task_table.tar.gz: https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_task_table.tar.gz
 
 (Alternative: [data repo on GitHub](https://github.com/qzweng/clusterdata-cluster-trace-gpu-v2020-data))
 
