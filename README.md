@@ -43,6 +43,7 @@ The fundamental idea of our releasing cluster data is to enable researchers & pr
   * [Characterizing Microservice Dependency and Performance: Alibaba Trace Analysis](http://cloud.siat.ac.cn/pdca/socc2021-AlibabaTraceAnalysis.pdf), Shutian Luo, Huanle Xu, Chengzhi Lu, Kejiang Ye, Guoyao Xu, Liping Zhang, Yu Ding, Jian He, Chengzhong Xu. SoCC'21
 * cluster trace GPU v2020
   * [MLaaS in the Wild: Workload Analysis and Scheduling in Large-Scale Heterogeneous GPU Clusters](https://home.cse.ust.hk/~weiwa/papers/weng-nsdi22.pdf), by Qizhen Weng, Wencong Xiao, Yinghao Yu, Wei Wang, Cheng Wang, Jian He, Yong Li, Liping Zhang, Wei Lin, and Yu Ding, to appear in the 19th USENIX Symposium on Networked Systems Design and Implementation (NSDI ’22), Renton, WA, April 2022.
+  * [Hydra: Deadline-aware and Efficiency-oriented Scheduling for Deep Learning Jobs on Heterogeneous GPUs](https://ieeexplore.ieee.org/document/10036352), by Zichao Yang, Heng Wu, Yuanjia Xu, Yuewen Wu, Hua Zhong, Wenbo Zhang, to appear in the IEEE Transactions on Computers 
 * cluster trace v2018
   * [Who Limits the Resource Efficiency of My Datacenter: An Analysis of Alibaba Datacenter Traces](https://dl.acm.org/citation.cfm?doid=3326285.3329074), Jing Guo, Zihao Chang, Sa Wang, Haiyang Ding, Yihui Feng, Liang Mao, Yungang Bao, IEEE/ACM International Symposium on Quality of Service, IWQoS 2019
   * [DeepJS: Job Scheduling Based on Deep Reinforcement Learning in Cloud Data Center](https://github.com/RobertLexis/CloudSimPy/blob/master/playground/paper/F0049-4.19.pdf), by Fengcun Li and Bo Hu.
