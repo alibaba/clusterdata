@@ -37,18 +37,53 @@ We also present a characterization study of the trace in a paper, ["MLaaS in the
 The figure above illustrates an architecture overview of PAI, where users submit ML jobs developed in a variety of frameworks (e.g., TensorFlow, PyTorch, Graph-Learn).
 Upon the job submission, users provide the application code and specify the required compute resources, such as GPUs, CPUs, and memory. Each **job** is translated into multiple **tasks** of different roles, such as parameter servers (PS) and workers for a training job, and evaluator for an inference job. Each task may consist of one or multiple **instances** and can run on multiple machines.
 PAI employs Docker containers to instantiate tasks for simplified scheduling and execution on heterogeneous hardware.
-Below is a brief description of all the tables; the details are deferred to their sections.
+For example, the following job requests 14 CPUs (600% + 400% + 400%) and 1 GPU (0% + 50% + 50%) from the cluster with its three instances.
 
-- **pai_job_table**: job launch information.
-- **pai_task_table**: task launch information.
-- **pai_instance_table**: instance launch information.
-- **pai_sensor_table**: instance resource sensor information.
-- **pai_group_tag_table**: instance semantic information.
-- **pai_machine_spec**: machine specification.
-- **pai_machine_metric**: machine resource metrics with respect to the instance.
+```mermaid
+classDiagram
+Job_0 --* Task_A
+Job_0 --* Task_B
+Task_A --* Instance_A0
+Task_B --* Instance_B0
+Task_B --* Instance_B1
+Job_0 : *job_name* = job_0
+Job_0 : user
+Job_0 : ...
+Task_A : *task_name* = ps
+Task_A : inst_num = 1
+Task_A : plan_cpu = 600
+Task_A : plan_gpu = 0
+Task_A : ...
+Instance_A0 : *worker_name* = ps_0
+Instance_A0 : plan_cpu [inherited] = 600
+Instance_A0 : plan_gpu [inherited] = 0
+Instance_A0 : ...
+Task_B : *task_name* = worker
+Task_B : inst_num = 2
+Task_B : plan_cpu = 400
+Task_B : plan_gpu = 50
+Task_B : ...
+Instance_B0 : *worker_name* = worker_0
+Instance_B0 : plan_cpu [inherited] = 400
+Instance_B0 : plan_gpu [inherited] = 50
+Instance_B0 : ...
+Instance_B1 : *worker_name* = worker_1
+Instance_B1 : plan_cpu [inherited] = 400
+Instance_B1 : plan_gpu [inherited] = 50
+Instance_B1 : ...
+```
 
-(**Note**: the data in `./data` folder, due to its large volume, is encouraged to be downloaded via [Git LFS](https://git-lfs.github.com/))
+Below is a brief description of all the tables (hyperlinked to `tar.gz` files to be placed under [./data](./data) folder); the details are deferred to their sections.
 
+- [**pai_job_table**](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_job_table.tar.gz): job launch information.
+- [**pai_task_table**](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_task_table.tar.gz): task launch information.
+- [**pai_instance_table**](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_instance_table.tar.gz): instance launch information.
+- [**pai_sensor_table**](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_sensor_table.tar.gz): instance resource sensor information.
+- [**pai_group_tag_table**](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_group_tag_table.tar.gz): instance semantic information.
+- [**pai_machine_spec**](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_machine_spec.tar.gz): machine specification.
+- [**pai_machine_metric**](https://aliopentrace.oss-cn-beijing.aliyuncs.com/v2020GPUTraces/pai_machine_metric.tar.gz): machine resource metrics with respect to the instance.
+
+(Alternative download links: [data repo on GitHub](https://github.com/qzweng/clusterdata-cluster-trace-gpu-v2020-data))
 
 **Checksum** (replacing `sha256sum` with `shasum` for macOS users)
 ```bash
@@ -109,7 +144,7 @@ EOF
 | end_time   | 4551416.0                                                    |
 
 - `job_name`: name of users' submit jobs. It has been desensitized to protect users' privacy (similar to `user_name`, `worker_name`, `inst_name`, etc. below).
-- `inst_id`: can be treated as `job_id` where each `job_name` corresponds to one `inst_id`; it can be joined with `inst_id` in [pai_sensor_table](#pai_sensor_table) and [pai_group_tag_table](#pai_group_tag_table).
+- `inst_id`: please treat or revise it as `job_id`, since each `job_name` corresponds to one `inst_id`.  It can be joined with `inst_id` in [pai_sensor_table](#pai_sensor_table) and [pai_group_tag_table](#pai_group_tag_table).
 - `user`: user name.
 - `status`: job status, including 'Running', 'Terminated', 'Failed', 'Waiting'; only 'Terminated' tasks are successful.
 - `start_time`: timestamp of job submission time.
@@ -169,7 +204,7 @@ EOF
 - `task_name`: task name; same as the entry in [pai_task_table](#pai_task_table).
 - `inst_name`: name of instance in each task.
 - `worker_name`: information to distinguish instances; it is more detailed than `inst_name` and to be joined with `worker_name` in [pai_sensor_table](#pai_sensor_table) and [pai_machine_metric](#pai_machine_metric).
-- `inst_id`: can be treated as `job_id` where each `job_name` is correlated with one `inst_id`; same as the entry in [pai_job_table](#pai_job_table)
+- `inst_id`: please treat or revise it as `job_id`, since each `job_name` corresponds to one `inst_id`; same as the entry in [pai_job_table](#pai_job_table)
 - `status`: instance status.
 - `start_time`: timestamp of instance launch time.
 - `end_time`: timestamp of instance completion time.
@@ -203,7 +238,7 @@ EOF
 - `job_name`: job name; same as the entry in [pai_job_table](#pai_job_table).
 - `task_name`: task name; same as the entry in [pai_task_table](#pai_task_table).
 - `worker_name`: worker name; same as the entry in [pai_instance_table](#pai_instance_table).
-- `inst_id`: can be treated as `job_id` where each `job_name` corresponds with one `inst_id`; same as the entry in [pai_job_table](#pai_job_table)
+- `inst_id`: please treat or revise it as `job_id`, since each `job_name` corresponds to one `inst_id`. Same as the entry in [pai_job_table](#pai_job_table)
 - `machine`: machine name; same as the entry in [pai_instance_table](#pai_instance_table).
 - `gpu_name`: name of the GPU on that machine (not `gpu_type`).
 - `cpu_usage`: number of CPU cores used in percentage (i.e., 600.0 is 6 vCPU cores) (c.f. `plan_cpu` in [pai_task_table](#pai_task_table)).
@@ -233,7 +268,7 @@ EOF
 | group         | fbeb14d671c629b6e82bee889fe4bb4c                             |
 | workload      | nmt                                                          |
 
-- `inst_id`: can be treated as `job_id` where each `job_name` corresponds with one `inst_id`; same as the entry in [pai_job_table](#pai_job_table)
+- `inst_id`: please treat or revise it as `job_id`, since each `job_name` corresponds to one `inst_id`. Same as the entry in [pai_job_table](#pai_job_table)
 - `user`: user name; same as the entry in [pai_job_table](#pai_job_table).
 - `gpu_type_spec`: being empty if the instance does not specify GPU type requirements, else being one of the `gpu_type` in [pai_task_table](#pai_task_table).
 - `group`: a semantic tag that indicates some instances have similar customized inputs, e.g., entry scripts, command-line parameters, data sources and sinks; consequently, instances with the same group tag are considered as repeated instances. Please refer to the trace analysis paper for detailed discussion.

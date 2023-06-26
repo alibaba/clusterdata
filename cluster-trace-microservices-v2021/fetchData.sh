@@ -1,6 +1,6 @@
 #!/bin/bash  
   
-url='http://alitrip.oss-cn-zhangjiakou.aliyuncs.com/TraceData'
+url='http://aliopentrace.oss-cn-beijing.aliyuncs.com/v2021MicroservicesTraces'
 
 mkdir data
 cd data

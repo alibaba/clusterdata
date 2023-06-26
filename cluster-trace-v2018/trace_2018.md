@@ -101,29 +101,10 @@ If you do not want to do the survey ([survey link](http://alibabadeveloper.mikec
 
 The entire data set is about 48GB in .tar.gz format and 280GB after extraction. Due to [issue #49](https://github.com/alibaba/clusterdata/issues/49), we provide two download links, one for Chinese users and other for oversea users, and you can choose whichever suits you.
 
-## Chinese download link
+## Download
 
-Download 6 files separately:
-
-* [machine_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_meta.tar.gz)
-* [machine_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/machine_usage.tar.gz)
-* [container_meta](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_meta.tar.gz)
-* [container_usage](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/container_usage.tar.gz)
-* [batch_task](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_task.tar.gz)
-* [batch_instance](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/batch_instance.tar.gz)
-
-Download the all as one dataset (we strongly suggest you download separately due to the size):
-
-* [alibaba_clusterdata_v2018](http://clusterdata2018pubcn.oss-cn-beijing.aliyuncs.com/alibaba_clusterdata2018.tar.gz)
-
-## Oversea download link
-
-* [machine_meta](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/machine_meta.tar.gz)
-* [machine_usage](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/machine_usage.tar.gz)
-* [container_meta](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/container_meta.tar.gz)
-* [container_usage](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/container_usage.tar.gz)
-* [batch_task](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_task.tar.gz)
-* [batch_instance](http://clusterdata2018pubus.oss-us-west-1.aliyuncs.com/batch_instance.tar.gz)
+Users can run the following command to fetch 6 files. 
+> bash fetchData.sh
   
 # 5 Acknowledgement
 
