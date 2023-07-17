@@ -35,7 +35,6 @@ Other adopted resource isolation technologies, including CAT, BVT scheduling, an
 | ts         | Timestamp, the number of seconds from the start      |Long |46309 |
 | node_id    | ID of the node  |String   |e7a66b9189940e9d6102 |
 | container_id|ID of the container|String|213aff2b3dbec1f7c212|
-| pod_id     |ID of the Pod  | String|9d11713e9c8d452e2155|
 | cpu           |logic cpu id|Int    | 23|
 | core_id       |core id |Int | 23|
 |socket_id      |socket id|Int | 0|
@@ -67,12 +66,12 @@ Other adopted resource isolation technologies, including CAT, BVT scheduling, an
 |app_name|the name of applicaton,Batch jobs are all "Batch"| String| Batch|
 |deploy_group| Deployment group, one application may have multiple deployment group| String| Batch|
 |container_type|container type | String| Batch-ops|
-|container_cpu_spec|The number of logic CPUs that the container requests| Int| 2.0|
-|container_mem_spec|The memory that the container requests (MB)|Int|4000|
-|pod_cpu_spec|The number of logic CPUs that the Pod requests|Int|2.0|
-|pod_mem_spec|The memory that the container requests (MB)|Int|4000|
+|container_cpu_spec| **Deprecated** Ratio of logic CPUs requested by the container to the number of logic CPUs of the node (0-1)| Double| 0.04|
+|container_mem_spec| **Deprecated** Ratio of memory requested by the container to the memory of the node (0-1)|Double|0.003|
+|pod_cpu_spec|Ratio of logic CPUs requested by the Pod to the number of logic CPUs of the node (0-1)|Double|0.04|
+|pod_mem_spec|Ratio of memory requested by the Pod to the memory of the node (0-1)|Double|0.003|
 
-`cpu_mode` is one of the following enumeration stirngs: 
+`cpu_mode` is one of the following enumeration strings: 
 
 - CPUSet: CPUSet means the job will be pinned to several logic CPUs and will not share the logic CPUs with other LC jobs.
 - CPUShare: CPUShare means the job will be scheduled among dozens of logic CPUs but share the logic CPUs with other LC jobs.
