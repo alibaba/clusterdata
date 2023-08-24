@@ -75,8 +75,8 @@ Please cite our paper if it is helpful to your research.
     author = {Qizhen Weng and Lingyun Yang and Yinghao Yu and Wei Wang and Xiaochuan Tang and Guodong Yang and Liping Zhang},
     booktitle = {2023 {USENIX} Annual Technical Conference},
     year = {2023},
-    series = {{USENIX} {ATC} '23}
+    series = {{USENIX} {ATC} '23},
     url = {https://www.usenix.org/conference/atc23/presentation/weng},
-    publisher = {{USENIX} Association},
+    publisher = {{USENIX} Association}
 }
 ```
