@@ -1,11 +1,11 @@
-# Traces for A Preemptive Scheduling Framework for GPU Clusters with Predictive Spot Management
+# Traces for AI jobs leveraging spot GPU resources
 ## ℹ️ Overview
-This repository contains a comprehensive trace dataset for A Preemptive Scheduling Framework for GPU Clusters with Predictive Spot Management (GFS).  
+This repository contains a comprehensive trace dataset for AI jobs leveraging spot GPU resources.   
 The node dataset captures the operational characteristics of **4278 GPU nodes** and contains a total of **6 GPU card types**.
 
-The workload dataset are categorized as _High-Priority_ (HP) workloads with **strict SLOs** and _Spot_ workloads that adopted **spot instances as opportunistic resources with cost discounts**.
+We categorize AI jobs as as _High-Priority_ (HP) workloads with **strict SLOs** and _Spot_ workloads that used  **spot instances as opportunistic resources**. The job details are presented in the workload dataset.
 
-For a detailed description of the predictive Spot management and scheduling framework design, please refer to [our ASPLOS'26 paper](https://www.xxx).
+Based on such traces, we have also developed a scheduling framework that maximizes the SLO guarantee for spot workloads with predictions of spot GPU provisioning. For detailed description, please refer to [our ASPLOS'26 paper](https://www.xxx).
 
 ## 🗄️ Dataset Details
 The node dataset is provided in the file `node_info_df.csv`.  
