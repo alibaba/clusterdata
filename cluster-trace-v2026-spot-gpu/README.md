@@ -5,7 +5,7 @@ The node dataset captures the operational characteristics of **4278 GPU nodes** 
 
 We categorize AI jobs as as _High-Priority_ (HP) workloads with **strict SLOs** and _Spot_ workloads that used  **spot instances as opportunistic resources**. The job details are presented in the workload dataset.
 
-Based on such traces, we have also developed a scheduling framework that maximizes the SLO guarantee for spot workloads with predictions of spot GPU provisioning. For detailed description, please refer to [our ASPLOS'26 paper](https://www.xxx).
+Based on such traces, we have also developed a scheduling framework that maximizes the SLO guarantee for spot workloads with spot GPU provisioning predictions. For detailed description, please refer to [our ASPLOS'26 paper](https://www.xxx).
 
 ## 🗄️ Dataset Details
 The node dataset is provided in the file `node_info_df.csv`.  
