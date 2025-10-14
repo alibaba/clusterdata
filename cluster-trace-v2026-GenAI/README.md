@@ -8,6 +8,17 @@ To protect privacy, the original data has been anonymized through techniques suc
 
 This dataset is comprehensive and captures the complexity of production serverless inference systems, with many insights we haven't fully explored yet. We hope it can support further research in the community. We encourage you to discover findings from this dataset that support your research, and welcome discussions with us through issues or email.
 
+### Stable Diffusion Serving Pipeline
+The Stable Diffusion image generation pipeline follows a multi-stage iterative process: it starts with random **Noise** in latent space, which is then encoded by the **VAE** encoder. The core generation loop iteratively processes this latent representation through a combination of **Base Model** weights, **UNet** architecture, **ControlNet** guidance, and **LoRA** adapters—this denoising step is repeated multiple times with a **Sampler** (e.g., DDPM, DDIM, Euler) controlling the denoising schedule. After the iterative refinement completes, the final latent representation is decoded by the VAE decoder to produce the output **Image** in pixel space. This architecture enables flexible customization through modular components while maintaining efficient inference performance.
+
+
+![Stable Diffusion Serving Pipeline](./MLoRA-Pipeline.jpg)
+
+
+In production environments, user requests may contain one base model with multiple LoRAs. Typically, the parameters of multiple LoRAs are merged together into the base model.
+
+
+
 ## Dataset Structure
 
 cluster-trace-v2026-GenAI
@@ -238,3 +249,4 @@ If you use this dataset to analyze request distribution pattern changes across d
   doi = {10.1145/3767295.3769316}
 }
 ```
+
