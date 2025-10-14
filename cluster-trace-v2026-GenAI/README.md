@@ -12,7 +12,7 @@ This dataset is comprehensive and captures the complexity of production serverle
 The Stable Diffusion image generation pipeline follows a multi-stage iterative process: it starts with random **Noise** in latent space, which is then encoded by the **VAE** encoder. The core generation loop iteratively processes this latent representation through a combination of **Base Model** weights, **UNet** architecture, **ControlNet** guidance, and **LoRA** adapters—this denoising step is repeated multiple times with a **Sampler** (e.g., DDPM, DDIM, Euler) controlling the denoising schedule. After the iterative refinement completes, the final latent representation is decoded by the VAE decoder to produce the output **Image** in pixel space. This architecture enables flexible customization through modular components while maintaining efficient inference performance.
 
 
-![Stable Diffusion Serving Pipeline](./MLoRA-Pipeline.jpg)
+![Stable Diffusion Serving Pipeline](./MLoRA-Pipeline.png)
 
 
 In production environments, user requests may contain one base model with multiple LoRAs. Typically, the parameters of multiple LoRAs are merged together into the base model.
