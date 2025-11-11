@@ -39,6 +39,7 @@ def create_filtered_traces(original_trace, target_user=None, num_jobs=2000):
     user_jobs.sort(key=lambda x: int(x.get("submit_time", 0)))
     for i, job in enumerate(user_jobs):
         job["submit_time"] = str(i * 60)  # One job per minute
+    # NOTE: why one job per minute?
 
     single_trace = Path("simulator/traces/pai/single_user_temp.csv")
     with open(single_trace, "w", newline="") as f:
@@ -49,6 +50,8 @@ def create_filtered_traces(original_trace, target_user=None, num_jobs=2000):
     print(f"Created single-user trace: {len(user_jobs)} jobs")
 
     # Create multi-user trace with same number of jobs
+    # NOTE: why are you grabbing jobs from the complete job trace?
+    # NOTE: this means that the user_jobs may not even be included in this list.
     multi_jobs = jobs[: len(user_jobs)]
     multi_jobs.sort(key=lambda x: int(x.get("submit_time", 0)))
     for i, job in enumerate(multi_jobs):
@@ -146,6 +149,7 @@ def main():
     # Run simulations
     print(f"\nRunning simulations with {num_gpus} GPUs...")
 
+    # NOTE: shouldn't the single_results be running on a fraction of num_gpus inv. proportional to number of jobs?
     single_results = run_simulation(single_trace, "Single-User", actual_jobs, num_gpus)
     multi_results = run_simulation(multi_trace, "Multi-User", actual_jobs, num_gpus)
 
