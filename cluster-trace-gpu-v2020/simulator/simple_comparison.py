@@ -5,13 +5,13 @@ import sys
 from math import ceil
 import subprocess
 import logging
-from simulator.utils import print_fn, ALLOC_POLICY_DICT, PREEMPT_POLICY_DICT
+from utils import print_fn, ALLOC_POLICY_DICT, PREEMPT_POLICY_DICT
 from simulator import Simulator
 from pathlib import Path
 from collections import defaultdict
 from bisect import bisect_left, bisect_right
 
-def create_filtered_traces(original_trace, target_user, num_jobs=2000):
+def create_filtered_traces(original_trace, target_user, output_path):
     """Create single-user and multi-user traces for comparison."""
 
     print(f"Reading original trace: {original_trace}")
@@ -33,15 +33,14 @@ def create_filtered_traces(original_trace, target_user, num_jobs=2000):
     # Sort by original submit time and reset to start from 0
     user_jobs.sort(key=lambda x: int(x.get("submit_time", 0)))
 
-    single_trace = Path("simulator/traces/pai/single_user_temp.csv")
-    with open(single_trace, "w", newline="") as f:
+    with open(output_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(user_jobs)
 
     print(f"Created single-user trace: {len(user_jobs)} jobs")
 
-    return single_trace.name, len(user_jobs)
+    return output_path, len(user_jobs)
 
 def get_job_overlaps_from_trace(trace_filename):
     """
@@ -98,6 +97,8 @@ def get_job_overlaps_from_trace(trace_filename):
     return concurrent_jobs
 
 def get_user_to_jobs(trace_filename):
+    print(os.getcwd())
+    
     path = Path(trace_filename)
     with path.open("r", newline="") as f:
         reader = csv.DictReader(f)
@@ -120,6 +121,7 @@ def get_user_to_jobs(trace_filename):
     return user_to_jobs
 
 def run_simulation(trace_filename, num_jobs, num_gpus):
+    
     ARRIVAL_RATE = 1000
     REPEAT = 1
     SORT_NODE_POLICY = 3  # 0: packing, 3: max-min balancing.
@@ -185,6 +187,9 @@ def get_users_to_overlap(users_to_jobs, job_to_overlaps):
         users_to_overlap[user] = overlap_for_user
     return users_to_overlap
 
+def compare_single_and_actual_jct(simulator_output):
+    pass
+
 def main():
     num_jobs = 20000
     num_gpus = 6500
@@ -193,26 +198,26 @@ def main():
 
     users_to_jobs = get_user_to_jobs(original_trace_path)
     
+    # TODO: account for the fact that a job may not use a full GPU
     job_to_overlaps = get_job_overlaps_from_trace(original_trace_path)
     
     users_to_overlap = get_users_to_overlap(users_to_jobs, job_to_overlaps)
 
+    single_output_trace = Path("simulator/traces/pai/single_user_temp.csv")
     for user, overlap in users_to_overlap.items():
         avg_overlap = sum(overlap) / len(overlap)
         
         single_trace, num_jobs_per_user = create_filtered_traces(
-            original_trace_path, user, num_jobs
+            original_trace_path, user, single_output_trace
         )
         # Run simulations
         num_gpus_for_user = ceil(num_gpus / avg_overlap)
         print(f"Running simulations for user {user} with {num_gpus_for_user} GPUs...")
-        single_results = run_simulation(single_trace, "Single-User", num_jobs_per_user, num_gpus_for_user)
         
-        for k, v in single_results.items():
-            print(f"{k} -> {v}")
+        # TODO: look into why the submit times are all the same?! all = 360?!
+        single_results = run_simulation(single_trace, num_jobs_per_user, num_gpus_for_user)
 
         return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())
