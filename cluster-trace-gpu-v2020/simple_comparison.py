@@ -2,12 +2,16 @@
 import csv
 import os
 import sys
+from math import ceil
 import subprocess
+import logging
+from simulator.utils import print_fn, ALLOC_POLICY_DICT, PREEMPT_POLICY_DICT
+from simulator import Simulator
 from pathlib import Path
 from collections import defaultdict
+from bisect import bisect_left, bisect_right
 
-
-def create_filtered_traces(original_trace, target_user=None, num_jobs=2000):
+def create_filtered_traces(original_trace, target_user, num_jobs=2000):
     """Create single-user and multi-user traces for comparison."""
 
     print(f"Reading original trace: {original_trace}")
@@ -24,22 +28,10 @@ def create_filtered_traces(original_trace, target_user=None, num_jobs=2000):
 
     print(f"Found {len(jobs)} jobs from {len(user_counts)} users")
 
-    # Select target user (most active if not specified)
-    if target_user is None:
-        target_user = max(user_counts.items(), key=lambda x: x[1])[0]
-
-    print(f"Target user: {target_user} ({user_counts[target_user]} jobs available)")
-
     # Create single-user trace
     user_jobs = [job for job in jobs if job["user"] == target_user]
-    if len(user_jobs) > num_jobs:
-        user_jobs = user_jobs[:num_jobs]
-
     # Sort by original submit time and reset to start from 0
     user_jobs.sort(key=lambda x: int(x.get("submit_time", 0)))
-    for i, job in enumerate(user_jobs):
-        job["submit_time"] = str(i * 60)  # One job per minute
-    # NOTE: why one job per minute?
 
     single_trace = Path("simulator/traces/pai/single_user_temp.csv")
     with open(single_trace, "w", newline="") as f:
@@ -49,130 +41,177 @@ def create_filtered_traces(original_trace, target_user=None, num_jobs=2000):
 
     print(f"Created single-user trace: {len(user_jobs)} jobs")
 
-    # Create multi-user trace with same number of jobs
-    # NOTE: why are you grabbing jobs from the complete job trace?
-    # NOTE: this means that the user_jobs may not even be included in this list.
-    multi_jobs = jobs[: len(user_jobs)]
-    multi_jobs.sort(key=lambda x: int(x.get("submit_time", 0)))
-    for i, job in enumerate(multi_jobs):
-        job["submit_time"] = str(i * 60)
+    return single_trace.name, len(user_jobs)
 
-    multi_trace = Path("simulator/traces/pai/multi_user_temp.csv")
-    with open(multi_trace, "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(multi_jobs)
+def get_job_overlaps_from_trace(trace_filename):
+    """
+    Create a dict that maps job_ids to the number of jobs that run at any point 
+    during that job's lifetime (i.e. the job overlaps).
+    NOTE: the minimum number of overlaps is 1 as a job overlaps with itself
+    """
 
-    unique_users = len(set(job["user"] for job in multi_jobs))
-    print(f"Created multi-user trace: {len(multi_jobs)} jobs from {unique_users} users")
+    path = Path(trace_filename)
+    with path.open("r", newline="") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+        if not rows:
+            raise ValueError("Input trace is empty")
 
-    return single_trace.name, multi_trace.name, target_user, len(user_jobs)
+    class SubmitDuration:
+        def __init__(self, job_id, start, duration):
+            self.job_id = job_id
+            self.start = start
+            self.end = start + max(0.0, duration)
 
+    # map available header names to canonical start/duration keys
+    job_id_key = "job_id"
+    start_key = "submit_time"
+    dur_key = "duration"
 
-def run_simulation(trace_filename, scenario_name, num_jobs, num_gpus=6500):
-    """Run simulation using the existing simulator."""
+    # parse intervals
+    submits = []
+    for r in rows:
+        try:
+            id = int(r.get(job_id_key, 0) or 0)
+        except ValueError:
+            raise ValueError(f"Job id not found for {r}")
+        try:
+            s = float(r.get(start_key, 0) or 0)
+        except ValueError:
+            raise ValueError(f"Start not found for {r}")
+        try:
+            d = float(r.get(dur_key, 0) or 0)
+        except ValueError:
+           raise ValueError(f"End not found for {r}")
+        submits.append(SubmitDuration(id, s, d))
 
-    print(f"\n=== Running {scenario_name} simulation ===")
+    # prepare sorted lists for sweep counting
+    starts_sorted = sorted([s.start for s in submits])
+    ends_sorted = sorted([s.end for s in submits])
 
-    original_dir = os.getcwd()
-    os.chdir("simulator")
+    concurrent_jobs = {}
+    for submit in submits:
+        num_start_before_end = bisect_left(starts_sorted, submit.end)
+        num_end_after_start = bisect_right(ends_sorted, submit.start)
+        overlaps = num_start_before_end - num_end_after_start
+        concurrent_jobs[submit.job_id] = overlaps
+    return concurrent_jobs
 
-    cmd = [
-        "python3",
-        "run_simulator.py",
-        "--num_jobs",
-        str(num_jobs),
-        "--num_gpus",
-        str(num_gpus),
-        "--repeat",
-        "1",
-    ]
+def get_user_to_jobs(trace_filename):
+    path = Path(trace_filename)
+    with path.open("r", newline="") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+        if not rows:
+            raise ValueError("Input trace is empty")
+    
+    job_key = "job_id"
+    user_key = "user"
+    
+    user_to_jobs = {}
+    for r in rows:
+        user = str(r.get(user_key))
+        job_id = int(r.get(job_key))
+        if(user in user_to_jobs):
+            user_to_jobs[user].append(job_id)
+        else:
+            user_to_jobs[user] = [job_id]
 
-    with open("run_simulator.py", "r") as f:
-        content = f.read()
+    return user_to_jobs
 
-    modified_content = content.replace(
-        "CSV_FILE = 'pai_job_duration_estimate_100K.csv'",
-        f"CSV_FILE = '{trace_filename}'",
-    ).replace(
-        "for alloc_policy in [0, 1, 2, 4, 8]:",  # Only test FIFO and SJF for now
-        "for alloc_policy in [8, 0]:",
-    )
+def run_simulation(trace_filename, num_jobs, num_gpus):
+    ARRIVAL_RATE = 1000
+    REPEAT = 1
+    SORT_NODE_POLICY = 3  # 0: packing, 3: max-min balancing.
+    MAX_TIME = int(1e9)
 
-    with open("run_simulator_temp.py", "w") as f:
-        f.write(modified_content)
+    VERBOSE = 0
+    LOG_LEVEL = logging.WARNING
+    NUM_NODES = 1
+    NUM_CPUS = round(23.22 * num_gpus)
+    HETERO = False
+    PATTERN = 0  # Cluster capacity varying pattern
 
-    result = subprocess.run(
-        ["python3", "run_simulator_temp.py"] + cmd[2:],
-        capture_output=True,
-        text=True,
-        timeout=300,
-    )
+    # GPU_TYPE_MATCHING = 1 # GPU type perfect match
+    # GPU_TYPE_MATCHING = 2 # Only V100 cannot compromise
+    GPU_TYPE_MATCHING = 0
+    
+    EXPORT_JOB_STATS = False
+    RANDOM_SEED = 42
+    NUM_SPARE_NODE = 0
+    EXPORT_CLUSTER_UTIL = False
+    SORT_BY_JCT = True
+    
+    DESCRIBE_FILE = None
+    describe_file = trace_filename / DESCRIBE_FILE if DESCRIBE_FILE is not None else None
+    
+    for alloc_policy in [0]:  # just SJF
+        for preempt_policy in [2]:  # 2LGF
+            key = (alloc_policy, preempt_policy)
+            print_key = "(%-4s,%4s)" % (ALLOC_POLICY_DICT.get(key[0]), PREEMPT_POLICY_DICT.get(key[1]))
 
-    os.remove("run_simulator_temp.py")
+            simulator = Simulator(
+                csv_file=trace_filename,
+                alloc_policy=alloc_policy,
+                preempt_policy=preempt_policy,
+                sort_node_policy=SORT_NODE_POLICY,
+                num_nodes=NUM_NODES,
+                random_seed=RANDOM_SEED,
+                max_time=MAX_TIME,
+                num_spare_node=NUM_SPARE_NODE,
+                pattern=PATTERN,
+                hetero=HETERO,
+                num_gpus=num_gpus,
+                num_cpus=NUM_CPUS,
+                describe_file=describe_file,
+                log_file=None,
+                export_job_stats=EXPORT_JOB_STATS,
+                export_cluster_util=EXPORT_CLUSTER_UTIL,
+                arrival_rate=ARRIVAL_RATE,
+                num_jobs_limit=num_jobs,
+                gpu_type_matching=GPU_TYPE_MATCHING,
+                verbose=VERBOSE)
+            results = simulator.simulator_go(repeat=REPEAT)
 
-    results = {}
-    lines = result.stdout.split("\n")
+    return simulator.cluster.job_history.job_done_list
 
-    for line in lines:
-        if "FIFO" in line and "," in line:
-            parts = line.split(",")
-            if len(parts) >= 4:
-                policy = "FIFO"
-                avg_jct = float(parts[2])
-                wait_time = float(parts[3])
-                results[policy] = {"avg_jct": avg_jct, "wait_time": wait_time}
-        elif "SJF" in line and "," in line:
-            parts = line.split(",")
-            if len(parts) >= 4:
-                policy = "SJF"
-                avg_jct = float(parts[2])
-                wait_time = float(parts[3])
-                results[policy] = {"avg_jct": avg_jct, "wait_time": wait_time}
-
-    os.chdir(original_dir)
-
-    return results
-
+# NOTE: This count overlap with jobs from the same user
+def get_users_to_overlap(users_to_jobs, job_to_overlaps):
+    users_to_overlap = {}
+    for user, jobs in users_to_jobs.items():
+        overlap_for_user = []
+        for job in jobs:
+            overlap_for_user.append(job_to_overlaps[job])
+        users_to_overlap[user] = overlap_for_user
+    return users_to_overlap
 
 def main():
     num_jobs = 20000
     num_gpus = 6500
-    target_user = None
 
-    original_trace = Path("simulator/traces/pai/pai_job_duration_estimate_100K.csv")
+    original_trace_path = Path("simulator/traces/pai/pai_job_duration_estimate_100K.csv")
 
-    single_trace, multi_trace, selected_user, actual_jobs = create_filtered_traces(
-        original_trace, target_user, num_jobs
-    )
+    users_to_jobs = get_user_to_jobs(original_trace_path)
+    
+    job_to_overlaps = get_job_overlaps_from_trace(original_trace_path)
+    
+    users_to_overlap = get_users_to_overlap(users_to_jobs, job_to_overlaps)
 
-    # Run simulations
-    print(f"\nRunning simulations with {num_gpus} GPUs...")
+    for user, overlap in users_to_overlap.items():
+        avg_overlap = sum(overlap) / len(overlap)
+        
+        single_trace, num_jobs_per_user = create_filtered_traces(
+            original_trace_path, user, num_jobs
+        )
+        # Run simulations
+        num_gpus_for_user = ceil(num_gpus / avg_overlap)
+        print(f"Running simulations for user {user} with {num_gpus_for_user} GPUs...")
+        single_results = run_simulation(single_trace, "Single-User", num_jobs_per_user, num_gpus_for_user)
+        
+        for k, v in single_results.items():
+            print(f"{k} -> {v}")
 
-    # NOTE: shouldn't the single_results be running on a fraction of num_gpus inv. proportional to number of jobs?
-    single_results = run_simulation(single_trace, "Single-User", actual_jobs, num_gpus)
-    multi_results = run_simulation(multi_trace, "Multi-User", actual_jobs, num_gpus)
-
-    # Display results
-    print(f"\n{'='*60}")
-    print(f"COMPARISON RESULTS")
-    print(f"User: {selected_user}, Jobs: {actual_jobs}, GPUs: {num_gpus}")
-    print(f"{'='*60}")
-
-    for policy in ["FIFO", "SJF"]:
-        if policy in single_results and policy in multi_results:
-            single = single_results[policy]
-            multi = multi_results[policy]
-
-            print(f"\n{policy} Policy:")
-            print(
-                f"  Single-user: JCT={single['avg_jct']:.1f}s, Wait={single['wait_time']:.1f}s"
-            )
-            print(
-                f"  Multi-user:  JCT={multi['avg_jct']:.1f}s, Wait={multi['wait_time']:.1f}s"
-            )
-
-    return 0
+        return 0
 
 
 if __name__ == "__main__":
