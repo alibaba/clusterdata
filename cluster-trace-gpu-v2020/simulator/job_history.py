@@ -28,6 +28,11 @@ class JobHistory:
                     self.temp_user_stats[job['user']] = job['on_time']  # take job's current on_time as duration estimation
         job_list.sort(key=lambda j: (self.get_job_metrics(j, metrics), j['user_rrid']))
 
+    # Metrics include:
+    # 'num_job'
+    # 'dur_avg'
+    # 'dur_mva' 
+    # 'dur_har'
     def get_job_metrics(self, job, metrics):
         user = job['user']
         if user in self.user_job_stats:
