@@ -181,7 +181,7 @@ def get_average_concurrent_users(target_user, trace_filename):
 
 def run_simulation(trace_filename, num_jobs, num_gpus):
     
-    ARRIVAL_RATE = 1000
+    ARRIVAL_RATE = -1
     REPEAT = 1
     SORT_NODE_POLICY = 3  # 0: packing, 3: max-min balancing.
     MAX_TIME = int(1e9)
@@ -246,15 +246,25 @@ def get_users_to_overlap(users_to_jobs, job_to_overlaps):
         users_to_overlap[user] = overlap_for_user
     return users_to_overlap
 
-def compare_single_and_actual_jct(simulator_output):
-    pass
+def compare_single_and_actual_jct(user, single_results, original_results, num_jobs_in_original):
+    sharing_incentives = []
+    for job in single_results:
+        if(job["job_id"] > num_jobs_in_original):
+            break
+        jct_single = job["jct"]
+        jct_original = original_results[job["job_id"]]["jct"]
+        print(f"Job {job['job_id']} - Single-user JCT: {jct_single}, Original JCT: {jct_original}")
+        print(" Sharing incentive = ", jct_original / jct_single)
+        sharing_incentives.append(jct_original / jct_single)
+
+    print(f"Average sharing incentive for user {user} : {sum(sharing_incentives) / len(single_results)}. (< 1 preferred for fairness)")
 
 def main():
-    num_jobs = 20000
+    num_jobs = 50000
     num_gpus = 6500
 
     original_trace_path = Path("simulator/traces/pai/pai_job_duration_estimate_100K.csv")
-
+    original_results = run_simulation(original_trace_path, num_jobs, num_gpus)
     # users_to_jobs = get_user_to_jobs(original_trace_path)
     
     # # TODO: account for the fact that a job may not use a full GPU
@@ -291,10 +301,9 @@ def main():
     num_gpus_for_user = ceil(num_gpus / cluster_denominator)
     print(f"Running simulations for user {target_user} with {num_gpus_for_user} GPUs...")
     
-    # TODO: look into why the submit times are all the same?! all = 360?!
     single_results = run_simulation(single_trace, num_jobs_per_user, num_gpus_for_user)
 
-    breakpoint()
+    compare_single_and_actual_jct(target_user, single_results, original_results, num_jobs)
     return 0
     
 if __name__ == "__main__":
