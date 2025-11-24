@@ -120,9 +120,68 @@ def get_user_to_jobs(trace_filename):
 
     return user_to_jobs
 
+def get_average_concurrent_users(target_user, trace_filename):
+    """
+    Computes the average number of users running concurrently with a given user in the trace.
+    """
+
+    path = Path(trace_filename)
+    with path.open("r", newline="") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+        if not rows:
+            raise ValueError("Input trace is empty")
+
+    class SubmitDuration:
+        def __init__(self, user, start, duration):
+            self.user = user
+            self.start = start
+            self.end = start + max(0.0, duration)
+
+    # map available header names to canonical start/duration keys
+    user_key = "user"
+    start_key = "submit_time"
+    dur_key = "duration"
+
+    # parse intervals
+    submits = []
+    for r in rows:
+        try:
+            id = str(r.get(user_key, "unknown"))
+        except ValueError:
+            raise ValueError(f"User field not found for {r}")
+        try:
+            s = float(r.get(start_key, 0) or 0)
+        except ValueError:
+            raise ValueError(f"Start not found for {r}")
+        try:
+            d = float(r.get(dur_key, 0) or 0)
+        except ValueError:
+           raise ValueError(f"End not found for {r}")
+        submits.append(SubmitDuration(id, s, d))
+
+    # prepare sorted lists for sweep counting
+    starts_sorted = sorted([s.start for s in submits])
+    ends_sorted = sorted([s.end for s in submits])
+
+    concurrent_users = []
+    for submission in submits:
+        if(submission.user != target_user):
+            continue
+        overlapping_users = set()
+        num_start_before_end = bisect_left(starts_sorted, submission.end)
+        num_end_after_start = bisect_right(ends_sorted, submission.start)
+        for overlapping_submission in submits[num_end_after_start:num_start_before_end]:
+            overlapping_users.add(overlapping_submission.user)
+        concurrent_users.append(len(overlapping_users))
+    
+    average_concurrent_users = sum(concurrent_users) / len(concurrent_users) if concurrent_users else 0
+    print(f"Average concurrent users for {target_user}: {average_concurrent_users}")
+    return average_concurrent_users
+
 def run_simulation(trace_filename, num_jobs, num_gpus):
     
-    ARRIVAL_RATE = 1000
+    ARRIVAL_RATE = -1
     REPEAT = 1
     SORT_NODE_POLICY = 3  # 0: packing, 3: max-min balancing.
     MAX_TIME = int(1e9)
@@ -187,38 +246,65 @@ def get_users_to_overlap(users_to_jobs, job_to_overlaps):
         users_to_overlap[user] = overlap_for_user
     return users_to_overlap
 
-def compare_single_and_actual_jct(simulator_output):
-    pass
+def compare_single_and_actual_jct(user, single_results, original_results, num_jobs_in_original):
+    sharing_incentives = []
+    for job in single_results:
+        if(job["job_id"] > num_jobs_in_original):
+            break
+        jct_single = job["jct"]
+        jct_original = original_results[job["job_id"]]["jct"]
+        print(f"Job {job['job_id']} - Single-user JCT: {jct_single}, Original JCT: {jct_original}")
+        print(" Sharing incentive = ", jct_original / jct_single)
+        sharing_incentives.append(jct_original / jct_single)
+
+    print(f"Average sharing incentive for user {user} : {sum(sharing_incentives) / len(single_results)}. (< 1 preferred for fairness)")
 
 def main():
-    num_jobs = 20000
+    num_jobs = 50000
     num_gpus = 6500
 
     original_trace_path = Path("simulator/traces/pai/pai_job_duration_estimate_100K.csv")
+    original_results = run_simulation(original_trace_path, num_jobs, num_gpus)
+    # users_to_jobs = get_user_to_jobs(original_trace_path)
+    
+    # # TODO: account for the fact that a job may not use a full GPU
+    # # TODO: for user-leve fairness We should be counting the number of users, not the number of jobs
+    # job_to_overlaps = get_job_overlaps_from_trace(original_trace_path)
+    
+    # users_to_overlap = get_users_to_overlap(users_to_jobs, job_to_overlaps)
 
-    users_to_jobs = get_user_to_jobs(original_trace_path)
-    
-    # TODO: account for the fact that a job may not use a full GPU
-    # TODO: for user-leve fairness We should be counting the number of users, not the number of jobs
-    job_to_overlaps = get_job_overlaps_from_trace(original_trace_path)
-    
-    users_to_overlap = get_users_to_overlap(users_to_jobs, job_to_overlaps)
+    # single_output_trace = Path("simulator/traces/pai/single_user_temp.csv")
+    # for user, overlap in users_to_overlap.items():
+    #     avg_overlap = sum(overlap) / len(overlap)
+        
+    #     single_trace, num_jobs_per_user = create_filtered_traces(
+    #         original_trace_path, user, single_output_trace
+    #     )
+    #     # Run simulations
+    #     num_gpus_for_user = ceil(num_gpus / avg_overlap)
+    #     print(f"Running simulations for user {user} with {num_gpus_for_user} GPUs...")
+        
+    #     # TODO: look into why the submit times are all the same?! all = 360?!
+    #     single_results = run_simulation(single_trace, num_jobs_per_user, num_gpus_for_user)
+
+    #     return 0
+
+    target_user = "d4d51aca8806"
+    cluster_denominator = get_average_concurrent_users(target_user, original_trace_path)
 
     single_output_trace = Path("simulator/traces/pai/single_user_temp.csv")
-    for user, overlap in users_to_overlap.items():
-        avg_overlap = sum(overlap) / len(overlap)
-        
-        single_trace, num_jobs_per_user = create_filtered_traces(
-            original_trace_path, user, single_output_trace
-        )
-        # Run simulations
-        num_gpus_for_user = ceil(num_gpus / avg_overlap)
-        print(f"Running simulations for user {user} with {num_gpus_for_user} GPUs...")
-        
-        # TODO: look into why the submit times are all the same?! all = 360?!
-        single_results = run_simulation(single_trace, num_jobs_per_user, num_gpus_for_user)
+    
+    single_trace, num_jobs_per_user = create_filtered_traces(
+        original_trace_path, target_user, single_output_trace
+    )
+    # Run simulations
+    num_gpus_for_user = ceil(num_gpus / cluster_denominator)
+    print(f"Running simulations for user {target_user} with {num_gpus_for_user} GPUs...")
+    
+    single_results = run_simulation(single_trace, num_jobs_per_user, num_gpus_for_user)
 
-        return 0
-
+    compare_single_and_actual_jct(target_user, single_results, original_results, num_jobs)
+    return 0
+    
 if __name__ == "__main__":
     sys.exit(main())
