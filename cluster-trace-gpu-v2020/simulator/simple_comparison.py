@@ -259,35 +259,30 @@ def compare_single_and_actual_jct(user, single_results, original_results, num_jo
 
     print(f"Average sharing incentive for user {user} : {sum(sharing_incentives) / len(single_results)}. (< 1 preferred for fairness)")
 
+def jct_test():
+    num_jobs = 50000
+    num_gpus = 6500
+    
+    # original_trace_path = Path("simulator/traces/pai/pai_job_duration_estimate_100K.csv")
+    # original_results = run_simulation(original_trace_path, num_jobs, num_gpus)
+
+    single_trace_path = Path("simulator/traces/pai/pai_job_duration_estimate_single.csv")
+    single_results_3 = run_simulation(single_trace_path, 1, 3)
+    single_results_1 = run_simulation(single_trace_path, 1, 1)
+
+    print(single_results_3)
+    print(single_results_1)
+    
+
+    # original_results = run_simulation(original_trace_path, num_jobs, num_gpus)
+    
+
 def main():
     num_jobs = 50000
     num_gpus = 6500
 
     original_trace_path = Path("simulator/traces/pai/pai_job_duration_estimate_100K.csv")
     original_results = run_simulation(original_trace_path, num_jobs, num_gpus)
-    # users_to_jobs = get_user_to_jobs(original_trace_path)
-    
-    # # TODO: account for the fact that a job may not use a full GPU
-    # # TODO: for user-leve fairness We should be counting the number of users, not the number of jobs
-    # job_to_overlaps = get_job_overlaps_from_trace(original_trace_path)
-    
-    # users_to_overlap = get_users_to_overlap(users_to_jobs, job_to_overlaps)
-
-    # single_output_trace = Path("simulator/traces/pai/single_user_temp.csv")
-    # for user, overlap in users_to_overlap.items():
-    #     avg_overlap = sum(overlap) / len(overlap)
-        
-    #     single_trace, num_jobs_per_user = create_filtered_traces(
-    #         original_trace_path, user, single_output_trace
-    #     )
-    #     # Run simulations
-    #     num_gpus_for_user = ceil(num_gpus / avg_overlap)
-    #     print(f"Running simulations for user {user} with {num_gpus_for_user} GPUs...")
-        
-    #     # TODO: look into why the submit times are all the same?! all = 360?!
-    #     single_results = run_simulation(single_trace, num_jobs_per_user, num_gpus_for_user)
-
-    #     return 0
 
     target_user = "d4d51aca8806"
     cluster_denominator = get_average_concurrent_users(target_user, original_trace_path)
@@ -307,4 +302,5 @@ def main():
     return 0
     
 if __name__ == "__main__":
-    sys.exit(main())
+    # sys.exit(main())
+    sys.exit(jct_test())

@@ -88,6 +88,7 @@ class Cluster:
         if len(job_runn_list) > 0:
             for job in job_runn_list:
                 job['on_time'] += delta
+                # I think this only matters for measuring time wasted by pre-emption
                 job['progress'] = job['on_time'] * job['num_gpu']
                 
                 # Job done logic
