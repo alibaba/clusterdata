@@ -159,21 +159,23 @@ All data files can be correlated through the `container_ip` field, which is an M
 | `value` | float | End-to-end latency (milliseconds) |
 | `container_ip` | string | MD5 hash of container IP |
 
-### 6. Request-Level Performance Data
+# ### 6. Request-Level Performance Data
 - **File**: `lora_request_trace.csv`
-- **Description**: Detailed inference request performance characteristics including execution time, prompt complexity, etc.
+- **Description**: Detailed inference request performance characteristics including execution time, prompt complexity, and model configuration.
 
 | Field Name | Type | Description | Example |
 |------------|------|-------------|---------|
-| `predict_type` | string | MD5 hash identifier of request type | `e867a9754d73155e90d62f88dbedfc62` |
-| `exec_time_seconds` | float | Inference execution time (seconds) | `22.0` |
-| `style_type` | string | MD5 hash identifier of style type, can be empty | `88585aaa7d5402c0928a0c8639c83bab` |
-| `prompt_length` | float | Positive prompt length (character count) | `54.0` |
-| `negative_prompt_length` | float | Negative prompt length (character count), can be empty | `26.0` |
-| `num_images_per_prompt` | float | Number of images generated per prompt | `1.0` |
-| `num_inference_steps` | float | Number of inference steps | `30.0` |
-| `checkpoint_model_version_id` | string | MD5 hash identifier of base model version | `0a80ffe64c68aa574e80e6c9b9f5308a` |
-| `lora_args` | string | LoRA adapter parameters list (JSON format) | `[{'modelVersionId': '799974951f19a0c730acda2389cc852b', 'scale': 1.0}]` |
+| `gmt_create` | datetime | Request creation timestamp (anonymized with time offset) | `2024-11-15 16:57:50` |
+| `predict_type` | string | Type of generation task: `TXT_2_IMG`, `IMG_2_IMG`, or `INPAINTING` | `TXT_2_IMG` |
+| `predict_status` | string | Request completion status: `SUCCEED`, `PROCESSING`, etc. | `SUCCEED` |
+| `exec_time_seconds` | float | Total execution time in seconds for the request | `32.0` |
+| `groupId` | string | Anonymized user/group identifier | `G0000` |
+| `prompt_length` | float | Length of the input text prompt (character count) | `63.0` |
+| `negative_prompt_length` | float | Length of the negative prompt (character count), can be empty | `26.0` |
+| `num_images_per_prompt` | float | Number of images generated per request | `1.0` |
+| `num_inference_steps` | float | Number of diffusion inference steps | `30.0` |
+| `checkpoint_model_version_id` | string | Anonymized base model identifier | `M0000` |
+| `num_lora` | int | Number of LoRA adapters used in the request (0 = base model only) | `0` |
 
 ## Anonymization Description
 
@@ -183,6 +185,7 @@ All data has undergone strict anonymization processing:
 - **Method**: MD5 hash algorithm
 - **Applied Fields**: Container IP, model version ID, request type, etc.
 - **Feature**: Same original value always maps to same hash value, ensuring correlation
+- **Time Offset**: All timestamps are anonymized with a time offset to preserve relative order but hide absolute values
 
 ## Usage Recommendations
 
@@ -224,7 +227,6 @@ All data has undergone strict anonymization processing:
 
 
 ## Citation
-
 
 If you use this dataset for analyzing request characteristics of diffusion models, GPU utilization patterns, or queue behavior, please cite our SoCC paper:
 
