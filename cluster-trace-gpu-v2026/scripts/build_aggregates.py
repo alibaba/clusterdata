@@ -428,8 +428,8 @@ def write_job_type_outputs(
     rows = [
         {
             "job_type": job_type,
-            "used_card_hour_sum_p9300": values[0],
-            "used_card_hour_sum_p9200_9300": values[1],
+            "hp_used_gpu_hours": values[0],
+            "lp_used_gpu_hours": values[1],
         }
         for job_type, values in sorted(job_type_priority.items())
     ]
@@ -460,9 +460,9 @@ def write_gpu_hourly_req(gpu_hourly_req: dict[tuple[str, str], list[float]], out
         {
             "server_gpu_spec": spec,
             "day": day,
-            "used_card_hour_sum_p9300": vals[0],
-            "used_card_hour_sum_p9200_9300": vals[1],
-            "used_card_hour_sum": vals[2],
+            "hp_used_gpu_hours": vals[0],
+            "lp_used_gpu_hours": vals[1],
+            "total_used_gpu_hours": vals[2],
         }
         for (spec, day), vals in sorted(gpu_hourly_req.items())
     ]

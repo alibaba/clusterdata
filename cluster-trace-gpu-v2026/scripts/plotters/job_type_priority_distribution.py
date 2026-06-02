@@ -17,8 +17,8 @@ def plot() -> None:
     rows = []
     for job_type in c.PAPER_JOB_ORDER:
         cur = df[df["job_type"].eq(job_type)]
-        hp = float(cur["used_card_hour_sum_p9300"].sum())
-        lp = float(cur["used_card_hour_sum_p9200_9300"].sum())
+        hp = float(cur["hp_used_gpu_hours"].sum())
+        lp = float(cur["lp_used_gpu_hours"].sum())
         total = hp + lp
         rows.append(
             {

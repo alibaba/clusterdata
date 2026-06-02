@@ -43,7 +43,7 @@ def plot() -> None:
     for spec in plot_order:
         group = df[df["display_gpu_spec"].eq(spec)].sort_values("day")
         plot_x = [plot_x_by_day[day] for day in group["day"]]
-        plot_y = group["used_card_hour_sum_p9300"].to_numpy(dtype=float) / 100.0
+        plot_y = group["hp_used_gpu_hours"].to_numpy(dtype=float) / 100.0
         ax.plot(
             plot_x,
             plot_y,
