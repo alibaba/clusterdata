@@ -1,0 +1,5 @@
+pandas
+numpy
+pyarrow
+matplotlib
+squarify
