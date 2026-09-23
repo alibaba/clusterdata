@@ -1,0 +1,586 @@
+{
+  "datasets": [
+    {
+      "table": "instance_daily",
+      "format": "parquet",
+      "compression": "zstd",
+      "parquet_bytes": 10528164489,
+      "shards": 61,
+      "writer_rows": 145083117,
+      "schema": [
+        {
+          "name": "day",
+          "type": "BIGINT"
+        },
+        {
+          "name": "instance_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "app_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "model_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "base_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "cluster_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "site_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gpu_type",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "workload",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "model_arch",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "params_b",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "pd_role",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gpu_count",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "gpu_hours",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "samples",
+          "type": "BIGINT"
+        },
+        {
+          "name": "zero_samples",
+          "type": "BIGINT"
+        },
+        {
+          "name": "sm_util",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "gpu_mem_util",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "cpu_usage",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "mem_usage",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "base_arch",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "variant_arch",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gpu_mem_alloc",
+          "type": "DOUBLE"
+        }
+      ],
+      "summary": {
+        "rows": 145083117,
+        "first_day": 0,
+        "last_day": 181,
+        "observed_days": 181,
+        "gpu_hours": 365843979.85833335,
+        "samples": 48692780902
+      },
+      "files": [
+        {
+          "name": "part_0.parquet",
+          "rows": 2356728,
+          "bytes": 171991127
+        },
+        {
+          "name": "part_1.parquet",
+          "rows": 2717917,
+          "bytes": 193658202
+        },
+        {
+          "name": "part_2.parquet",
+          "rows": 2344720,
+          "bytes": 166852370
+        },
+        {
+          "name": "part_3.parquet",
+          "rows": 1982783,
+          "bytes": 144365689
+        },
+        {
+          "name": "part_4.parquet",
+          "rows": 2353360,
+          "bytes": 171709958
+        },
+        {
+          "name": "part_5.parquet",
+          "rows": 1980867,
+          "bytes": 141552601
+        },
+        {
+          "name": "part_6.parquet",
+          "rows": 2347911,
+          "bytes": 170271332
+        },
+        {
+          "name": "part_7.parquet",
+          "rows": 1976452,
+          "bytes": 141823953
+        },
+        {
+          "name": "part_8.parquet",
+          "rows": 2348264,
+          "bytes": 169004154
+        },
+        {
+          "name": "part_9.parquet",
+          "rows": 2475323,
+          "bytes": 175677927
+        },
+        {
+          "name": "part_10.parquet",
+          "rows": 2475251,
+          "bytes": 179866140
+        },
+        {
+          "name": "part_11.parquet",
+          "rows": 2347391,
+          "bytes": 170392526
+        },
+        {
+          "name": "part_12.parquet",
+          "rows": 1977142,
+          "bytes": 143927825
+        },
+        {
+          "name": "part_13.parquet",
+          "rows": 2345692,
+          "bytes": 167776415
+        },
+        {
+          "name": "part_14.parquet",
+          "rows": 3215480,
+          "bytes": 228809524
+        },
+        {
+          "name": "part_15.parquet",
+          "rows": 2845165,
+          "bytes": 202675160
+        },
+        {
+          "name": "part_16.parquet",
+          "rows": 2348211,
+          "bytes": 167527403
+        },
+        {
+          "name": "part_17.parquet",
+          "rows": 2349777,
+          "bytes": 166029928
+        },
+        {
+          "name": "part_18.parquet",
+          "rows": 2342128,
+          "bytes": 168777523
+        },
+        {
+          "name": "part_19.parquet",
+          "rows": 1975727,
+          "bytes": 141954927
+        },
+        {
+          "name": "part_20.parquet",
+          "rows": 2351478,
+          "bytes": 170199620
+        },
+        {
+          "name": "part_21.parquet",
+          "rows": 1977335,
+          "bytes": 142425547
+        },
+        {
+          "name": "part_22.parquet",
+          "rows": 2348705,
+          "bytes": 167461200
+        },
+        {
+          "name": "part_23.parquet",
+          "rows": 2471243,
+          "bytes": 176117570
+        },
+        {
+          "name": "part_24.parquet",
+          "rows": 2347994,
+          "bytes": 167614088
+        },
+        {
+          "name": "part_25.parquet",
+          "rows": 2471031,
+          "bytes": 177772272
+        },
+        {
+          "name": "part_26.parquet",
+          "rows": 2347605,
+          "bytes": 168532153
+        },
+        {
+          "name": "part_27.parquet",
+          "rows": 3094212,
+          "bytes": 224558266
+        },
+        {
+          "name": "part_28.parquet",
+          "rows": 2720679,
+          "bytes": 195294658
+        },
+        {
+          "name": "part_29.parquet",
+          "rows": 2720087,
+          "bytes": 196927060
+        },
+        {
+          "name": "part_30.parquet",
+          "rows": 2839807,
+          "bytes": 203985437
+        },
+        {
+          "name": "part_31.parquet",
+          "rows": 2719983,
+          "bytes": 194258739
+        },
+        {
+          "name": "part_32.parquet",
+          "rows": 2470272,
+          "bytes": 177937175
+        },
+        {
+          "name": "part_33.parquet",
+          "rows": 2346274,
+          "bytes": 170421796
+        },
+        {
+          "name": "part_34.parquet",
+          "rows": 2475369,
+          "bytes": 177588207
+        },
+        {
+          "name": "part_35.parquet",
+          "rows": 2348703,
+          "bytes": 169246004
+        },
+        {
+          "name": "part_36.parquet",
+          "rows": 3210588,
+          "bytes": 230465964
+        },
+        {
+          "name": "part_37.parquet",
+          "rows": 2839263,
+          "bytes": 203135583
+        },
+        {
+          "name": "part_38.parquet",
+          "rows": 2961138,
+          "bytes": 213783164
+        },
+        {
+          "name": "part_39.parquet",
+          "rows": 2467816,
+          "bytes": 173837849
+        },
+        {
+          "name": "part_40.parquet",
+          "rows": 2345139,
+          "bytes": 168710634
+        },
+        {
+          "name": "part_41.parquet",
+          "rows": 2725313,
+          "bytes": 199453984
+        },
+        {
+          "name": "part_42.parquet",
+          "rows": 1979761,
+          "bytes": 142836988
+        },
+        {
+          "name": "part_43.parquet",
+          "rows": 2347869,
+          "bytes": 166662317
+        },
+        {
+          "name": "part_44.parquet",
+          "rows": 2347366,
+          "bytes": 167667134
+        },
+        {
+          "name": "part_45.parquet",
+          "rows": 2468718,
+          "bytes": 180893588
+        },
+        {
+          "name": "part_46.parquet",
+          "rows": 2354988,
+          "bytes": 177270009
+        },
+        {
+          "name": "part_47.parquet",
+          "rows": 1973737,
+          "bytes": 147286658
+        },
+        {
+          "name": "part_48.parquet",
+          "rows": 2346267,
+          "bytes": 175455108
+        },
+        {
+          "name": "part_49.parquet",
+          "rows": 1978098,
+          "bytes": 145279515
+        },
+        {
+          "name": "part_50.parquet",
+          "rows": 2351449,
+          "bytes": 177123194
+        },
+        {
+          "name": "part_51.parquet",
+          "rows": 1980794,
+          "bytes": 147282333
+        },
+        {
+          "name": "part_52.parquet",
+          "rows": 2347416,
+          "bytes": 174820344
+        },
+        {
+          "name": "part_53.parquet",
+          "rows": 2476372,
+          "bytes": 185349582
+        },
+        {
+          "name": "part_54.parquet",
+          "rows": 1981670,
+          "bytes": 149093785
+        },
+        {
+          "name": "part_55.parquet",
+          "rows": 2343440,
+          "bytes": 176244524
+        },
+        {
+          "name": "part_56.parquet",
+          "rows": 1978426,
+          "bytes": 149696633
+        },
+        {
+          "name": "part_57.parquet",
+          "rows": 2353758,
+          "bytes": 179109514
+        },
+        {
+          "name": "part_58.parquet",
+          "rows": 2725581,
+          "bytes": 204085959
+        },
+        {
+          "name": "part_59.parquet",
+          "rows": 2599524,
+          "bytes": 194627729
+        },
+        {
+          "name": "part_60.parquet",
+          "rows": 441560,
+          "bytes": 33007921
+        }
+      ]
+    },
+    {
+      "table": "instance_week_5min",
+      "format": "parquet",
+      "compression": "zstd",
+      "parquet_bytes": 4812186555,
+      "shards": 21,
+      "writer_rows": 140906827,
+      "schema": [
+        {
+          "name": "instance_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "time_s",
+          "type": "BIGINT"
+        },
+        {
+          "name": "cluster_id",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gpu_count",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "sm_util",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "gpu_mem_util",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "cpu_usage",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "mem_usage",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "samples",
+          "type": "BIGINT"
+        }
+      ],
+      "summary": {
+        "rows": 140906827,
+        "first_time_s": 12096000,
+        "last_time_s": 12700500,
+        "samples": 1971817414
+      },
+      "files": [
+        {
+          "name": "part_0.parquet",
+          "rows": 6830196,
+          "bytes": 233356148
+        },
+        {
+          "name": "part_1.parquet",
+          "rows": 6956516,
+          "bytes": 237523673
+        },
+        {
+          "name": "part_2.parquet",
+          "rows": 6830721,
+          "bytes": 233354898
+        },
+        {
+          "name": "part_3.parquet",
+          "rows": 7452289,
+          "bytes": 254428076
+        },
+        {
+          "name": "part_4.parquet",
+          "rows": 6831108,
+          "bytes": 233402026
+        },
+        {
+          "name": "part_5.parquet",
+          "rows": 6956406,
+          "bytes": 237655817
+        },
+        {
+          "name": "part_6.parquet",
+          "rows": 6957731,
+          "bytes": 237661511
+        },
+        {
+          "name": "part_7.parquet",
+          "rows": 6831294,
+          "bytes": 233262163
+        },
+        {
+          "name": "part_8.parquet",
+          "rows": 7204180,
+          "bytes": 246042948
+        },
+        {
+          "name": "part_9.parquet",
+          "rows": 7079582,
+          "bytes": 241731571
+        },
+        {
+          "name": "part_10.parquet",
+          "rows": 6832061,
+          "bytes": 233313206
+        },
+        {
+          "name": "part_11.parquet",
+          "rows": 6834103,
+          "bytes": 233320150
+        },
+        {
+          "name": "part_12.parquet",
+          "rows": 7328237,
+          "bytes": 250179119
+        },
+        {
+          "name": "part_13.parquet",
+          "rows": 7328018,
+          "bytes": 250294554
+        },
+        {
+          "name": "part_14.parquet",
+          "rows": 7205151,
+          "bytes": 246104588
+        },
+        {
+          "name": "part_15.parquet",
+          "rows": 7328797,
+          "bytes": 250381062
+        },
+        {
+          "name": "part_16.parquet",
+          "rows": 6830279,
+          "bytes": 233200023
+        },
+        {
+          "name": "part_17.parquet",
+          "rows": 6956447,
+          "bytes": 237551399
+        },
+        {
+          "name": "part_18.parquet",
+          "rows": 6833030,
+          "bytes": 233350818
+        },
+        {
+          "name": "part_19.parquet",
+          "rows": 6832048,
+          "bytes": 233284905
+        },
+        {
+          "name": "part_20.parquet",
+          "rows": 668633,
+          "bytes": 22787900
+        }
+      ]
+    },
+    {
+      "table": "app_metrics",
+      "format": "csv",
+      "rows": 7401,
+      "file": "app_metrics.csv"
+    }
+  ]
+}
