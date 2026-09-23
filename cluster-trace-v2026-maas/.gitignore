@@ -1,0 +1,9 @@
+/data/*
+!/data/app_cases.json
+!/data/manifest.json
+.cache/
+output/
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store

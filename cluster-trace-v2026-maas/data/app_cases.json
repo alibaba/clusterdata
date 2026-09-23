@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "week_start_s": 12096000,
+  "interval_s": 3600,
+  "null": "\\N",
+  "time_reference": "Same relative seconds and time-label convention as the daily and weekly traces.",
+  "units": {
+    "qps_norm": "dimensionless",
+    "gpu_count": "GPU equivalents",
+    "input_tokens": "tokens",
+    "output_tokens": "tokens",
+    "ttft": "ms",
+    "tpot": "ms",
+    "kv_cache_util": "%",
+    "prefill_latency": "ms",
+    "kv_transfer_latency": "ms",
+    "sm_util": "%",
+    "gpu_mem_util": "%"
+  },
+  "figures": {
+    "8": {
+      "apps": [
+        {
+          "app_id": "app_6eeb548ff36d67978799b25d2c92ac49bde9e8386aa9157824f8232b390dbc85",
+          "label": "App1"
+        },
+        {
+          "app_id": "app_986b967e19b8baa272c999356e0a69e935ec902d2edd4cad07de0907c7aaff8e",
+          "label": "App2"
+        }
+      ],
+      "gpus": [
+        {
+          "gpu_type": "gpu_a4c9b5cf4ae29324db1b9844d6742afa8a7b7ab76aa3aab4bc6f3bd531518ff0",
+          "label": "GPU-A",
+          "color": "#1f77b4"
+        },
+        {
+          "gpu_type": "gpu_4d23f9cb9aa589a3502057e93f8ef4c64a329fcf77071ff3934c94d1211f14fe",
+          "label": "GPU-B",
+          "color": "#2ca02c"
+        },
+        {
+          "gpu_type": "gpu_31598c9e4874c12d920ea713cc7fb822d0a97e5011702e4d681deb150b4506ee",
+          "label": "GPU-C",
+          "color": "#ff7f0e"
+        },
+        {
+          "gpu_type": "gpu_645891f5423a85ae99fcb219f0e53e5e8d19bf4b3b1456d8fbb26c146a355dd1",
+          "label": "GPU-D",
+          "color": "#8c564b"
+        }
+      ],
+      "qps_normalization": "One peak total hourly QPS per app, summed across GPU types and series; the private denominator is not released."
+    },
+    "9": {
+      "apps": [
+        {
+          "app_id": "app_42c7bf711b1a2446843617866a0a4811385ef5e1fe32f32194fecb5248c6e7b6",
+          "label": "Application case"
+        }
+      ]
+    },
+    "10": {
+      "apps": [
+        {
+          "app_id": "app_5a3aa67a5b112dd3dc614fa9303b5a9bb047e6cdd18921cf3a8e18139f6e85be",
+          "label": "PD-disaggregated application"
+        }
+      ],
+      "qps_normalization": "Peak QPS over timestamps shared by the exported RPC and QPS series; the private denominator is not released."
+    }
+  }
+}
