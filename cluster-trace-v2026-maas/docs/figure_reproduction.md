@@ -1,7 +1,7 @@
 # Reproducing Figures
 
-Run from the repository directory with Python 3.10 or later, after placing the
-data under `data/` as shown in the [README](../README.md).
+Download and extract the data following [data_download.md](data_download.md).
+Run the commands below from `cluster-trace-v2026-maas/` with Python 3.10 or later.
 
 ```sh
 python3 -m venv .venv
