@@ -30,29 +30,19 @@ If you use this trace, please cite the paper:
 
 ## Data Download
 
-The dataset is currently undergoing internal compliance review and is expected
-to be released soon via Alibaba Cloud OSS. Download links will be added here
-once the review is complete. Place the downloaded files in the layout below;
-Parquet shards are read directly and do not need to be merged.
+The datasets are hosted separately from GitHub at:
 
 ```text
-data/
-  instance_daily/part_*.parquet
-  instance_week_5min/part_*.parquet
-  app_metrics.csv
-  app_cases.json
-  manifest.json
-docs/
-  schema.md
-  figure_reproduction.md
-scripts/
-output/                     # Generated tables and figures
-requirements.txt
+https://tre-clusterdata.oss-cn-hangzhou.aliyuncs.com/cluster-trace-v2026-maas/data/
 ```
+
+Download the three ZIP archives into `data/` and unzip them before running
+the reproduction scripts. See [docs/data_download.md](docs/data_download.md)
+for the archive list, sizes, and directory layout.
 
 ## Dataset Contents
 
-| Dataset | Coverage | Rows | Files / size |
+| Dataset | Coverage | Rows | Files / uncompressed size |
 | --- | --- | ---: | --- |
 | `instance_daily/` | Six months; daily instance segments | 145,083,117 | 61 Parquet files / 9.805 GiB |
 | `instance_week_5min/` | One week; five-minute instance observations | 140,906,827 | 21 Parquet files / 4.482 GiB |
