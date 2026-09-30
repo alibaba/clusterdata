@@ -24,9 +24,9 @@ FROM usage
 """
 
 
-def query(name, sql, hot=False):
-    setup = "CREATE TEMP VIEW hot_models AS " + HOT_SQL if hot else ""
-    return cached_query(name, sql, setup)
+def query(name, sql, hot=False, partition=None):
+    setup = "CREATE TEMP TABLE hot_models AS " + HOT_SQL if hot else ""
+    return cached_query(name, sql, setup, partition=partition)
 
 
 def cdf(points, origin=0, percentile=None):

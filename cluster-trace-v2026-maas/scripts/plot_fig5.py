@@ -15,10 +15,10 @@ FROM src WHERE gpu_hours > 0
 GROUP BY day, workload ORDER BY day, workload
 """
 WORKLOAD = """
-CREATE TEMP TABLE week_workload AS
+CREATE OR REPLACE TEMP TABLE week_workload AS
 SELECT instance_id, day, min(workload) AS workload,
        count(DISTINCT workload) AS labels, count(*) - count(workload) AS null_labels
-FROM daily WHERE day BETWEEN 140 AND 146 GROUP BY instance_id, day;
+FROM daily WHERE {partition} GROUP BY instance_id, day;
 SELECT CASE WHEN count(*) > 0 THEN error('Ambiguous instance-day workload') ELSE 0 END
 FROM week_workload WHERE labels <> 1 OR null_labels > 0;
 """
@@ -29,7 +29,8 @@ WEEK_MEANS = ", ".join(
 WEEK = f"""
 WITH labeled AS (
     SELECT w.*, d.workload, w.gpu_count * w.samples AS weight
-    FROM week w LEFT JOIN week_workload d
+    FROM (SELECT *, time_s // 86400 AS day FROM week WHERE {{partition}}) w
+    LEFT JOIN week_workload d
       ON w.instance_id = d.instance_id AND w.time_s // 86400 = d.day
 )
 SELECT (time_s // 1800) * 1800 AS time_30m, workload, {WEEK_MEANS}
@@ -81,7 +82,8 @@ def plot_week(rows, metric_index):
 
 
 if __name__ == "__main__":
-    weekly = query("fig5_week", WEEK, WORKLOAD, ("instance_daily", "instance_week_5min"))
+    weekly = query("fig5_week", WEEK, WORKLOAD, ("instance_daily", "instance_week_5min"),
+                   partition=("day", 1))
     if any(r[1] is None for r in weekly):
         raise ValueError("Weekly records without a matching daily workload")
     daily = query("fig5_daily", DAILY)

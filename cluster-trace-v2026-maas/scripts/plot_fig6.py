@@ -23,6 +23,7 @@ QUERIES = {
             SELECT workload, app_id, day,
                    count(DISTINCT instance_id) AS instances, fsum(hours) AS hours
             FROM src WHERE cluster_id IS NOT NULL AND gpu_type IS NOT NULL
+              AND {{partition}}
             GROUP BY workload, app_id, day
         )
         SELECT workload, instances, fsum(hours) AS hours
@@ -33,7 +34,9 @@ QUERIES = {
 
 
 def load_data(panel):
-    return query(f"fig6_{panel}", QUERIES[panel])
+    rows = query(f"fig6_{panel}", QUERIES[panel],
+                 partition=("day", 7) if panel == "right" else None)
+    return sorted(rows, key=lambda r: (r[0], r[1])) if panel == "right" else rows
 
 
 def plot_left(rows):

@@ -2,30 +2,29 @@ from plot_common import HOT_COLORS, axes, draw_hot, hot_legend, query, finish
 import numpy as np
 from matplotlib.lines import Line2D
 
-BUCKETS = """
-WITH values_long AS (
-    SELECT s.workload, h.temperature, s.hours, v.metric, v.value
+BUCKETS = " UNION ALL ".join(f"""
+SELECT '{metric}' AS metric, s.workload, h.temperature,
+       (least(floor(({value}) / 0.2), 499) + 0.5) * 0.2 AS x, fsum(s.hours)
     FROM src s JOIN hot_models h USING (workload, model_key)
-    CROSS JOIN LATERAL (VALUES
-        ('sm', s.sm_util), ('memory', s.gpu_mem_util),
-        ('zero', CASE WHEN s.samples > 0 THEN 100.0 * s.zero_samples / s.samples END)
-    ) v(metric, value)
-    WHERE s.hours > 0
-)
-SELECT metric, workload, temperature,
-       (least(floor(value / 0.2), 499) + 0.5) * 0.2 AS x, fsum(hours)
-FROM values_long WHERE value BETWEEN 0 AND 100
-GROUP BY metric, workload, temperature, x
-ORDER BY metric, workload, temperature, x
-"""
+    WHERE s.hours > 0 AND ({value}) BETWEEN 0 AND 100
+GROUP BY s.workload, h.temperature, x
+""" for metric, value in [
+    ("sm", "s.sm_util"), ("memory", "s.gpu_mem_util"),
+    ("zero", "CASE WHEN s.samples > 0 THEN 100.0 * s.zero_samples / s.samples END"),
+]) + " ORDER BY metric, workload, temperature, x"
 IDLE = """
-SELECT s.workload, h.temperature, t.sm, t.mem,
-       100.0 * fsum(CASE WHEN s.sm_util < t.sm AND s.gpu_mem_util > t.mem
-                        THEN s.hours ELSE 0 END) / fsum(s.hours) AS ratio
-FROM src s JOIN hot_models h USING (workload, model_key)
-CROSS JOIN (VALUES (5, 80), (5, 90), (10, 80), (10, 90)) t(sm, mem)
-WHERE s.hours > 0
-GROUP BY s.workload, h.temperature, t.sm, t.mem
+WITH totals AS (
+    SELECT s.workload, h.temperature, fsum(s.hours) AS hours,
+           fsum(CASE WHEN s.sm_util < 5 AND s.gpu_mem_util > 80 THEN s.hours ELSE 0 END) AS a,
+           fsum(CASE WHEN s.sm_util < 5 AND s.gpu_mem_util > 90 THEN s.hours ELSE 0 END) AS b,
+           fsum(CASE WHEN s.sm_util < 10 AND s.gpu_mem_util > 80 THEN s.hours ELSE 0 END) AS c,
+           fsum(CASE WHEN s.sm_util < 10 AND s.gpu_mem_util > 90 THEN s.hours ELSE 0 END) AS d
+    FROM src s JOIN hot_models h USING (workload, model_key)
+    WHERE s.hours > 0 GROUP BY s.workload, h.temperature
+)
+SELECT workload, temperature, t.sm, t.mem, 100.0 * t.idle / hours AS ratio
+FROM totals CROSS JOIN LATERAL (VALUES (5, 80, a), (5, 90, b),
+                                         (10, 80, c), (10, 90, d)) t(sm, mem, idle)
 """
 THRESHOLDS = [(5, 80, "o"), (5, 90, "s"), (10, 80, "^"), (10, 90, "D")]
 
