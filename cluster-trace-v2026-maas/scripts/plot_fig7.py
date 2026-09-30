@@ -5,6 +5,7 @@ SQL = """
 WITH app_day AS (
     SELECT workload, app_id, day, count(DISTINCT {column}) AS n, fsum(hours) AS hours
     FROM src WHERE cluster_id IS NOT NULL AND {gpu_filter}
+      AND {partition}
     GROUP BY workload, app_id, day
 )
 SELECT workload, n, fsum(hours) AS hours
@@ -18,7 +19,8 @@ def main():
         ("a", "cluster_id", "# Clusters per App", "gpu_type IS NOT NULL"),
         ("b", "gpu_type", "# GPU Types per App", "starts_with(gpu_type, 'gpu_')"),
     ]:
-        rows = query(f"fig7_{panel}", SQL.format(column=column, gpu_filter=gpu_filter))
+        rows = query(f"fig7_{panel}", SQL.format(column=column, gpu_filter=gpu_filter,
+                     partition="{partition}"), partition=("day", 7))
         fig, ax = axes(7, panel, f"({panel}) {label}")
         xmax = 1
         for group, legend, color in WORKLOADS:

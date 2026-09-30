@@ -1,11 +1,3 @@
-CREATE OR REPLACE TEMP TABLE t2_instances AS
-SELECT workload AS name, count(*) AS instances FROM (
-    SELECT DISTINCT workload, instance_id FROM daily
-    WHERE workload IN ('online', 'offline') AND instance_id IS NOT NULL
-) GROUP BY workload;
-INSERT INTO t2_instances
-SELECT 'all', count(*) FROM (SELECT DISTINCT instance_id FROM daily WHERE instance_id IS NOT NULL);
-
 WITH groups AS NOT MATERIALIZED (
     SELECT workload AS name, * FROM daily WHERE workload IN ('online', 'offline')
     UNION ALL

@@ -6,6 +6,7 @@ WITH durations AS (
            fsum(s.hours / s.gpu_count) AS duration
     FROM src s JOIN hot_models h USING (workload, model_key)
     WHERE s.instance_id IS NOT NULL AND s.hours IS NOT NULL AND s.gpu_count > 0
+      AND {partition}
     GROUP BY s.workload, h.temperature, s.instance_id
 )
 SELECT workload, temperature, floor(duration * 100) / 100.0 + 0.005 AS x, count(*)
@@ -23,7 +24,8 @@ ORDER BY s.workload, h.temperature, s.params_b
 
 def main():
     fig, ax = axes(13, "a", "(a) Instance Duration (Hours)", "CDF of Instances (%)")
-    draw_hot(ax, query("fig13_a", DURATION, hot=True), percentile=99.9)
+    draw_hot(ax, query("fig13_a", DURATION, hot=True,
+                      partition=("s.instance_id", 16)), percentile=99.9)
     ax.set_xscale("symlog", linthresh=1)
     endpoints = [line.get_xdata()[-1] for line in ax.lines if len(line.get_xdata())]
     if endpoints:

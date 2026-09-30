@@ -1,9 +1,3 @@
-CREATE OR REPLACE TEMP TABLE t4_instances AS
-SELECT model_arch AS name, count(*) AS instances FROM (
-    SELECT DISTINCT model_arch, instance_id FROM daily
-    WHERE workload IN ('online', 'offline') AND instance_id IS NOT NULL
-) GROUP BY model_arch;
-
 WITH activity AS (
     SELECT model_arch AS name, count(DISTINCT app_id) AS apps,
            fsum(gpu_hours) AS gpu_hours

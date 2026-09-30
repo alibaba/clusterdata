@@ -1,30 +1,23 @@
 from plot_common import ROLES, axes, cdf, draw_groups, query, finish
 import numpy as np
 
-RESOURCES = """
-WITH metrics AS (
-    SELECT pd_role, hours, v.metric, v.value
-    FROM src CROSS JOIN LATERAL (VALUES
-        ('sm', sm_util), ('memory', gpu_mem_alloc), ('gpus', trunc(gpu_count))
-    ) v(metric, value)
-    WHERE workload = 'online' AND hours > 0
-)
-SELECT metric, pd_role,
-       CASE WHEN metric = 'sm' THEN (least(floor(value / 0.2), 499) + 0.5) * 0.2
-            WHEN metric = 'memory' THEN (least(floor(value / 3.2), 499) + 0.5) * 3.2
-            ELSE value END AS x, fsum(hours)
-FROM metrics
-WHERE (metric = 'sm' AND value BETWEEN 0 AND 100)
-   OR (metric = 'memory' AND value BETWEEN 0 AND 1600)
-   OR (metric = 'gpus' AND value BETWEEN 0 AND 8 AND value <> 7)
-GROUP BY metric, pd_role, x ORDER BY metric, pd_role, x
-"""
+RESOURCES = " UNION ALL ".join(f"""
+SELECT '{metric}' AS metric, pd_role, {bucket} AS x, fsum(hours)
+FROM src WHERE workload = 'online' AND hours > 0 AND {valid}
+GROUP BY pd_role, x
+""" for metric, bucket, valid in [
+    ("sm", "(least(floor(sm_util / 0.2), 499) + 0.5) * 0.2", "sm_util BETWEEN 0 AND 100"),
+    ("memory", "(least(floor(gpu_mem_alloc / 3.2), 499) + 0.5) * 3.2",
+     "gpu_mem_alloc BETWEEN 0 AND 1600"),
+    ("gpus", "trunc(gpu_count)", "trunc(gpu_count) BETWEEN 0 AND 8 AND trunc(gpu_count) <> 7"),
+]) + " ORDER BY metric, pd_role, x"
 RATIO = """
 WITH app_site_day AS (
     SELECT day, app_id, site_id, fsum(hours) AS hours,
            fsum(CASE WHEN pd_role = 'prefill' THEN hours ELSE 0 END) AS prefill,
            fsum(CASE WHEN pd_role = 'decode' THEN hours ELSE 0 END) AS decode
     FROM src WHERE workload = 'online' AND pd_role IN ('prefill', 'decode')
+      AND {partition}
     GROUP BY day, app_id, site_id
 )
 SELECT greatest(0.1, least(10.0, prefill / decode)) AS ratio, fsum(hours)
@@ -47,7 +40,8 @@ def main():
         finish(fig, ax)
 
     fig, ax = axes(16, "d", "(d) P/D GPU Time Ratio")
-    points = query("fig16_d", RATIO)
+    points = query("fig16_d", RATIO, partition=("day", 7))
+    points.sort(key=lambda r: r[0])
     origin = 0.1 if points and points[0][0] > 0.1 else None
     x, y = cdf(points, origin=origin)
     ax.plot(x, y, color="firebrick")
