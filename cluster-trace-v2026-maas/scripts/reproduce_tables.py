@@ -1,3 +1,9 @@
+# Tables 2-4: summarize the daily trace by workload, online PD mode, and architecture.
+# Applications and instances may appear in multiple groups; variant counts
+# are computed per base model and then summed.
+# Table 4 uses model_arch for activity, base_arch (unknown as dense) for base
+# counts, and variant_arch for variant counts.
+
 from common import ROOT, connect, query
 import csv
 from pathlib import Path

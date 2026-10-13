@@ -1,3 +1,9 @@
+# Figure 5: compare online/offline SM, GPU memory, CPU, and host memory over time.
+# Weekly five-minute observations are labeled using one daily instance-day
+# workload mapping, then averaged into 30-minute bins with gpu_count * samples
+# weights. Six-month daily means use GPU-hour weights; NULL metrics are excluded
+# from each metric's denominator.
+
 from common import query, save
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator

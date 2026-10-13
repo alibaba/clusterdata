@@ -1,3 +1,7 @@
+# Load the hourly application metrics used by Figures 8-10.
+# app_cases.json selects anonymized applications and supplies labels/time origin;
+# app_metrics.csv supplies metric values, with missing values kept as gaps.
+
 from common import ROOT, save
 import csv
 import json

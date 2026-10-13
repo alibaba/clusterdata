@@ -1,3 +1,8 @@
+# Figure 16 uses online daily records to compare prefill, decode, and fused roles.
+# (a-c) Plot GPU-Time-weighted SM, allocated GPU-memory, and GPU-count CDFs.
+# (d) Compute P/D GPU-Time ratios per application-site-day and plot a CDF
+# weighted by combined prefill/decode GPU Time.
+
 from plot_common import ROLES, axes, cdf, draw_groups, query, finish
 import numpy as np
 
@@ -9,8 +14,10 @@ GROUP BY pd_role, x
     ("sm", "(least(floor(sm_util / 0.2), 499) + 0.5) * 0.2", "sm_util BETWEEN 0 AND 100"),
     ("memory", "(least(floor(gpu_mem_alloc / 3.2), 499) + 0.5) * 3.2",
      "gpu_mem_alloc BETWEEN 0 AND 1600"),
+    # Truncate GPU counts to integers and retain 0-8 except 7.
     ("gpus", "trunc(gpu_count)", "trunc(gpu_count) BETWEEN 0 AND 8 AND trunc(gpu_count) <> 7"),
 ]) + " ORDER BY metric, pd_role, x"
+# Keep application-site-days with both phases positive; clip ratios to [0.1, 10].
 RATIO = """
 WITH app_site_day AS (
     SELECT day, app_id, site_id, fsum(hours) AS hours,

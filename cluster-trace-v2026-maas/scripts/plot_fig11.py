@@ -1,3 +1,7 @@
+# Figure 11(c,d): compare online/offline model size and SM utilization
+# using GPU-Time-weighted CDFs from the daily trace. Sizes are total parameters.
+# Hardware-specification panels are not included.
+
 from plot_common import WORKLOADS, axes, draw_groups, model_marks, query, finish
 import numpy as np
 

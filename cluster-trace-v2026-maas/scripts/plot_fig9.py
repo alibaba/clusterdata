@@ -1,3 +1,7 @@
+# Figure 9: select the application case from app_metrics.csv via app_cases.json.
+# Plot the released hourly GPU-memory and KV-cache utilization together (a),
+# and SM utilization separately (b), retaining gaps for missing observations.
+
 from app_case_data import finish, line, load_case, new_axes, weekdays
 
 

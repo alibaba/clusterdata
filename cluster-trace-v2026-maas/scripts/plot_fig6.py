@@ -1,3 +1,8 @@
+# Figure 6 uses the daily trace to compare online/offline application scale.
+# (a) Rank applications by six-month GPU Time and plot its cumulative share.
+# (b) Count distinct instances per application-day and plot a CDF weighted
+# by application-day GPU Time.
+
 from common import query, save
 
 import matplotlib.pyplot as plt

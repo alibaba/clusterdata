@@ -1,3 +1,8 @@
+# Figure 3: aggregate daily GPU-hours by known GPU type and workload.
+# Both panels use one GPU order ranked by combined online/offline GPU Time:
+# (a) each workload's cumulative GPU-Time share; (b) online share per GPU type.
+# Only gpu_ identifiers are included, excluding empty and unknown labels.
+
 from common import query, save
 from collections import defaultdict
 from math import fsum

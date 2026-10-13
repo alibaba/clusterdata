@@ -1,3 +1,7 @@
+# Figure 7: count distinct clusters (a) and known GPU types (b) per application-day
+# in the daily trace, then plot GPU-Time-weighted CDFs by workload.
+# GPU-type counts exclude empty and unknown labels.
+
 from plot_common import WORKLOADS, axes, cdf, query, finish
 from matplotlib.ticker import MaxNLocator
 

@@ -1,3 +1,7 @@
+# Figure 15(a): group online daily records into PD-Disagg (prefill/decode)
+# and PD-Colloc, then plot GPU-Time-weighted CDFs of total model parameters.
+# The hardware-specification panel is not included.
+
 from plot_common import axes, draw_groups, model_marks, query, finish
 
 SQL = """

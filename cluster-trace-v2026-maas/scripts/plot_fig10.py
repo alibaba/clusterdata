@@ -1,3 +1,8 @@
+# Figure 10 uses the PD-disaggregated case in app_metrics.csv/app_cases.json.
+# (a) Compare hourly prefill/decode KV-cache utilization and mark the prefill peak.
+# (b) Align prefill and KV-transfer latency with normalized QPS by timestamp;
+# each point is an hourly observation with both values available.
+
 from app_case_data import finish, line, load_case, new_axes, points, weekdays
 
 

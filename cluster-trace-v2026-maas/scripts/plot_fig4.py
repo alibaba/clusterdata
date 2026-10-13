@@ -1,3 +1,8 @@
+# Figure 4: select the top five GPU types by GPU Time with non-NULL SM values.
+# Compute GPU-Time-weighted median SM utilization for each GPU type/cluster.
+# (a) Plot the distribution of these medians, giving each cluster equal weight.
+# (b) Compare cluster medians with the online share of GPU Time.
+
 from common import query, save
 from collections import defaultdict
 from math import fsum
@@ -58,6 +63,7 @@ def prepare(rows):
         valid = sorted(b for b in bins if b[0] >= 0)
         weight = fsum(b[1] for b in valid)
         count = sum(b[3] for b in valid)
+        # Require 1,000 total GPU-hours, 100 valid GPU-hours, and 20 valid rows.
         if total < 1000 or weight < 100 or count < 20:
             continue
         index = np.searchsorted(np.cumsum([b[1] for b in valid]), weight / 2)
@@ -103,6 +109,7 @@ def plot_right(top, rows):
     fig, ax = plt.subplots(figsize=(7, 4))
     for i, gpu in enumerate(top):
         group = [r for r in rows if r["gpu"] == gpu]
+        # Show clusters with at least 1% of this GPU type's filtered GPU Time.
         threshold = 0.01 * fsum(r["hours"] for r in group)
         shown = [r for r in group if r["hours"] >= threshold]
         ax.scatter([r["online"] for r in shown], [r["median"] for r in shown],
