@@ -1,3 +1,8 @@
+# Figure 8 uses hourly app_metrics.csv records for the two app_cases.json cases.
+# Sum QPS/GPU series by hour and GPU type, plot token-length CDFs, and summarize
+# TTFT/TPOT with boxplots. Distributions contain hourly monitoring values,
+# not individual requests; QPS is already normalized in the released data.
+
 from app_case_data import finish, load_case, new_axes, weekdays
 from collections import defaultdict
 

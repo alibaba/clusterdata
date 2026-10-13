@@ -1,3 +1,8 @@
+# Figure 12 uses the daily trace to compare model diversity and GPU-Time concentration.
+# (a) Plot an unweighted CDF of variant counts per base model: one pooled base
+# presence plus distinct SFT variants. (b) Rank model variants by GPU Time
+# within each workload and plot their cumulative GPU-Time share.
+
 from plot_common import WORKLOADS, axes, query, finish
 import numpy as np
 

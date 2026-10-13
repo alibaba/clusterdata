@@ -1,3 +1,8 @@
+# Figure 13 compares Hot/Cold models separately within each workload.
+# (a) Sum segment GPU-hours / GPU count per instance to obtain observed lifetime
+# and plot an unweighted CDF. (b) Plot GPU-Time-weighted model-size CDFs
+# using total parameters from the daily trace.
+
 from plot_common import axes, draw_hot, model_marks, query, finish
 
 DURATION = """
@@ -24,6 +29,7 @@ ORDER BY s.workload, h.temperature, s.params_b
 
 def main():
     fig, ax = axes(13, "a", "(a) Instance Duration (Hours)", "CDF of Instances (%)")
+    # Display the lifetime CDF through the 99.9th percentile.
     draw_hot(ax, query("fig13_a", DURATION, hot=True,
                       partition=("s.instance_id", 16)), percentile=99.9)
     ax.set_xscale("symlog", linthresh=1)

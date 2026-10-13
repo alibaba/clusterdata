@@ -1,3 +1,8 @@
+# Shared data access and PDF output for Tables 2-4 and Figures 2-18.
+# Read daily/weekly Parquet shards directly and cache query results in .cache/.
+# The src view keeps online/offline records and pools b_/x_ models by base_id;
+# other model classes retain their model_id for model-level analyses.
+
 import hashlib
 import json
 import os
@@ -50,6 +55,7 @@ def query(name, sql, setup="", datasets=("instance_daily",), partition=None):
         if partition is None:
             rows = con.execute(sql).fetchall()
         else:
+            # Day ranges or instance hashes keep each analysis unit in one batch.
             column, size = partition
             if column == "day":
                 bounds = ("SELECT min(time_s) // 86400, max(time_s) // 86400 FROM week"
@@ -66,6 +72,7 @@ def query(name, sql, setup="", datasets=("instance_daily",), partition=None):
                     con.execute(setup.replace("{partition}", condition))
                 for *group, value in con.execute(sql.replace("{partition}", condition)).fetchall():
                     totals[tuple(group)].append(value)
+            # Batch results use all but the last column as keys; sum the last value.
             rows = [(*group, None if all(v is None for v in values) else
                      sum(values) if all(isinstance(v, int) for v in values)
                      else fsum(v for v in values if v is not None))

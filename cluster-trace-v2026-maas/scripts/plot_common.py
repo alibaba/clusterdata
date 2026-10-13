@@ -1,3 +1,8 @@
+# Shared weighted CDFs and plotting helpers for Figures 7 and 11-18.
+# For Figures 13-14, classify models separately within each workload using
+# six-month GPU Time: descending percent_rank <= 0.10 is Hot, the rest Cold.
+# CDF weights are supplied by each analysis (GPU-hours or entity counts).
+
 from common import query as cached_query, save
 
 import matplotlib.pyplot as plt

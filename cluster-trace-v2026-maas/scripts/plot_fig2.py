@@ -1,3 +1,7 @@
+# Figure 2: sum daily GPU-hours by cluster, rank clusters by total GPU Time,
+# and plot their cumulative share. Only the curve is reproduced; inventory
+# bars require unreleased machine data.
+
 from common import query, save
 from math import fsum
 

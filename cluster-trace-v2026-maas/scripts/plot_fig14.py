@@ -1,3 +1,8 @@
+# Figure 14 compares daily resource activity for Hot/Cold model groups.
+# (a-c) Plot GPU-Time-weighted CDFs of SM utilization, zero-utilization ratio
+# (zero_samples / samples), and GPU-memory utilization. (d) Compute GPU-Time
+# shares with SM below 5%/10% and GPU-memory utilization above 80%/90%.
+
 from plot_common import HOT_COLORS, axes, draw_hot, hot_legend, query, finish
 import numpy as np
 from matplotlib.lines import Line2D

@@ -1,3 +1,7 @@
+# Figure 18: rank the top 30 models and known GPU types by six-month GPU Time
+# in the daily trace, combining online/offline workloads.
+# Filled cells indicate model/GPU-type pairs observed in the trace.
+
 from common import save
 from plot_common import query
 import matplotlib.pyplot as plt

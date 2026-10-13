@@ -19,6 +19,26 @@ To reproduce an individual figure or the tables:
 Tables are saved in `output/tables/`; figure panels are saved as separate PDFs
 in `output/figures/figNN/`.
 
+## Resource requirements
+
+A full run with no existing query-result cache took about 16 minutes on macOS
+with an Apple M4 (10 CPU cores), 16 GiB RAM, Python 3.10.12, and the dependencies
+in `requirements.txt`. Peak process memory was about 2 GiB. DuckDB uses one
+thread and a 4 GB memory limit; this is not a minimum system RAM requirement.
+Runtime and memory usage vary by machine.
+
+| Disk usage | Approximate size |
+| --- | ---: |
+| Extracted datasets | 14.3 GiB |
+| Datasets plus downloaded ZIP archives | 28.6 GiB |
+| Query and plotting caches | 63 MiB |
+| Generated figures and tables | Less than 1 MiB |
+
+These sizes exclude the Python environment. Allow additional free space for
+temporary files in `.cache/spill/`; none were observed in the measured run.
+After successful extraction, the downloaded ZIP archives can be deleted.
+Later runs reuse query results in `.cache/` when inputs and queries are unchanged.
+
 ## Figures and scripts
 
 | Result | Script | Content |

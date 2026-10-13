@@ -1,3 +1,7 @@
+# Figure 17(a,c,d): compare daily dense/MoE records using model_arch.
+# Plot GPU-Time-weighted CDFs of total model parameters, allocated GPU memory,
+# and GPU count. The hardware-specification panel is not included.
+
 from plot_common import ARCHES, axes, draw_groups, model_marks, query, finish
 
 SIZE = """
@@ -6,6 +10,7 @@ FROM src WHERE params_b > 0 AND params_b <= 1050 AND model_arch IN ('dense', 'mo
 GROUP BY model_arch, params_b HAVING fsum(hours) >= 0
 ORDER BY model_arch, params_b
 """
+# Truncate GPU counts to integers and retain 0-8 except 7.
 GPUS = """
 SELECT model_arch, trunc(gpu_count) AS n, fsum(hours)
 FROM src WHERE hours > 0 AND model_arch IN ('dense', 'moe')
